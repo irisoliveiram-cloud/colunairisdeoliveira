@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iris de Oliveira | An&#225;lise &amp; Opini&#227;o</title>
+  <meta name="description" content="Iris de Oliveira &#8212; analista de pol&#237;ticas p&#250;blicas e colunista." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #faf9f7; --surface: #ffffff;
+      --text-primary: #1a1916; --text-secondary: #5a5855; --text-tertiary: #9a9895;
+      --border-strong: #1a1916; --border-mid: #d4d2cc; --border-light: #eae8e3;
+      --accent: #8b2c2c;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #141412; --surface: #1e1d1a;
+        --text-primary: #f0ede8; --text-secondary: #a8a5a0; --text-tertiary: #6a6865;
+        --border-strong: #f0ede8; --border-mid: #2e2d2a; --border-light: #222120;
+        --accent: #c46060;
+      }
+    }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+    .container-narrow { max-width: 680px; margin: 0 auto; padding: 0 1.5rem; }
+    #view-index { display: block; } #view-article { display: none; }
+
+    /* MASTHEAD */
+    .masthead { border-top: 3px solid var(--border-strong); padding: 1.75rem 0 1.1rem; }
+    .masthead-inner { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+    .masthead-name { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1; cursor: pointer; transition: color 0.15s; }
+    .masthead-name:hover { color: var(--accent); }
+    .masthead-tagline { font-size: 0.72rem; font-weight: 300; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-secondary); }
+    .dateline-bar { border-top: 0.5px solid var(--border-mid); border-bottom: 0.5px solid var(--border-mid); padding: 0.5rem 0; margin: 0.75rem 0 2rem; font-size: 0.72rem; color: var(--text-tertiary); letter-spacing: 0.05em; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    .admin-trigger { font-size: 0.65rem; color: var(--border-mid); cursor: pointer; user-select: none; transition: color 0.2s; background: none; border: none; font-family: 'DM Sans', sans-serif; padding: 0; }
+    .admin-trigger:hover { color: var(--text-tertiary); }
+
+    /* FEATURED */
+    .featured-grid { display: grid; grid-template-columns: 1fr 0.5px 1fr; gap: 2rem; padding-bottom: 2.5rem; border-bottom: 0.5px solid var(--border-mid); margin-bottom: 2.5rem; }
+    .featured-divider { background: var(--border-mid); width: 0.5px; }
+    .featured-empty { display: none; }
+    .article-tag { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.5rem; }
+    .article-lead h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.35rem, 3vw, 1.9rem); font-weight: 600; line-height: 1.2; margin-bottom: 0.8rem; cursor: pointer; transition: color 0.15s; }
+    .article-lead h2:hover { color: var(--accent); }
+    .article-lead .excerpt { font-family: 'Source Serif 4', serif; font-size: 1rem; font-weight: 300; line-height: 1.75; color: var(--text-secondary); margin-bottom: 0.85rem; }
+    .article-side h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; line-height: 1.25; margin-bottom: 0.55rem; cursor: pointer; transition: color 0.15s; }
+    .article-side h3:hover { color: var(--accent); }
+    .article-side .excerpt { font-family: 'Source Serif 4', serif; font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: var(--text-secondary); margin-bottom: 0.6rem; }
+    .article-meta { font-size: 0.7rem; color: var(--text-tertiary); }
+
+    /* MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal-box { background: var(--surface); border-radius: 10px; padding: 2rem; width: 100%; max-width: 340px; margin: 1rem; }
+    .modal-title { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1.25rem; }
+    .modal-box input[type=password] { width: 100%; font-size: 0.9rem; padding: 0.5rem 0.75rem; border: 0.5px solid var(--border-mid); border-radius: 5px; background: var(--bg); color: var(--text-primary); font-family: 'DM Sans', sans-serif; outline: none; margin-bottom: 0.75rem; }
+    .modal-box input:focus { border-color: var(--text-secondary); }
+    .modal-error { font-size: 0.75rem; color: var(--accent); margin-bottom: 0.75rem; display: none; }
+    .modal-actions { display: flex; gap: 0.5rem; }
+    .btn-enter { font-size: 0.8rem; font-weight: 500; background: var(--text-primary); color: var(--bg); border: none; border-radius: 3px; padding: 0.5rem 1.2rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .btn-enter:hover { opacity: 0.82; }
+    .btn-close-modal { font-size: 0.8rem; background: transparent; color: var(--text-secondary); border: 0.5px solid var(--border-mid); border-radius: 3px; padding: 0.5rem 0.9rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+    /* ADMIN BAR */
+    .admin-bar { display: none; background: var(--surface); border: 0.5px solid var(--border-mid); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.5rem; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .admin-bar.visible { display: flex; }
+    .admin-bar-label { font-size: 0.72rem; color: var(--text-secondary); }
+    .admin-bar-label span { color: var(--accent); font-weight: 500; }
+    .admin-bar-actions { display: flex; gap: 0.5rem; }
+    .btn-add { display: inline-flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--text-primary); background: transparent; border: 0.5px solid var(--border-mid); border-radius: 3px; padding: 0.4rem 0.9rem; cursor: pointer; transition: background 0.15s; font-family: 'DM Sans', sans-serif; }
+    .btn-add:hover { background: var(--bg); }
+    .btn-logout { font-size: 0.72rem; color: var(--text-tertiary); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; padding: 0.4rem 0.5rem; }
+    .btn-logout:hover { color: var(--accent); }
+
+    /* ADD FORM */
+    .add-form { display: none; margin-bottom: 1.5rem; padding: 1.5rem; border: 0.5px solid var(--border-mid); border-radius: 8px; background: var(--surface); }
+    .add-form.open { display: block; }
+    .form-title { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1.25rem; }
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.35rem; }
+    .field input { width: 100%; font-size: 0.88rem; padding: 0.5rem 0.75rem; border: 0.5px solid var(--border-mid); border-radius: 5px; background: var(--bg); color: var(--text-primary); font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.15s; }
+    .field input:focus { border-color: var(--text-secondary); }
+    .field textarea.short { width: 100%; min-height: 80px; resize: vertical; font-size: 0.88rem; padding: 0.5rem 0.75rem; border: 0.5px solid var(--border-mid); border-radius: 5px; background: var(--bg); color: var(--text-primary); font-family: 'DM Sans', sans-serif; outline: none; }
+    .field-hint { font-size: 0.7rem; color: var(--text-tertiary); margin-top: 0.35rem; line-height: 1.5; }
+
+    /* RICH TEXT EDITOR */
+    .editor-toolbar { display: flex; gap: 4px; margin-bottom: 4px; }
+    .toolbar-btn { font-size: 0.78rem; font-weight: 500; background: var(--bg); color: var(--text-primary); border: 0.5px solid var(--border-mid); border-radius: 4px; padding: 4px 10px; cursor: pointer; font-family: 'DM Sans', sans-serif; line-height: 1.4; transition: background 0.1s; }
+    .toolbar-btn:hover { background: var(--border-light); }
+    .toolbar-btn.bold-btn { font-weight: 700; }
+    .toolbar-btn.italic-btn { font-style: italic; }
+    .toolbar-btn.underline-btn { text-decoration: underline; }
+    .editor-body { width: 100%; min-height: 360px; padding: 0.75rem; border: 0.5px solid var(--border-mid); border-radius: 5px; background: var(--bg); color: var(--text-primary); font-family: 'Source Serif 4', serif; font-size: 0.9rem; line-height: 1.8; outline: none; overflow-y: auto; }
+    .editor-body:focus { border-color: var(--text-secondary); }
+    .editor-body p { margin-bottom: 0.8rem; }
+
+    .form-actions { display: flex; gap: 0.5rem; align-items: center; margin-top: 1rem; }
+    .btn-save { font-size: 0.8rem; font-weight: 500; background: var(--text-primary); color: var(--bg); border: none; border-radius: 3px; padding: 0.55rem 1.4rem; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity 0.15s; }
+    .btn-save:hover { opacity: 0.82; }
+    .btn-save:disabled { opacity: 0.5; cursor: default; }
+    .btn-cancel { font-size: 0.8rem; background: transparent; color: var(--text-secondary); border: 0.5px solid var(--border-mid); border-radius: 3px; padding: 0.55rem 1rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .save-status { font-size: 0.75rem; color: var(--text-tertiary); }
+
+    /* LIST */
+    .loading-msg { text-align: center; padding: 3rem 1rem; font-size: 0.85rem; color: var(--text-tertiary); }
+    .empty-state { text-align: center; padding: 4rem 1rem; color: var(--text-tertiary); border: 0.5px dashed var(--border-mid); border-radius: 8px; margin-bottom: 2rem; }
+    .empty-state p { font-size: 0.9rem; line-height: 1.7; }
+    .section-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); border-top: 2px solid var(--text-secondary); padding-top: 0.45rem; display: inline-block; }
+    .articles-list { margin-top: 1.25rem; }
+    .article-row { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 1rem; padding: 1.25rem 0; border-bottom: 0.5px solid var(--border-light); }
+    .article-row:first-child { border-top: 0.5px solid var(--border-light); }
+    .article-row .article-tag { margin-bottom: 0.35rem; }
+    .article-row h4 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400; line-height: 1.35; margin-bottom: 0.3rem; cursor: pointer; transition: color 0.15s; }
+    .article-row h4:hover { color: var(--accent); }
+    .article-row .excerpt-short { font-family: 'Source Serif 4', serif; font-size: 0.83rem; font-weight: 300; line-height: 1.6; color: var(--text-secondary); }
+    .article-date { font-size: 0.7rem; color: var(--text-tertiary); white-space: nowrap; text-align: right; }
+    .btn-delete { font-size: 0.65rem; color: var(--text-tertiary); background: none; border: none; cursor: pointer; padding: 4px; opacity: 0.5; transition: opacity 0.15s; display: none; margin-top: 4px; margin-left: auto; font-family: 'DM Sans', sans-serif; }
+    .btn-delete:hover { opacity: 1; color: var(--accent); }
+    .admin-mode .btn-delete { display: block; }
+
+    /* BIO + FOOTER */
+    .bio-strip { margin-top: 4rem; padding: 1.5rem 0; border-top: 0.5px solid var(--border-mid); display: flex; align-items: flex-start; gap: 1.25rem; }
+    .bio-initial { width: 46px; height: 46px; min-width: 46px; border-radius: 50%; border: 0.5px solid var(--border-mid); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--text-secondary); }
+    .bio-text { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.65; }
+    .bio-text strong { color: var(--text-primary); font-weight: 500; }
+    footer { border-top: 0.5px solid var(--border-light); padding: 1.5rem 0 2.5rem; margin-top: 3rem; text-align: center; font-size: 0.7rem; color: var(--text-tertiary); letter-spacing: 0.04em; }
+
+    /* ARTICLE VIEW */
+    .art-back { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--text-secondary); cursor: pointer; border: none; background: none; font-family: 'DM Sans', sans-serif; padding: 0; margin-bottom: 2rem; transition: color 0.15s; }
+    .art-back:hover { color: var(--text-primary); }
+    .art-header { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 0.5px solid var(--border-mid); }
+    .art-tag { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); display: block; margin-bottom: 0.75rem; }
+    .art-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 600; line-height: 1.15; margin-bottom: 1rem; }
+    .art-lead { font-family: 'Source Serif 4', serif; font-size: 1.1rem; font-weight: 300; line-height: 1.75; color: var(--text-secondary); margin-bottom: 1rem; font-style: italic; }
+    .art-meta { font-size: 0.72rem; color: var(--text-tertiary); }
+    .art-body { font-family: 'Source Serif 4', serif; font-size: 1.05rem; font-weight: 300; line-height: 1.85; color: var(--text-primary); }
+    .art-body p { margin-bottom: 1.4rem; }
+    .art-body p:last-child { margin-bottom: 0; }
+    .art-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 0.5px solid var(--border-mid); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .art-footer-sig { font-size: 0.82rem; color: var(--text-secondary); }
+    .art-footer-sig strong { color: var(--text-primary); font-weight: 500; }
+    .art-back-bottom { font-size: 0.78rem; color: var(--text-secondary); cursor: pointer; border: 0.5px solid var(--border-mid); background: none; font-family: 'DM Sans', sans-serif; padding: 0.45rem 0.9rem; border-radius: 3px; transition: background 0.15s; }
+    .art-back-bottom:hover { background: var(--surface); }
+
+    @media (max-width: 620px) {
+      .featured-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .featured-divider { display: none; }
+      .form-grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <p class="modal-title">Acesso administrativo</p>
+    <input type="password" id="pwd-input" placeholder="Digite a senha" />
+    <p class="modal-error" id="pwd-error">Senha incorreta.</p>
+    <div class="modal-actions">
+      <button class="btn-enter" onclick="checkPassword()">Entrar</button>
+      <button class="btn-close-modal" onclick="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW INDICE -->
+<div id="view-index">
+  <div class="container">
+
+    <header class="masthead">
+      <div class="masthead-inner">
+        <span class="masthead-name" onclick="showIndex()">Iris de Oliveira</span>
+        <span class="masthead-tagline">An&#225;lise &amp; Opini&#227;o</span>
+      </div>
+    </header>
+
+    <div class="dateline-bar">
+      <span id="hoje"></span>
+      <button class="admin-trigger" id="admin-trigger" onclick="openModal()">&#9679;</button>
+    </div>
+
+    <div class="admin-bar" id="admin-bar">
+      <span class="admin-bar-label">Modo <span>administrador</span> ativo</span>
+      <div class="admin-bar-actions">
+        <button class="btn-add" onclick="toggleForm()">+ Novo artigo</button>
+        <button class="btn-logout" onclick="logout()">Sair</button>
+      </div>
+    </div>
+
+    <div class="add-form" id="add-form">
+      <p class="form-title">Novo artigo</p>
+      <div class="field">
+        <label>T&#237;tulo</label>
+        <input type="text" id="f-title" placeholder="T&#237;tulo completo do artigo" />
+      </div>
+      <div class="form-grid-2">
+        <div class="field">
+          <label>Tema / Editoria</label>
+          <input type="text" id="f-tag" placeholder="Ex: Judici&#225;rio, Economia&#8230;" />
+        </div>
+        <div class="field">
+          <label>Data de publica&#231;&#227;o</label>
+          <input type="date" id="f-date" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Resumo (lead)</label>
+        <textarea class="short" id="f-excerpt" placeholder="Dois ou tr&#234;s per&#237;odos que sintetizem o argumento central"></textarea>
+      </div>
+      <div class="field">
+        <label>Texto completo</label>
+        <div class="editor-toolbar">
+          <button class="toolbar-btn bold-btn" onclick="fmt('bold')" title="Negrito"><b>N</b></button>
+          <button class="toolbar-btn italic-btn" onclick="fmt('italic')" title="It&#225;lico"><i>I</i></button>
+          <button class="toolbar-btn underline-btn" onclick="fmt('underline')" title="Sublinhado"><u>S</u></button>
+        </div>
+        <div class="editor-body" id="f-body" contenteditable="true" spellcheck="true"></div>
+        <p class="field-hint">Selecione o texto e clique em <b>N</b> para negrito, <i>I</i> para it&#225;lico ou <u>S</u> para sublinhado. Pressione Enter para novo par&#225;grafo.</p>
+      </div>
+      <div class="form-actions">
+        <button class="btn-save" id="btn-save" onclick="addArticle()">Publicar</button>
+        <button class="btn-cancel" onclick="toggleForm()">Cancelar</button>
+        <span class="save-status" id="save-status"></span>
+      </div>
+    </div>
+
+    <!-- DESTAQUES -->
+    <div class="featured-grid" id="featured-grid" style="display:none">
+      <div class="article-lead" id="feat-0"></div>
+      <div class="featured-divider"></div>
+      <div class="article-side" id="feat-1"></div>
+    </div>
+
+    <span class="section-label">Todos os artigos</span>
+    <div class="articles-list" id="articles-list">
+      <div class="loading-msg" id="loading-msg">Carregando artigos&#8230;</div>
+      <div class="empty-state" id="empty-msg" style="display:none">
+        <p>Nenhum artigo publicado ainda.</p>
+      </div>
+    </div>
+
+    <div class="bio-strip">
+      <div class="bio-initial">IO</div>
+      <div>
+        <p class="bio-text"><strong>Iris de Oliveira</strong> &#233; analista de pol&#237;ticas p&#250;blicas e colunista. Escreve sobre poder, economia e institui&#231;&#245;es, explicando como decis&#245;es do Estado impactam a vida real &#8212; do trabalho &#224; renda e &#224; sa&#250;de &#8212; em linguagem clara, direta e acess&#237;vel.</p>
+        <p style="margin-top:0.5rem; font-size:0.78rem; color:var(--text-tertiary);">Contato: <span id="email-contato" style="color:var(--text-secondary);"></span></p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="container">&copy; <span id="ano"></span> Iris de Oliveira &nbsp;&middot;&nbsp; Todos os direitos reservados</div>
+  </footer>
+</div>
+
+<!-- VIEW ARTIGO -->
+<div id="view-article">
+  <div class="container-narrow">
+    <header class="masthead">
+      <div class="masthead-inner">
+        <span class="masthead-name" onclick="showIndex()">Iris de Oliveira</span>
+        <span class="masthead-tagline">An&#225;lise &amp; Opini&#227;o</span>
+      </div>
+    </header>
+    <div style="height:2rem"></div>
+    <button class="art-back" onclick="showIndex()">&#8592; Voltar aos artigos</button>
+    <div class="art-header">
+      <span class="art-tag" id="a-tag"></span>
+      <h1 class="art-title" id="a-title"></h1>
+      <p class="art-lead" id="a-lead"></p>
+      <span class="art-meta" id="a-meta"></span>
+    </div>
+    <div class="art-body" id="a-body"></div>
+    <div class="art-footer">
+      <p class="art-footer-sig"><strong>Iris de Oliveira</strong> &mdash; Analista de pol&#237;ticas p&#250;blicas e colunista</p>
+      <button class="art-back-bottom" onclick="showIndex()">&#8592; Voltar aos artigos</button>
+    </div>
+    <div style="height:4rem"></div>
+  </div>
+</div>
+
+<script data-cfasync="false">
+  var SUPABASE_URL = 'https://bnrewcmjuvpnowdaxjpt.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJucmV3Y21qdXZwbm93ZGF4anB0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MzMwMDMsImV4cCI6MjA5MDMwOTAwM30.YV5XTane49QcAc_iGqOdjc0CD33qDVu_XOLctgcVcnQ';
+  var SENHA = 'iris2026';
+
+  var isAdmin = false;
+  var articles = [];
+
+  /* DATA */
+  var hoje = new Date();
+  document.getElementById('hoje').textContent = hoje.toLocaleDateString('pt-BR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  document.getElementById('ano').textContent  = hoje.getFullYear();
+
+  /* SUPABASE */
+  function sbFetch(method, path, body) {
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      xhr.open(method, SUPABASE_URL + '/rest/v1/' + path, true);
+      xhr.setRequestHeader('apikey', SUPABASE_KEY);
+      xhr.setRequestHeader('Authorization', 'Bearer ' + SUPABASE_KEY);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      if (method === 'POST') xhr.setRequestHeader('Prefer', 'return=representation');
+      xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr.status === 204 ? null : JSON.parse(xhr.responseText));
+        } else {
+          reject(new Error(xhr.responseText));
+        }
+      };
+      xhr.onerror = function() { reject(new Error('Network error')); };
+      xhr.send(body ? JSON.stringify(body) : null);
+    });
+  }
+
+  function loadArticles() {
+    sbFetch('GET', 'artigos?select=*&order=created_at.desc')
+      .then(function(data){ articles = data || []; renderAll(); })
+      .catch(function(e){ document.getElementById('loading-msg').textContent = 'Erro ao carregar artigos. Verifique a conex\u00e3o.'; console.error(e); });
+  }
+  loadArticles();
+
+  /* RENDER TUDO */
+  function renderAll() {
+    renderFeatured();
+    renderList();
+  }
+
+  /* DESTAQUES — 2 mais recentes */
+  function renderFeatured() {
+    var grid = document.getElementById('featured-grid');
+    if (articles.length === 0) { grid.style.display = 'none'; return; }
+    grid.style.display = 'grid';
+
+    var f0 = document.getElementById('feat-0');
+    var f1 = document.getElementById('feat-1');
+    var div = document.getElementById('featured-grid').querySelector('.featured-divider');
+
+    var a0 = articles[0];
+    f0.innerHTML =
+      (a0.tag ? '<span class="article-tag">' + esc(a0.tag) + '</span>' : '') +
+      '<h2 data-id="' + a0.id + '">' + esc(a0.title) + '</h2>' +
+      (a0.excerpt ? '<p class="excerpt">' + esc(a0.excerpt) + '</p>' : '') +
+      '<span class="article-meta">Iris de Oliveira' + (a0.date ? ' &nbsp;&middot;&nbsp; ' + esc(a0.date) : '') + '</span>';
+    f0.querySelector('h2').addEventListener('click', function(){ openArticle(+this.getAttribute('data-id')); });
+
+    if (articles.length >= 2) {
+      var a1 = articles[1];
+      div.style.display = '';
+      f1.innerHTML =
+        (a1.tag ? '<span class="article-tag">' + esc(a1.tag) + '</span>' : '') +
+        '<h3 data-id="' + a1.id + '">' + esc(a1.title) + '</h3>' +
+        (a1.excerpt ? '<p class="excerpt">' + esc(a1.excerpt) + '</p>' : '') +
+        '<span class="article-meta">' + (a1.date ? esc(a1.date) : '') + '</span>';
+      f1.querySelector('h3').addEventListener('click', function(){ openArticle(+this.getAttribute('data-id')); });
+    } else {
+      div.style.display = 'none';
+      f1.innerHTML = '';
+    }
+  }
+
+  /* LISTA COMPLETA */
+  function renderList() {
+    var list    = document.getElementById('articles-list');
+    var loadMsg = document.getElementById('loading-msg');
+    var emptyMsg= document.getElementById('empty-msg');
+    list.querySelectorAll('.article-row').forEach(function(r){ r.remove(); });
+    loadMsg.style.display = 'none';
+    if (articles.length === 0) { emptyMsg.style.display = 'block'; return; }
+    emptyMsg.style.display = 'none';
+    articles.forEach(function(art) {
+      var row = document.createElement('div');
+      row.className = 'article-row';
+      row.innerHTML =
+        '<div>' +
+          (art.tag ? '<span class="article-tag">' + esc(art.tag) + '</span>' : '') +
+          '<h4 data-id="' + art.id + '">' + esc(art.title) + '</h4>' +
+          (art.excerpt ? '<p class="excerpt-short">' + esc(art.excerpt) + '</p>' : '') +
+        '</div>' +
+        '<div>' +
+          '<div class="article-date">' + esc(art.date || '') + '</div>' +
+          '<button class="btn-delete" data-id="' + art.id + '" title="Remover">&#10005;</button>' +
+        '</div>';
+      list.appendChild(row);
+    });
+    list.querySelectorAll('h4[data-id]').forEach(function(el){
+      el.addEventListener('click', function(){ openArticle(+this.getAttribute('data-id')); });
+    });
+    list.querySelectorAll('.btn-delete[data-id]').forEach(function(el){
+      el.addEventListener('click', function(){ deleteArticle(+this.getAttribute('data-id')); });
+    });
+  }
+
+  function esc(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ABRIR ARTIGO */
+  function openArticle(id) {
+    var art = articles.find(function(a){ return a.id === id; });
+    if (!art) return;
+    document.getElementById('a-tag').textContent   = art.tag || '';
+    document.getElementById('a-title').textContent = art.title || '';
+    document.getElementById('a-lead').textContent  = art.excerpt || '';
+    document.getElementById('a-meta').textContent  = 'Iris de Oliveira' + (art.date ? '  \u00b7  ' + art.date : '');
+    var bodyEl = document.getElementById('a-body');
+    bodyEl.innerHTML = art.body || '<p style="color:var(--text-tertiary)">Texto completo n\u00e3o dispon\u00edvel.</p>';
+    document.getElementById('view-index').style.display   = 'none';
+    document.getElementById('view-article').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function showIndex() {
+    document.getElementById('view-article').style.display = 'none';
+    document.getElementById('view-index').style.display   = 'block';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  /* MODAL */
+  function openModal() {
+    if (isAdmin) { logout(); return; }
+    document.getElementById('modal').classList.add('open');
+    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-error').style.display = 'none';
+    setTimeout(function(){ document.getElementById('pwd-input').focus(); }, 50);
+  }
+  function closeModal() { document.getElementById('modal').classList.remove('open'); }
+  document.getElementById('pwd-input').addEventListener('keydown', function(e){
+    if (e.key==='Enter') checkPassword();
+    if (e.key==='Escape') closeModal();
+  });
+  document.getElementById('modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+  function checkPassword() {
+    if (document.getElementById('pwd-input').value === SENHA) {
+      isAdmin = true; closeModal();
+      document.getElementById('admin-bar').classList.add('visible');
+      document.getElementById('admin-trigger').style.color = 'var(--accent)';
+      document.getElementById('articles-list').classList.add('admin-mode');
+    } else {
+      document.getElementById('pwd-error').style.display = 'block';
+      document.getElementById('pwd-input').select();
+    }
+  }
+  function logout() {
+    isAdmin = false;
+    document.getElementById('admin-bar').classList.remove('visible');
+    document.getElementById('add-form').classList.remove('open');
+    document.getElementById('admin-trigger').style.color = '';
+    document.getElementById('articles-list').classList.remove('admin-mode');
+  }
+
+  /* EDITOR RICH TEXT */
+  function fmt(cmd) {
+    document.getElementById('f-body').focus();
+    document.execCommand(cmd, false, null);
+  }
+
+  /* Converte tags bold/italic/underline em estilos inline antes de salvar */
+  function sanitizeBody(html) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    /* bold: <b> e <strong> -> span com font-weight */
+    tmp.querySelectorAll('b, strong').forEach(function(el) {
+      var span = document.createElement('span');
+      span.style.fontWeight = '700';
+      span.innerHTML = el.innerHTML;
+      el.parentNode.replaceChild(span, el);
+    });
+    /* italic: <i> e <em> -> span com font-style */
+    tmp.querySelectorAll('i, em').forEach(function(el) {
+      var span = document.createElement('span');
+      span.style.fontStyle = 'italic';
+      span.innerHTML = el.innerHTML;
+      el.parentNode.replaceChild(span, el);
+    });
+    /* underline: <u> -> span com text-decoration */
+    tmp.querySelectorAll('u').forEach(function(el) {
+      var span = document.createElement('span');
+      span.style.textDecoration = 'underline';
+      span.innerHTML = el.innerHTML;
+      el.parentNode.replaceChild(span, el);
+    });
+    return tmp.innerHTML;
+  }
+
+  /* FORMULARIO */
+  function toggleForm() {
+    var f = document.getElementById('add-form');
+    if (f.classList.contains('open')) { f.classList.remove('open'); }
+    else { f.classList.add('open'); document.getElementById('f-date').valueAsDate = new Date(); document.getElementById('f-title').focus(); }
+  }
+
+  function formatDate(val) {
+    if (!val) return '';
+    return new Date(val + 'T12:00:00').toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' });
+  }
+
+  function addArticle() {
+    var title   = document.getElementById('f-title').value.trim();
+    var tag     = document.getElementById('f-tag').value.trim();
+    var excerpt = document.getElementById('f-excerpt').value.trim();
+    var bodyEl  = document.getElementById('f-body');
+    var body    = sanitizeBody(bodyEl.innerHTML.trim());
+    var dateVal = document.getElementById('f-date').value;
+    if (!title) { alert('Informe o t\u00edtulo do artigo.'); document.getElementById('f-title').focus(); return; }
+    var btn = document.getElementById('btn-save');
+    var status = document.getElementById('save-status');
+    btn.disabled = true; btn.textContent = 'Salvando\u2026'; status.textContent = '';
+    sbFetch('POST', 'artigos', { tag:tag, title:title, excerpt:excerpt, body:body, date:formatDate(dateVal) })
+      .then(function(data) {
+        if (data && data[0]) articles.unshift(data[0]);
+        renderAll();
+        document.getElementById('f-title').value   = '';
+        document.getElementById('f-tag').value     = '';
+        document.getElementById('f-excerpt').value = '';
+        bodyEl.innerHTML = '';
+        toggleForm();
+        btn.disabled = false; btn.textContent = 'Publicar';
+      })
+      .catch(function(e) {
+        status.textContent = 'Erro ao salvar. Tente novamente.';
+        btn.disabled = false; btn.textContent = 'Publicar';
+        console.error(e);
+      });
+  }
+
+  function deleteArticle(id) {
+    if (!isAdmin) return;
+    if (!confirm('Remover este artigo permanentemente?')) return;
+ 
