@@ -5,173 +5,423 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Iris de Oliveira | Analise e Opiniao</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Serif+4:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#faf9f7;--surface:#fff;--tp:#1a1916;--ts:#5a5855;--tt:#9a9895;--bm:#d4d2cc;--bl:#eae8e3;--ac:#8b2c2c}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tp);min-height:100vh}
-.wrap{max-width:900px;margin:0 auto;padding:0 1.5rem}
+:root{--bg:#faf9f7;--sf:#fff;--tp:#1a1916;--ts:#5a5855;--tt:#9a9895;--bm:#d4d2cc;--bl:#eae8e3;--ac:#8b2c2c}
+@media(prefers-color-scheme:dark){:root{--bg:#141412;--sf:#1e1d1a;--tp:#f0ede8;--ts:#a8a5a0;--tt:#6a6865;--bm:#2e2d2a;--bl:#222120;--ac:#c46060}}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tp);min-height:100vh;line-height:1.6}
+.W{max-width:900px;margin:0 auto;padding:0 1.5rem}
+.N{max-width:680px;margin:0 auto;padding:0 1.5rem}
+#VI{display:block}#VA{display:none}
 .mast{border-top:3px solid var(--tp);padding:1.75rem 0 1rem}
-.mast-row{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
-.mast-name{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:600;letter-spacing:-.02em;cursor:pointer}
-.mast-tag{font-size:.72rem;font-weight:300;letter-spacing:.14em;text-transform:uppercase;color:var(--ts)}
-.datebar{border-top:.5px solid var(--bm);border-bottom:.5px solid var(--bm);padding:.5rem 0;margin:.75rem 0 2rem;font-size:.72rem;color:var(--tt);letter-spacing:.05em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
-.sec-label{font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ts);border-top:2px solid var(--ts);padding-top:.45rem;display:inline-block}
-.list{margin-top:1.25rem}
+.mr{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.mn{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:600;letter-spacing:-.02em;cursor:pointer;transition:color .15s}
+.mn:hover{color:var(--ac)}
+.mt{font-size:.72rem;font-weight:300;letter-spacing:.14em;text-transform:uppercase;color:var(--ts)}
+.dbar{border-top:.5px solid var(--bm);border-bottom:.5px solid var(--bm);padding:.5rem 0;margin:.75rem 0 2rem;font-size:.72rem;color:var(--tt);letter-spacing:.05em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.abtn{font-size:.65rem;color:var(--bm);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0;transition:color .2s}
+.abtn:hover{color:var(--tt)}
+/* FEATURED */
+.feat{display:grid;grid-template-columns:1fr .5px 1fr;gap:2rem;padding-bottom:2.5rem;border-bottom:.5px solid var(--bm);margin-bottom:2.5rem}
+.fdiv{background:var(--bm)}
+.atg{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);display:block;margin-bottom:.5rem}
+#f0 h2{font-family:'Playfair Display',serif;font-size:clamp(1.35rem,3vw,1.9rem);font-weight:600;line-height:1.2;margin-bottom:.8rem;cursor:pointer;transition:color .15s}
+#f0 h2:hover{color:var(--ac)}
+#f0 .ex{font-family:'Source Serif 4',serif;font-size:1rem;font-weight:300;line-height:1.75;color:var(--ts);margin-bottom:.85rem}
+#f1 h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;line-height:1.25;margin-bottom:.55rem;cursor:pointer;transition:color .15s}
+#f1 h3:hover{color:var(--ac)}
+#f1 .ex{font-family:'Source Serif 4',serif;font-size:.88rem;font-weight:300;line-height:1.7;color:var(--ts);margin-bottom:.6rem}
+.ame{font-size:.7rem;color:var(--tt)}
+/* LIST */
+.sl{font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ts);border-top:2px solid var(--ts);padding-top:.45rem;display:inline-block}
+.lst{margin-top:1.25rem}
 .row{display:grid;grid-template-columns:1fr auto;align-items:start;gap:1rem;padding:1.25rem 0;border-bottom:.5px solid var(--bl)}
 .row:first-child{border-top:.5px solid var(--bl)}
-.tag{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);display:block;margin-bottom:.4rem}
-.row h4{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:400;line-height:1.35;margin-bottom:.3rem;cursor:pointer}
+.row h4{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:400;line-height:1.35;margin-bottom:.3rem;cursor:pointer;transition:color .15s}
 .row h4:hover{color:var(--ac)}
-.exc{font-family:'Source Serif 4',serif;font-size:.83rem;font-weight:300;line-height:1.6;color:var(--ts)}
+.exs{font-family:'Source Serif 4',serif;font-size:.83rem;font-weight:300;line-height:1.6;color:var(--ts)}
 .dt{font-size:.7rem;color:var(--tt);white-space:nowrap;text-align:right}
+.bdel{font-size:.65rem;color:var(--tt);background:none;border:none;cursor:pointer;padding:4px;opacity:.5;display:none;margin-top:4px;margin-left:auto;font-family:'DM Sans',sans-serif;transition:opacity .15s}
+.bdel:hover{opacity:1;color:var(--ac)}
+.aon .bdel{display:block}
 .msg{text-align:center;padding:3rem 1rem;font-size:.85rem;color:var(--tt)}
-.art-view{display:none}
-.art-back{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--ts);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;padding:0;margin-bottom:2rem}
-.art-tag{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);display:block;margin-bottom:.75rem}
-.art-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:600;line-height:1.15;margin-bottom:1rem}
-.art-lead{font-family:'Source Serif 4',serif;font-size:1.1rem;font-weight:300;line-height:1.75;color:var(--ts);margin-bottom:1rem;font-style:italic}
-.art-meta{font-size:.72rem;color:var(--tt)}
-.art-hdr{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:.5px solid var(--bm)}
-.art-body{font-family:'Source Serif 4',serif;font-size:1.05rem;font-weight:300;line-height:1.85}
-.art-body p{margin-bottom:1.4rem}
-.art-ft{margin-top:3rem;padding-top:1.5rem;border-top:.5px solid var(--bm);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.art-ft-sig{font-size:.82rem;color:var(--ts)}
-.art-ft-sig strong{color:var(--tp);font-weight:500}
-.art-ft-back{font-size:.78rem;color:var(--ts);cursor:pointer;border:.5px solid var(--bm);background:none;font-family:'DM Sans',sans-serif;padding:.45rem .9rem;border-radius:3px}
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center}
+.modal.open{display:flex}
+.mbox{background:var(--sf);border-radius:10px;padding:2rem;width:100%;max-width:340px;margin:1rem}
+.mttl{font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ts);margin-bottom:1.25rem}
+.mbox input[type=password]{width:100%;font-size:.9rem;padding:.5rem .75rem;border:.5px solid var(--bm);border-radius:5px;background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none;margin-bottom:.75rem}
+.merr{font-size:.75rem;color:var(--ac);margin-bottom:.75rem;display:none}
+.macts{display:flex;gap:.5rem}
+.benter{font-size:.8rem;font-weight:500;background:var(--tp);color:var(--bg);border:none;border-radius:3px;padding:.5rem 1.2rem;cursor:pointer;font-family:'DM Sans',sans-serif}
+.bcls{font-size:.8rem;background:transparent;color:var(--ts);border:.5px solid var(--bm);border-radius:3px;padding:.5rem .9rem;cursor:pointer;font-family:'DM Sans',sans-serif}
+/* ADMIN BAR */
+.abar{display:none;background:var(--sf);border:.5px solid var(--bm);border-radius:8px;padding:.75rem 1rem;margin-bottom:1.5rem;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.abar.on{display:flex}
+.albl{font-size:.72rem;color:var(--ts)}
+.albl span{color:var(--ac);font-weight:500}
+.aacts{display:flex;gap:.5rem}
+.bnew{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;color:var(--tp);background:transparent;border:.5px solid var(--bm);border-radius:3px;padding:.4rem .9rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
+.bnew:hover{background:var(--bg)}
+.bout{font-size:.72rem;color:var(--tt);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:.4rem .5rem}
+.bout:hover{color:var(--ac)}
+/* FORM */
+.fwrap{display:none;margin-bottom:1.5rem;padding:1.5rem;border:.5px solid var(--bm);border-radius:8px;background:var(--sf)}
+.fwrap.open{display:block}
+.fttl{font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ts);margin-bottom:1.25rem}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fi{margin-bottom:1rem}
+.fi label{display:block;font-size:.7rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ts);margin-bottom:.35rem}
+.fi input,.fi textarea{width:100%;font-size:.88rem;padding:.5rem .75rem;border:.5px solid var(--bm);border-radius:5px;background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
+.fi input:focus,.fi textarea:focus{border-color:var(--ts)}
+.fi textarea.sh{min-height:80px;resize:vertical}
+.tbar{display:flex;gap:4px;margin-bottom:4px}
+.tb{font-size:.78rem;font-weight:500;background:var(--bg);color:var(--tp);border:.5px solid var(--bm);border-radius:4px;padding:4px 10px;cursor:pointer;font-family:'DM Sans',sans-serif;line-height:1.4;transition:background .1s}
+.tb:hover{background:var(--bl)}
+.tb.B{font-weight:700}
+.tb.I{font-style:italic}
+.tb.U{text-decoration:underline}
+.editor{width:100%;min-height:360px;padding:.75rem;border:.5px solid var(--bm);border-radius:5px;background:var(--bg);color:var(--tp);font-family:'Source Serif 4',serif;font-size:.9rem;line-height:1.8;outline:none;overflow-y:auto}
+.editor:focus{border-color:var(--ts)}
+.fhint{font-size:.7rem;color:var(--tt);margin-top:.35rem;line-height:1.5}
+.facts{display:flex;gap:.5rem;align-items:center;margin-top:1rem}
+.bsave{font-size:.8rem;font-weight:500;background:var(--tp);color:var(--bg);border:none;border-radius:3px;padding:.55rem 1.4rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .15s}
+.bsave:hover{opacity:.82}
+.bsave:disabled{opacity:.5;cursor:default}
+.bcanc{font-size:.8rem;background:transparent;color:var(--ts);border:.5px solid var(--bm);border-radius:3px;padding:.55rem 1rem;cursor:pointer;font-family:'DM Sans',sans-serif}
+.sst{font-size:.75rem;color:var(--tt)}
+/* BIO */
 .bio{margin-top:4rem;padding:1.5rem 0;border-top:.5px solid var(--bm);display:flex;align-items:flex-start;gap:1.25rem}
-.bio-i{width:46px;height:46px;min-width:46px;border-radius:50%;border:.5px solid var(--bm);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--ts)}
-.bio-t{font-size:.82rem;color:var(--ts);line-height:1.65}
-.bio-t strong{color:var(--tp);font-weight:500}
-footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;text-align:center;font-size:.7rem;color:var(--tt)}
-@media(prefers-color-scheme:dark){:root{--bg:#141412;--surface:#1e1d1a;--tp:#f0ede8;--ts:#a8a5a0;--tt:#6a6865;--bm:#2e2d2a;--bl:#222120;--ac:#c46060}}
+.bii{width:46px;height:46px;min-width:46px;border-radius:50%;border:.5px solid var(--bm);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--ts)}
+.bit{font-size:.82rem;color:var(--ts);line-height:1.65}
+.bit strong{color:var(--tp);font-weight:500}
+.bit a{color:var(--ts);text-decoration:none;border-bottom:.5px solid var(--bm)}
+.bit a:hover{color:var(--tp)}
+footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;text-align:center;font-size:.7rem;color:var(--tt);letter-spacing:.04em}
+/* ARTICLE VIEW */
+.ab{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--ts);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;padding:0;margin-bottom:2rem;transition:color .15s}
+.ab:hover{color:var(--tp)}
+.ahdr{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:.5px solid var(--bm)}
+.aatg{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);display:block;margin-bottom:.75rem}
+.attl{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:600;line-height:1.15;margin-bottom:1rem}
+.alead{font-family:'Source Serif 4',serif;font-size:1.1rem;font-weight:300;line-height:1.75;color:var(--ts);margin-bottom:1rem;font-style:italic}
+.amet{font-size:.72rem;color:var(--tt)}
+.abody{font-family:'Source Serif 4',serif;font-size:1.05rem;font-weight:300;line-height:1.85}
+.abody p{margin-bottom:1.4rem}
+.abody p:last-child{margin-bottom:0}
+.aft{margin-top:3rem;padding-top:1.5rem;border-top:.5px solid var(--bm);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.aftsig{font-size:.82rem;color:var(--ts)}
+.aftsig strong{color:var(--tp);font-weight:500}
+.aftb{font-size:.78rem;color:var(--ts);cursor:pointer;border:.5px solid var(--bm);background:none;font-family:'DM Sans',sans-serif;padding:.45rem .9rem;border-radius:3px;transition:background .15s}
+.aftb:hover{background:var(--sf)}
+@media(max-width:620px){.feat{grid-template-columns:1fr;gap:1.5rem}.fdiv{display:none}.fg2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<div id="idx">
-<div class="wrap">
-<header class="mast">
-<div class="mast-row">
-<span class="mast-name">Iris de Oliveira</span>
-<span class="mast-tag">Analise &amp; Opiniao</span>
-</div>
-</header>
-<div class="datebar">
-<span id="hoje"></span>
-</div>
-<span class="sec-label">Artigos</span>
-<div class="list" id="lista">
-<div class="msg" id="msg">Carregando artigos...</div>
-</div>
-<div class="bio">
-<div class="bio-i">IO</div>
-<div>
-<p class="bio-t"><strong>Iris de Oliveira</strong> e analista de politicas publicas e colunista. Escreve sobre poder, economia e instituicoes, explicando como decisoes do Estado impactam a vida real em linguagem clara, direta e acessivel.</p>
-<p style="margin-top:.5rem;font-size:.78rem;color:var(--tt)">Contato: <span id="eml"></span></p>
-</div>
-</div>
-</div>
-<footer><div class="wrap">&copy; <span id="ano"></span> Iris de Oliveira &middot; Todos os direitos reservados</div></footer>
+<div class="modal" id="modal">
+  <div class="mbox">
+    <p class="mttl">Acesso administrativo</p>
+    <input type="password" id="pwd" placeholder="Digite a senha">
+    <p class="merr" id="merr">Senha incorreta.</p>
+    <div class="macts">
+      <button class="benter" onclick="checkPwd()">Entrar</button>
+      <button class="bcls" onclick="closeModal()">Cancelar</button>
+    </div>
+  </div>
 </div>
 
-<div id="art" class="art-view">
-<div class="wrap" style="max-width:680px">
-<header class="mast">
-<div class="mast-row">
-<span class="mast-name" onclick="voltar()">Iris de Oliveira</span>
-<span class="mast-tag">Analise &amp; Opiniao</span>
+<div id="VI">
+  <div class="W">
+    <header class="mast">
+      <div class="mr">
+        <span class="mn" onclick="goIdx()">Iris de Oliveira</span>
+        <span class="mt">Analise &amp; Opiniao</span>
+      </div>
+    </header>
+    <div class="dbar">
+      <span id="hoje"></span>
+      <button class="abtn" id="abtn" onclick="openModal()">&#9679;</button>
+    </div>
+
+    <div class="abar" id="abar">
+      <span class="albl">Modo <span>administrador</span> ativo</span>
+      <div class="aacts">
+        <button class="bnew" onclick="toggleForm()">+ Novo artigo</button>
+        <button class="bout" onclick="logout()">Sair</button>
+      </div>
+    </div>
+
+    <div class="fwrap" id="fwrap">
+      <p class="fttl">Novo artigo</p>
+      <div class="fi">
+        <label>Titulo</label>
+        <input type="text" id="ft" placeholder="Titulo completo do artigo">
+      </div>
+      <div class="fg2">
+        <div class="fi">
+          <label>Tema / Editoria</label>
+          <input type="text" id="fg" placeholder="Ex: Judiciario, Economia...">
+        </div>
+        <div class="fi">
+          <label>Data de publicacao</label>
+          <input type="date" id="fd">
+        </div>
+      </div>
+      <div class="fi">
+        <label>Resumo (lead)</label>
+        <textarea class="sh" id="fe" placeholder="Dois ou tres periodos que sintetizem o argumento central"></textarea>
+      </div>
+      <div class="fi">
+        <label>Texto completo</label>
+        <div class="tbar">
+          <button class="tb B" onclick="fmt('bold')">N</button>
+          <button class="tb I" onclick="fmt('italic')">I</button>
+          <button class="tb U" onclick="fmt('underline')">S</button>
+        </div>
+        <div class="editor" id="fb" contenteditable="true" spellcheck="true"></div>
+        <p class="fhint">Selecione o texto e clique N (negrito), I (italico) ou S (sublinhado). Enter = novo paragrafo.</p>
+      </div>
+      <div class="facts">
+        <button class="bsave" id="bsave" onclick="addArt()">Publicar</button>
+        <button class="bcanc" onclick="toggleForm()">Cancelar</button>
+        <span class="sst" id="sst"></span>
+      </div>
+    </div>
+
+    <div class="feat" id="feat" style="display:none">
+      <div id="f0"></div>
+      <div class="fdiv"></div>
+      <div id="f1"></div>
+    </div>
+
+    <span class="sl">Todos os artigos</span>
+    <div class="lst" id="lst">
+      <div class="msg" id="lmsg">Carregando artigos...</div>
+    </div>
+
+    <div class="bio">
+      <div class="bii">IO</div>
+      <div>
+        <p class="bit"><strong>Iris de Oliveira</strong> e analista de politicas publicas e colunista. Escreve sobre poder, economia e instituicoes, explicando como decisoes do Estado impactam a vida real do trabalho a renda e a saude em linguagem clara, direta e acessivel.</p>
+        <p style="margin-top:.5rem;font-size:.78rem;color:var(--tt)">Contato: <a id="eml" href="#"></a></p>
+      </div>
+    </div>
+  </div>
+  <footer><div class="W">&copy; <span id="ano"></span> Iris de Oliveira &middot; Todos os direitos reservados</div></footer>
 </div>
-</header>
-<div style="height:2rem"></div>
-<button class="art-back" onclick="voltar()">&#8592; Voltar aos artigos</button>
-<div class="art-hdr">
-<span class="art-tag" id="a-tag"></span>
-<h1 class="art-title" id="a-title"></h1>
-<p class="art-lead" id="a-lead"></p>
-<span class="art-meta" id="a-meta"></span>
-</div>
-<div class="art-body" id="a-body"></div>
-<div class="art-ft">
-<p class="art-ft-sig"><strong>Iris de Oliveira</strong> &mdash; Analista de politicas publicas e colunista</p>
-<button class="art-ft-back" onclick="voltar()">&#8592; Voltar</button>
-</div>
-<div style="height:4rem"></div>
-</div>
+
+<div id="VA">
+  <div class="N">
+    <header class="mast">
+      <div class="mr">
+        <span class="mn" onclick="goIdx()">Iris de Oliveira</span>
+        <span class="mt">Analise &amp; Opiniao</span>
+      </div>
+    </header>
+    <div style="height:2rem"></div>
+    <button class="ab" onclick="goIdx()">&#8592; Voltar aos artigos</button>
+    <div class="ahdr">
+      <span class="aatg" id="aatg"></span>
+      <h1 class="attl" id="attl"></h1>
+      <p class="alead" id="alead"></p>
+      <span class="amet" id="amet"></span>
+    </div>
+    <div class="abody" id="abody"></div>
+    <div class="aft">
+      <p class="aftsig"><strong>Iris de Oliveira</strong> &mdash; Analista de politicas publicas e colunista</p>
+      <button class="aftb" onclick="goIdx()">&#8592; Voltar</button>
+    </div>
+    <div style="height:4rem"></div>
+  </div>
 </div>
 
 <script>
 var U='https://bnrewcmjuvpnowdaxjpt.supabase.co';
 var K='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJucmV3Y21qdXZwbm93ZGF4anB0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MzMwMDMsImV4cCI6MjA5MDMwOTAwM30.YV5XTane49QcAc_iGqOdjc0CD33qDVu_XOLctgcVcnQ';
-var S='iris2026';
+var SENHA='iris2026';
+var isAdmin=false;
 var arts=[];
 
+/* init */
 var d=new Date();
 document.getElementById('hoje').textContent=d.toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 document.getElementById('ano').textContent=d.getFullYear();
-var em=document.getElementById('eml');
-if(em)em.textContent='irisoliveiram'+'@'+'gmail.com';
+var el=document.getElementById('eml');
+var em='irisoliveiram'+'@'+'gmail.com';
+el.textContent=em; el.href='mailto:'+em;
 
-function api(path,cb){
+/* api */
+function api(method,path,body,cb){
   var x=new XMLHttpRequest();
-  x.open('GET',U+'/rest/v1/'+path,true);
+  x.open(method,U+'/rest/v1/'+path,true);
   x.setRequestHeader('apikey',K);
   x.setRequestHeader('Authorization','Bearer '+K);
+  x.setRequestHeader('Content-Type','application/json');
+  if(method==='POST')x.setRequestHeader('Prefer','return=representation');
   x.onload=function(){
     if(x.status>=200&&x.status<300){
-      try{cb(null,JSON.parse(x.responseText));}catch(e){cb(e);}
+      try{cb(null,x.status===204?null:JSON.parse(x.responseText));}catch(e){cb(e);}
     }else{cb(new Error(x.status+' '+x.responseText));}
   };
   x.onerror=function(){cb(new Error('network'));};
-  x.send();
+  x.send(body?JSON.stringify(body):null);
 }
 
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-function render(data){
-  var list=document.getElementById('lista');
-  var msg=document.getElementById('msg');
-  if(!data||data.length===0){msg.textContent='Nenhum artigo publicado ainda.';return;}
-  msg.style.display='none';
-  data.forEach(function(a){
+/* load */
+api('GET','artigos?select=*&order=created_at.desc',null,function(err,data){
+  if(err){document.getElementById('lmsg').textContent='Erro ao carregar: '+err.message;return;}
+  arts=data||[];
+  renderFeat();
+  renderList();
+});
+
+/* featured */
+function renderFeat(){
+  var feat=document.getElementById('feat');
+  if(arts.length===0){feat.style.display='none';return;}
+  feat.style.display='grid';
+  var f0=document.getElementById('f0');
+  var f1=document.getElementById('f1');
+  var a0=arts[0];
+  f0.innerHTML=(a0.tag?'<span class="atg">'+esc(a0.tag)+'</span>':'')+'<h2 data-id="'+a0.id+'">'+esc(a0.title)+'</h2>'+(a0.excerpt?'<p class="ex">'+esc(a0.excerpt)+'</p>':'')+'<span class="ame">Iris de Oliveira'+(a0.date?' &middot; '+esc(a0.date):'')+'</span>';
+  f0.querySelector('h2').addEventListener('click',function(){openArt(+this.getAttribute('data-id'));});
+  if(arts.length>=2){
+    var a1=arts[1];
+    document.querySelector('.fdiv').style.display='';
+    f1.innerHTML=(a1.tag?'<span class="atg">'+esc(a1.tag)+'</span>':'')+'<h3 data-id="'+a1.id+'">'+esc(a1.title)+'</h3>'+(a1.excerpt?'<p class="ex">'+esc(a1.excerpt)+'</p>':'')+'<span class="ame">'+(a1.date?esc(a1.date):'')+'</span>';
+    f1.querySelector('h3').addEventListener('click',function(){openArt(+this.getAttribute('data-id'));});
+  }else{document.querySelector('.fdiv').style.display='none';f1.innerHTML='';}
+}
+
+/* list */
+function renderList(){
+  var lst=document.getElementById('lst');
+  var lmsg=document.getElementById('lmsg');
+  lst.querySelectorAll('.row').forEach(function(r){r.remove();});
+  lmsg.style.display='none';
+  if(arts.length===0){lmsg.textContent='Nenhum artigo publicado ainda.';lmsg.style.display='block';return;}
+  arts.forEach(function(a){
     var row=document.createElement('div');
     row.className='row';
-    row.innerHTML='<div>'+(a.tag?'<span class="tag">'+esc(a.tag)+'</span>':'')+'<h4 data-id="'+a.id+'">'+esc(a.title)+'</h4>'+(a.excerpt?'<p class="exc">'+esc(a.excerpt)+'</p>':'')+'</div><div><div class="dt">'+esc(a.date||'')+'</div></div>';
-    list.appendChild(row);
+    row.innerHTML='<div>'+(a.tag?'<span class="atg">'+esc(a.tag)+'</span>':'')+'<h4 data-id="'+a.id+'">'+esc(a.title)+'</h4>'+(a.excerpt?'<p class="exs">'+esc(a.excerpt)+'</p>':'')+'</div><div><div class="dt">'+esc(a.date||'')+'</div><button class="bdel" data-id="'+a.id+'" title="Remover">&#10005;</button></div>';
+    lst.appendChild(row);
   });
-  list.querySelectorAll('h4[data-id]').forEach(function(el){
-    el.addEventListener('click',function(){abre(+this.getAttribute('data-id'));});
-  });
+  lst.querySelectorAll('h4[data-id]').forEach(function(el){el.addEventListener('click',function(){openArt(+this.getAttribute('data-id'));});});
+  lst.querySelectorAll('.bdel[data-id]').forEach(function(el){el.addEventListener('click',function(){delArt(+this.getAttribute('data-id'));});});
 }
 
-function abre(id){
+/* article */
+function openArt(id){
   var a=arts.find(function(x){return x.id===id;});
   if(!a)return;
-  document.getElementById('a-tag').textContent=a.tag||'';
-  document.getElementById('a-title').textContent=a.title||'';
-  document.getElementById('a-lead').textContent=a.excerpt||'';
-  document.getElementById('a-meta').textContent='Iris de Oliveira'+(a.date?' \u00b7 '+a.date:'');
-  var b=document.getElementById('a-body');
-  b.innerHTML='';
-  var ps=(a.body||'').split(/\n\n+/).filter(function(p){return p.trim();});
-  if(ps.length===0){var el=document.createElement('p');el.style.color='var(--tt)';el.textContent='Texto nao disponivel.';b.appendChild(el);}
-  else{ps.forEach(function(p){var el=document.createElement('p');el.innerHTML=p.trim();b.appendChild(el);});}
-  document.getElementById('idx').style.display='none';
-  document.getElementById('art').style.display='block';
+  document.getElementById('aatg').textContent=a.tag||'';
+  document.getElementById('attl').textContent=a.title||'';
+  document.getElementById('alead').textContent=a.excerpt||'';
+  document.getElementById('amet').textContent='Iris de Oliveira'+(a.date?' \u00b7 '+a.date:'');
+  var b=document.getElementById('abody');
+  b.innerHTML=a.body||'<p style="color:var(--tt)">Texto nao disponivel.</p>';
+  document.getElementById('VI').style.display='none';
+  document.getElementById('VA').style.display='block';
   window.scrollTo({top:0,behavior:'instant'});
 }
 
-function voltar(){
-  document.getElementById('art').style.display='none';
-  document.getElementById('idx').style.display='block';
+function goIdx(){
+  document.getElementById('VA').style.display='none';
+  document.getElementById('VI').style.display='block';
   window.scrollTo({top:0,behavior:'instant'});
 }
 
-api('artigos?select=*&order=created_at.desc',function(err,data){
-  if(err){document.getElementById('msg').textContent='Erro ao carregar: '+err.message;return;}
-  arts=data||[];
-  render(arts);
-});
+/* modal */
+function openModal(){
+  if(isAdmin){logout();return;}
+  document.getElementById('modal').classList.add('open');
+  document.getElementById('pwd').value='';
+  document.getElementById('merr').style.display='none';
+  setTimeout(function(){document.getElementById('pwd').focus();},50);
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+document.getElementById('pwd').addEventListener('keydown',function(e){if(e.key==='Enter')checkPwd();if(e.key==='Escape')closeModal();});
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+function checkPwd(){
+  if(document.getElementById('pwd').value===SENHA){
+    isAdmin=true;closeModal();
+    document.getElementById('abar').classList.add('on');
+    document.getElementById('abtn').style.color='var(--ac)';
+    document.getElementById('lst').classList.add('aon');
+  }else{
+    document.getElementById('merr').style.display='block';
+    document.getElementById('pwd').select();
+  }
+}
+
+function logout(){
+  isAdmin=false;
+  document.getElementById('abar').classList.remove('on');
+  document.getElementById('fwrap').classList.remove('open');
+  document.getElementById('abtn').style.color='';
+  document.getElementById('lst').classList.remove('aon');
+}
+
+/* form */
+function toggleForm(){
+  var f=document.getElementById('fwrap');
+  if(f.classList.contains('open')){f.classList.remove('open');}
+  else{f.classList.add('open');document.getElementById('fd').valueAsDate=new Date();document.getElementById('ft').focus();}
+}
+
+function fmt(cmd){document.getElementById('fb').focus();document.execCommand(cmd,false,null);}
+
+function fmtDate(v){
+  if(!v)return'';
+  return new Date(v+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
+}
+
+function sanitize(html){
+  var tmp=document.createElement('div');tmp.innerHTML=html;
+  tmp.querySelectorAll('b,strong').forEach(function(el){var s=document.createElement('span');s.style.fontWeight='700';s.innerHTML=el.innerHTML;el.parentNode.replaceChild(s,el);});
+  tmp.querySelectorAll('i,em').forEach(function(el){var s=document.createElement('span');s.style.fontStyle='italic';s.innerHTML=el.innerHTML;el.parentNode.replaceChild(s,el);});
+  tmp.querySelectorAll('u').forEach(function(el){var s=document.createElement('span');s.style.textDecoration='underline';s.innerHTML=el.innerHTML;el.parentNode.replaceChild(s,el);});
+  return tmp.innerHTML;
+}
+
+function addArt(){
+  var title=document.getElementById('ft').value.trim();
+  var tag=document.getElementById('fg').value.trim();
+  var excerpt=document.getElementById('fe').value.trim();
+  var body=sanitize(document.getElementById('fb').innerHTML.trim());
+  var dateVal=document.getElementById('fd').value;
+  if(!title){alert('Informe o titulo do artigo.');document.getElementById('ft').focus();return;}
+  var btn=document.getElementById('bsave');
+  var sst=document.getElementById('sst');
+  btn.disabled=true;btn.textContent='Salvando...';sst.textContent='';
+  api('POST','artigos',{tag:tag,title:title,excerpt:excerpt,body:body,date:fmtDate(dateVal)},function(err,data){
+    if(err){sst.textContent='Erro ao salvar.';btn.disabled=false;btn.textContent='Publicar';return;}
+    if(data&&data[0])arts.unshift(data[0]);
+    renderFeat();renderList();
+    document.getElementById('ft').value='';
+    document.getElementById('fg').value='';
+    document.getElementById('fe').value='';
+    document.getElementById('fb').innerHTML='';
+    toggleForm();
+    btn.disabled=false;btn.textContent='Publicar';
+  });
+}
+
+function delArt(id){
+  if(!isAdmin)return;
+  if(!confirm('Remover este artigo permanentemente?'))return;
+  api('DELETE','artigos?id=eq.'+id,null,function(err){
+    if(err){alert('Erro ao remover.');return;}
+    arts=arts.filter(function(a){return a.id!==id;});
+    renderFeat();renderList();
+  });
+}
 </script>
 </body>
 </html>
