@@ -23,7 +23,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tp);min-h
 .dbar{border-top:.5px solid var(--bm);border-bottom:.5px solid var(--bm);padding:.5rem 0;margin:.75rem 0 2rem;font-size:.72rem;color:var(--tt);letter-spacing:.05em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
 .abtn{font-size:.65rem;color:var(--bm);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0;transition:color .2s}
 .abtn:hover{color:var(--tt)}
-/* FEATURED */
 .feat{display:grid;grid-template-columns:1fr .5px 1fr;gap:2rem;padding-bottom:2.5rem;border-bottom:.5px solid var(--bm);margin-bottom:2.5rem}
 .fdiv{background:var(--bm)}
 .atg{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);display:block;margin-bottom:.5rem}
@@ -34,7 +33,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tp);min-h
 #f1 h3:hover{color:var(--ac)}
 #f1 .ex{font-family:'Source Serif 4',serif;font-size:.88rem;font-weight:300;line-height:1.7;color:var(--ts);margin-bottom:.6rem}
 .ame{font-size:.7rem;color:var(--tt)}
-/* LIST */
 .sl{font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ts);border-top:2px solid var(--ts);padding-top:.45rem;display:inline-block}
 .lst{margin-top:1.25rem}
 .row{display:grid;grid-template-columns:1fr auto;align-items:start;gap:1rem;padding:1.25rem 0;border-bottom:.5px solid var(--bl)}
@@ -46,8 +44,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tp);min-h
 .bdel{font-size:.65rem;color:var(--tt);background:none;border:none;cursor:pointer;padding:4px;opacity:.5;display:none;margin-top:4px;margin-left:auto;font-family:'DM Sans',sans-serif;transition:opacity .15s}
 .bdel:hover{opacity:1;color:var(--ac)}
 .aon .bdel{display:block}
+.share-btn{font-size:.65rem;color:var(--tt);background:none;border:none;cursor:pointer;padding:4px;opacity:.6;display:block;margin-top:4px;margin-left:auto;font-family:'DM Sans',sans-serif;transition:opacity .15s;text-decoration:none}
+.share-btn:hover{opacity:1;color:var(--ac)}
 .msg{text-align:center;padding:3rem 1rem;font-size:.85rem;color:var(--tt)}
-/* MODAL */
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center}
 .modal.open{display:flex}
 .mbox{background:var(--sf);border-radius:10px;padding:2rem;width:100%;max-width:340px;margin:1rem}
@@ -57,7 +56,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tp);min-h
 .macts{display:flex;gap:.5rem}
 .benter{font-size:.8rem;font-weight:500;background:var(--tp);color:var(--bg);border:none;border-radius:3px;padding:.5rem 1.2rem;cursor:pointer;font-family:'DM Sans',sans-serif}
 .bcls{font-size:.8rem;background:transparent;color:var(--ts);border:.5px solid var(--bm);border-radius:3px;padding:.5rem .9rem;cursor:pointer;font-family:'DM Sans',sans-serif}
-/* ADMIN BAR */
 .abar{display:none;background:var(--sf);border:.5px solid var(--bm);border-radius:8px;padding:.75rem 1rem;margin-bottom:1.5rem;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .abar.on{display:flex}
 .albl{font-size:.72rem;color:var(--ts)}
@@ -67,7 +65,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tp);min-h
 .bnew:hover{background:var(--bg)}
 .bout{font-size:.72rem;color:var(--tt);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:.4rem .5rem}
 .bout:hover{color:var(--ac)}
-/* FORM */
 .fwrap{display:none;margin-bottom:1.5rem;padding:1.5rem;border:.5px solid var(--bm);border-radius:8px;background:var(--sf)}
 .fwrap.open{display:block}
 .fttl{font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ts);margin-bottom:1.25rem}
@@ -92,7 +89,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tp);min-h
 .bsave:disabled{opacity:.5;cursor:default}
 .bcanc{font-size:.8rem;background:transparent;color:var(--ts);border:.5px solid var(--bm);border-radius:3px;padding:.55rem 1rem;cursor:pointer;font-family:'DM Sans',sans-serif}
 .sst{font-size:.75rem;color:var(--tt)}
-/* BIO */
 .bio{margin-top:4rem;padding:1.5rem 0;border-top:.5px solid var(--bm);display:flex;align-items:flex-start;gap:1.25rem}
 .bii{width:46px;height:46px;min-width:46px;border-radius:50%;border:.5px solid var(--bm);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--ts)}
 .bit{font-size:.82rem;color:var(--ts);line-height:1.65}
@@ -100,7 +96,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tp);min-h
 .bit a{color:var(--ts);text-decoration:none;border-bottom:.5px solid var(--bm)}
 .bit a:hover{color:var(--tp)}
 footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;text-align:center;font-size:.7rem;color:var(--tt);letter-spacing:.04em}
-/* ARTICLE VIEW */
 .ab{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--ts);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;padding:0;margin-bottom:2rem;transition:color .15s}
 .ab:hover{color:var(--tp)}
 .ahdr{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:.5px solid var(--bm)}
@@ -116,6 +111,9 @@ footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;t
 .aftsig strong{color:var(--tp);font-weight:500}
 .aftb{font-size:.78rem;color:var(--ts);cursor:pointer;border:.5px solid var(--bm);background:none;font-family:'DM Sans',sans-serif;padding:.45rem .9rem;border-radius:3px;transition:background .15s}
 .aftb:hover{background:var(--sf)}
+.share-art{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;color:var(--ts);cursor:pointer;border:.5px solid var(--bm);background:none;font-family:'DM Sans',sans-serif;padding:.45rem .9rem;border-radius:3px;transition:background .15s}
+.share-art:hover{background:var(--sf)}
+.copied{font-size:.72rem;color:var(--ac);margin-left:.5rem;opacity:0;transition:opacity .3s}
 @media(max-width:620px){.feat{grid-template-columns:1fr;gap:1.5rem}.fdiv{display:none}.fg2{grid-template-columns:1fr}}
 </style>
 </head>
@@ -182,7 +180,7 @@ footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;t
           <button class="tb U" onclick="fmt('underline')">S</button>
         </div>
         <div class="editor" id="fb" contenteditable="true" spellcheck="true"></div>
-        <p class="fhint">Selecione o texto e clique N (negrito), I (italico) ou S (sublinhado). Enter = novo paragrafo.</p>
+        <p class="fhint">Selecione o texto e clique N (negrito), I (italico) ou S (sublinhado).</p>
       </div>
       <div class="facts">
         <button class="bsave" id="bsave" onclick="addArt()">Publicar</button>
@@ -205,8 +203,8 @@ footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;t
     <div class="bio">
       <div class="bii">IO</div>
       <div>
-        <p class="bit"><strong>Iris de Oliveira</strong> e analista de politicas publicas e colunista. Escreve sobre poder, economia e instituicoes, explicando como decisoes do Estado impactam a vida real do trabalho a renda e a saude em linguagem clara, direta e acessivel.</p>
-        <p style="margin-top:.5rem;font-size:.78rem;color:var(--tt)">Contato: <a id="eml" href="#"></a></p>
+        <p class="bit"><strong>Iris de Oliveira</strong> e analista de politicas publicas e colunista. Escreve sobre poder, economia e instituicoes, explicando como decisoes do Estado impactam a vida real — do trabalho a renda e a saude — em linguagem clara, direta e acessivel.</p>
+        <p style="margin-top:.5rem;font-size:.78rem;color:var(--tt)">Contato: <a id="eml" href="#">-</a></p>
       </div>
     </div>
   </div>
@@ -232,7 +230,11 @@ footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;t
     <div class="abody" id="abody"></div>
     <div class="aft">
       <p class="aftsig"><strong>Iris de Oliveira</strong> &mdash; Analista de politicas publicas e colunista</p>
-      <button class="aftb" onclick="goIdx()">&#8592; Voltar</button>
+      <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap">
+        <button class="share-art" onclick="shareArt()">&#128279; Copiar link</button>
+        <span class="copied" id="copied">Link copiado!</span>
+        <button class="aftb" onclick="goIdx()">&#8592; Voltar</button>
+      </div>
     </div>
     <div style="height:4rem"></div>
   </div>
@@ -244,16 +246,15 @@ var K='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJu
 var SENHA='iris2026';
 var isAdmin=false;
 var arts=[];
+var currentId=null;
 
-/* init */
 var d=new Date();
 document.getElementById('hoje').textContent=d.toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 document.getElementById('ano').textContent=d.getFullYear();
 var el=document.getElementById('eml');
 var em='irisoliveiram'+'@'+'gmail.com';
-el.textContent=em; el.href='mailto:'+em;
+el.textContent=em;el.href='mailto:'+em;
 
-/* api */
 function api(method,path,body,cb){
   var x=new XMLHttpRequest();
   x.open(method,U+'/rest/v1/'+path,true);
@@ -262,9 +263,8 @@ function api(method,path,body,cb){
   x.setRequestHeader('Content-Type','application/json');
   if(method==='POST')x.setRequestHeader('Prefer','return=representation');
   x.onload=function(){
-    if(x.status>=200&&x.status<300){
-      try{cb(null,x.status===204?null:JSON.parse(x.responseText));}catch(e){cb(e);}
-    }else{cb(new Error(x.status+' '+x.responseText));}
+    if(x.status>=200&&x.status<300){try{cb(null,x.status===204?null:JSON.parse(x.responseText));}catch(e){cb(e);}}
+    else{cb(new Error(x.status+' '+x.responseText));}
   };
   x.onerror=function(){cb(new Error('network'));};
   x.send(body?JSON.stringify(body):null);
@@ -272,15 +272,32 @@ function api(method,path,body,cb){
 
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-/* load */
 api('GET','artigos?select=*&order=created_at.desc',null,function(err,data){
   if(err){document.getElementById('lmsg').textContent='Erro ao carregar: '+err.message;return;}
   arts=data||[];
   renderFeat();
   renderList();
+  checkHash();
 });
 
-/* featured */
+function checkHash(){
+  var h=window.location.hash;
+  if(h&&h.indexOf('#artigo-')===0){
+    var id=parseInt(h.replace('#artigo-',''));
+    if(id)openArt(id);
+  }
+}
+
+window.addEventListener('hashchange',function(){
+  var h=window.location.hash;
+  if(h&&h.indexOf('#artigo-')===0){
+    var id=parseInt(h.replace('#artigo-',''));
+    if(id)openArt(id);
+  } else if(h===''||h==='#'){
+    goIdx();
+  }
+});
+
 function renderFeat(){
   var feat=document.getElementById('feat');
   if(arts.length===0){feat.style.display='none';return;}
@@ -298,7 +315,6 @@ function renderFeat(){
   }else{document.querySelector('.fdiv').style.display='none';f1.innerHTML='';}
 }
 
-/* list */
 function renderList(){
   var lst=document.getElementById('lst');
   var lmsg=document.getElementById('lmsg');
@@ -308,35 +324,56 @@ function renderList(){
   arts.forEach(function(a){
     var row=document.createElement('div');
     row.className='row';
-    row.innerHTML='<div>'+(a.tag?'<span class="atg">'+esc(a.tag)+'</span>':'')+'<h4 data-id="'+a.id+'">'+esc(a.title)+'</h4>'+(a.excerpt?'<p class="exs">'+esc(a.excerpt)+'</p>':'')+'</div><div><div class="dt">'+esc(a.date||'')+'</div><button class="bdel" data-id="'+a.id+'" title="Remover">&#10005;</button></div>';
+    row.innerHTML='<div>'+(a.tag?'<span class="atg">'+esc(a.tag)+'</span>':'')+'<h4 data-id="'+a.id+'">'+esc(a.title)+'</h4>'+(a.excerpt?'<p class="exs">'+esc(a.excerpt)+'</p>':'')+'</div>'+'<div><div class="dt">'+esc(a.date||'')+'</div><button class="bdel" data-id="'+a.id+'" title="Remover">&#10005;</button></div>';
     lst.appendChild(row);
   });
   lst.querySelectorAll('h4[data-id]').forEach(function(el){el.addEventListener('click',function(){openArt(+this.getAttribute('data-id'));});});
   lst.querySelectorAll('.bdel[data-id]').forEach(function(el){el.addEventListener('click',function(){delArt(+this.getAttribute('data-id'));});});
 }
 
-/* article */
 function openArt(id){
   var a=arts.find(function(x){return x.id===id;});
   if(!a)return;
+  currentId=id;
   document.getElementById('aatg').textContent=a.tag||'';
   document.getElementById('attl').textContent=a.title||'';
   document.getElementById('alead').textContent=a.excerpt||'';
   document.getElementById('amet').textContent='Iris de Oliveira'+(a.date?' \u00b7 '+a.date:'');
   var b=document.getElementById('abody');
   b.innerHTML=a.body||'<p style="color:var(--tt)">Texto nao disponivel.</p>';
+  history.pushState(null,'','#artigo-'+id);
   document.getElementById('VI').style.display='none';
   document.getElementById('VA').style.display='block';
   window.scrollTo({top:0,behavior:'instant'});
 }
 
 function goIdx(){
+  currentId=null;
+  history.pushState(null,'',window.location.pathname);
   document.getElementById('VA').style.display='none';
   document.getElementById('VI').style.display='block';
   window.scrollTo({top:0,behavior:'instant'});
 }
 
-/* modal */
+function shareArt(){
+  if(!currentId)return;
+  var url=window.location.origin+window.location.pathname+'#artigo-'+currentId;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(function(){showCopied();});
+  }else{
+    var ta=document.createElement('textarea');
+    ta.value=url;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+    showCopied();
+  }
+}
+
+function showCopied(){
+  var c=document.getElementById('copied');
+  c.style.opacity='1';
+  setTimeout(function(){c.style.opacity='0';},2000);
+}
+
 function openModal(){
   if(isAdmin){logout();return;}
   document.getElementById('modal').classList.add('open');
@@ -368,7 +405,6 @@ function logout(){
   document.getElementById('lst').classList.remove('aon');
 }
 
-/* form */
 function toggleForm(){
   var f=document.getElementById('fwrap');
   if(f.classList.contains('open')){f.classList.remove('open');}
