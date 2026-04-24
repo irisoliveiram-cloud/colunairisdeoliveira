@@ -149,15 +149,15 @@ footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;t
     <div class="dbar">
       <button class="fbtn fativo" onclick="filtrar(this,'todos')">Todos</button>
       <span class="fsep">|</span>
-      <button class="fbtn" onclick="filtrar(this,'Política')">Política</button>
+      <button class="fbtn" onclick="filtrar(this,'política')">Política</button>
       <span class="fsep">|</span>
-      <button class="fbtn" onclick="filtrar(this,'Economia')">Economia</button>
+      <button class="fbtn" onclick="filtrar(this,'economia')">Economia</button>
       <span class="fsep">|</span>
-      <button class="fbtn" onclick="filtrar(this,'Segurança')">Segurança</button>
+      <button class="fbtn" onclick="filtrar(this,'segurança')">Segurança</button>
       <span class="fsep">|</span>
-      <button class="fbtn" onclick="filtrar(this,'Sociedade')">Sociedade</button>
+      <button class="fbtn" onclick="filtrar(this,'sociedade')">Sociedade</button>
       <span class="fsep">|</span>
-      <button class="fbtn" onclick="filtrar(this,'Saúde')">Saúde</button>
+      <button class="fbtn" onclick="filtrar(this,'saúde')">Saúde</button>
       <button class="abtn" id="abtn" onclick="openModal()" style="margin-left:auto">&#9679;</button>
     </div>
 
@@ -341,7 +341,7 @@ function renderList(){
   arts.forEach(function(a){
     var row=document.createElement('div');
     row.className='row';
-    row.setAttribute('data-tag',a.tag||'');row.innerHTML='<div>'+(a.tag?'<span class="atg">'+esc(a.tag)+'</span>':'')+'<h4 data-id="'+a.id+'">'+esc(a.title)+'</h4>'+(a.excerpt?'<p class="exs">'+esc(a.excerpt)+'</p>':'')+'</div>'+'<div><div class="dt">'+esc(a.date||'')+'</div><button class="bdel" data-id="'+a.id+'" title="Remover">&#10005;</button></div>';
+    row.setAttribute('data-tag',(a.tag||'').toLowerCase());row.innerHTML='<div>'+(a.tag?'<span class="atg">'+esc(a.tag)+'</span>':'')+'<h4 data-id="'+a.id+'">'+esc(a.title)+'</h4>'+(a.excerpt?'<p class="exs">'+esc(a.excerpt)+'</p>':'')+'</div>'+'<div><div class="dt">'+esc(a.date||'')+'</div><button class="bdel" data-id="'+a.id+'" title="Remover">&#10005;</button></div>';
     lst.appendChild(row);
   });
   lst.querySelectorAll('h4[data-id]').forEach(function(el){el.addEventListener('click',function(){openArt(+this.getAttribute('data-id'));});});
@@ -474,6 +474,19 @@ function delArt(id){
     arts=arts.filter(function(a){return a.id!==id;});
     renderFeat();renderList();
   });
+}
+
+function filtrar(btn,cat){
+  document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('fativo');});
+  btn.classList.add('fativo');
+  var rows=document.querySelectorAll('#lst .row');
+  rows.forEach(function(row){
+    var tag=row.getAttribute('data-tag')||'';
+    var match=(cat==='todos')||(tag.indexOf(cat)!==-1);
+    row.style.display=match?'grid':'none';
+  });
+  var feat=document.getElementById('feat');
+  if(feat){feat.style.display=(cat==='todos')?'grid':'none';}
 }
 </script>
 </body>
