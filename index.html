@@ -20,7 +20,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tp);min-h
 .mn{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:600;letter-spacing:-.02em;cursor:pointer;transition:color .15s}
 .mn:hover{color:var(--ac)}
 .mt{font-size:.72rem;font-weight:300;letter-spacing:.14em;text-transform:uppercase;color:var(--ts)}
-.dbar{border-top:.5px solid var(--bm);border-bottom:.5px solid var(--bm);padding:.5rem 0;margin:.75rem 0 2rem;font-size:.72rem;color:var(--tt);letter-spacing:.05em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.dtopo{font-size:.65rem;letter-spacing:.05em;text-transform:uppercase;color:var(--tt);padding:.5rem 0 0;display:block}
+.dbar{border-top:.5px solid var(--bm);border-bottom:.5px solid var(--bm);padding:0;margin:.75rem 0 2rem;display:flex;align-items:center;gap:0;flex-wrap:wrap}
+.fbtn{font-size:.68rem;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:var(--ts);background:none;border:none;border-bottom:2px solid transparent;border-radius:0;outline:none;padding:.5rem .9rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color .15s;white-space:nowrap;-webkit-appearance:none;appearance:none;box-shadow:none}
+.fbtn:first-child{padding-left:0}
+.fbtn:hover{color:var(--tp)}
+.fbtn.fativo{color:var(--tp);font-weight:500;border-bottom:2px solid var(--tp)}
+.fsep{color:var(--bm);font-size:.7rem;user-select:none;padding:0 .1rem}
 .abtn{font-size:.65rem;color:var(--bm);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0;transition:color .2s}
 .abtn:hover{color:var(--tt)}
 .feat{display:grid;grid-template-columns:1fr .5px 1fr;gap:2rem;padding-bottom:2.5rem;border-bottom:.5px solid var(--bm);margin-bottom:2.5rem}
@@ -133,6 +139,7 @@ footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;t
 
 <div id="VI">
   <div class="W">
+    <span class="dtopo" id="hoje"></span>
     <header class="mast">
       <div style="position:relative;min-height:120px">
         <img src="IMG_4578.PNG" alt="Iris de Oliveira" onclick="goIdx()" style="height:120px;cursor:pointer;display:block">
@@ -140,8 +147,18 @@ footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;t
       </div>
     </header>
     <div class="dbar">
-      <span id="hoje"></span>
-      <button class="abtn" id="abtn" onclick="openModal()">&#9679;</button>
+      <button class="fbtn fativo" onclick="filtrar(this,'todos')">Todos</button>
+      <span class="fsep">|</span>
+      <button class="fbtn" onclick="filtrar(this,'Política')">Política</button>
+      <span class="fsep">|</span>
+      <button class="fbtn" onclick="filtrar(this,'Economia')">Economia</button>
+      <span class="fsep">|</span>
+      <button class="fbtn" onclick="filtrar(this,'Segurança')">Segurança</button>
+      <span class="fsep">|</span>
+      <button class="fbtn" onclick="filtrar(this,'Sociedade')">Sociedade</button>
+      <span class="fsep">|</span>
+      <button class="fbtn" onclick="filtrar(this,'Saúde')">Saúde</button>
+      <button class="abtn" id="abtn" onclick="openModal()" style="margin-left:auto">&#9679;</button>
     </div>
 
     <div class="abar" id="abar">
@@ -324,7 +341,7 @@ function renderList(){
   arts.forEach(function(a){
     var row=document.createElement('div');
     row.className='row';
-    row.innerHTML='<div>'+(a.tag?'<span class="atg">'+esc(a.tag)+'</span>':'')+'<h4 data-id="'+a.id+'">'+esc(a.title)+'</h4>'+(a.excerpt?'<p class="exs">'+esc(a.excerpt)+'</p>':'')+'</div>'+'<div><div class="dt">'+esc(a.date||'')+'</div><button class="bdel" data-id="'+a.id+'" title="Remover">&#10005;</button></div>';
+    row.setAttribute('data-tag',a.tag||'');row.innerHTML='<div>'+(a.tag?'<span class="atg">'+esc(a.tag)+'</span>':'')+'<h4 data-id="'+a.id+'">'+esc(a.title)+'</h4>'+(a.excerpt?'<p class="exs">'+esc(a.excerpt)+'</p>':'')+'</div>'+'<div><div class="dt">'+esc(a.date||'')+'</div><button class="bdel" data-id="'+a.id+'" title="Remover">&#10005;</button></div>';
     lst.appendChild(row);
   });
   lst.querySelectorAll('h4[data-id]').forEach(function(el){el.addEventListener('click',function(){openArt(+this.getAttribute('data-id'));});});
