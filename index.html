@@ -403,6 +403,57 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
   </div>
 </div>
 
+<!-- MODAL EDITAR ARTIGO -->
+<div id="modal-edit" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:300;align-items:flex-start;justify-content:center;overflow-y:auto;padding:2rem 1rem">
+  <div style="background:var(--sf);width:100%;max-width:680px;border-radius:4px;padding:2rem;position:relative;margin:auto">
+    <button onclick="fecharEdicao()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--ts)">&times;</button>
+    <p style="font-family:'Libre Franklin',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tp);margin-bottom:1.5rem;border-bottom:.5px solid var(--bm);padding-bottom:.75rem">Editar artigo</p>
+    <div style="margin-bottom:1rem">
+      <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Titulo</label>
+      <input type="text" id="et" style="width:100%;font-size:.9rem;padding:.5rem .75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+      <div>
+        <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Editoria</label>
+        <input type="text" id="eg" style="width:100%;font-size:.9rem;padding:.5rem .75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none">
+      </div>
+      <div>
+        <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Data</label>
+        <input type="date" id="ed" style="width:100%;font-size:.9rem;padding:.5rem .75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none">
+      </div>
+    </div>
+    <div style="margin-bottom:1rem">
+      <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Imagem de capa</label>
+      <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:.5rem">
+        <input type="file" id="eimg_file" accept="image/*" style="display:none" onchange="previewEdicaoImagem(this)">
+        <button type="button" onclick="document.getElementById('eimg_file').click()" style="font-family:'Libre Franklin',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--sf);color:var(--tp);border:.5px solid var(--bm);padding:.5rem 1rem;cursor:pointer">Escolher imagem</button>
+        <span id="eimg_nome" style="font-size:.78rem;color:var(--ts);font-style:italic">Nenhum arquivo selecionado</span>
+      </div>
+      <div id="eimg_preview" style="margin-bottom:.5rem"></div>
+      <input type="hidden" id="eimg_url">
+      <p style="font-size:.7rem;color:var(--tt)">JPG, PNG ou WEBP. Proporção 16:10. Deixe em branco para manter a imagem atual.</p>
+    </div>
+    <div style="margin-bottom:1rem">
+      <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Resumo (lead)</label>
+      <textarea id="ee" style="width:100%;min-height:80px;font-size:.88rem;padding:.5rem .75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'Source Serif 4',serif;outline:none;resize:vertical"></textarea>
+    </div>
+    <div style="margin-bottom:1.5rem">
+      <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Texto completo</label>
+      <div style="display:flex;gap:4px;margin-bottom:4px">
+        <button onclick="document.getElementById('eb').focus();document.execCommand('bold')" style="font-size:.78rem;font-weight:700;background:var(--bg);color:var(--tp);border:.5px solid var(--bm);padding:4px 10px;cursor:pointer">N</button>
+        <button onclick="document.getElementById('eb').focus();document.execCommand('italic')" style="font-size:.78rem;font-style:italic;background:var(--bg);color:var(--tp);border:.5px solid var(--bm);padding:4px 10px;cursor:pointer">I</button>
+        <button onclick="document.getElementById('eb').focus();document.execCommand('underline')" style="font-size:.78rem;text-decoration:underline;background:var(--bg);color:var(--tp);border:.5px solid var(--bm);padding:4px 10px;cursor:pointer">S</button>
+      </div>
+      <div id="eb" contenteditable="true" spellcheck="true" style="width:100%;min-height:250px;padding:.75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'Source Serif 4',serif;font-size:.9rem;line-height:1.8;outline:none;overflow-y:auto"></div>
+    </div>
+    <div style="display:flex;gap:.75rem;align-items:center">
+      <button onclick="salvarEdicao()" id="ebsave" style="font-family:'Libre Franklin',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:var(--bg);border:none;padding:.7rem 1.8rem;cursor:pointer">Salvar</button>
+      <button onclick="fecharEdicao()" style="font-family:'Libre Franklin',sans-serif;font-size:.75rem;background:transparent;color:var(--ts);border:.5px solid var(--bm);padding:.7rem 1rem;cursor:pointer">Cancelar</button>
+      <span id="esst" style="font-size:.75rem;color:var(--tt)"></span>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL O AUTOR -->
 <div id="modal-autor" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center">
   <div style="background:#fff;max-width:480px;width:90%;border-radius:8px;padding:2rem;position:relative">
@@ -464,6 +515,7 @@ function api(method,path,body,cb){
   x.setRequestHeader('Authorization','Bearer '+K);
   x.setRequestHeader('Content-Type','application/json');
   if(method==='POST')x.setRequestHeader('Prefer','return=representation');
+  if(method==='PATCH')x.setRequestHeader('Prefer','return=minimal');
   x.onload=function(){
     if(x.status>=200&&x.status<300){try{cb(null,x.status===204?null:JSON.parse(x.responseText));}catch(e){cb(e);}}
     else{cb(new Error(x.status+' '+x.responseText));}
@@ -554,12 +606,16 @@ function renderList(){
       '<h4 data-id="'+a.id+'">'+esc(a.title)+'</h4>'+
       (a.excerpt?'<p class="exs">'+esc(a.excerpt)+'</p>':'')+
       '<div class="meta"><span>'+esc(a.date||'')+'</span>'+
-      '<button class="bdel" data-del="'+a.id+'" title="Remover">remover</button></div>';
+      '<button class="bdel" data-del="'+a.id+'" title="Remover">remover</button>'+
+      '<button class="bdel" data-edit="'+a.id+'" title="Editar" style="margin-left:.3rem">editar</button></div>';
     lst.appendChild(card);
   });
   bindOpen('#lst [data-id]');
   lst.querySelectorAll('[data-del]').forEach(function(b){
     b.addEventListener('click',function(e){e.stopPropagation();delArt(+this.getAttribute('data-del'));});
+  });
+  lst.querySelectorAll('[data-edit]').forEach(function(b){
+    b.addEventListener('click',function(e){e.stopPropagation();abrirEdicao(+this.getAttribute('data-edit'));});
   });
 }
 
@@ -689,6 +745,88 @@ function addArt(){
     toggleForm();btn.disabled=false;btn.textContent='Publicar';
   });
 }
+function abrirEdicao(id){
+  var a=arts.find(function(x){return x.id===id;});
+  if(!a)return;
+  document.getElementById('modal-edit')._editId=id;
+  document.getElementById('et').value=a.title||'';
+  document.getElementById('eg').value=a.tag||'';
+  document.getElementById('ed').value=a.date_raw||'';
+  document.getElementById('ee').value=a.excerpt||'';
+  document.getElementById('eb').innerHTML=a.body||'';
+  document.getElementById('eimg_url').value=a.imagem_url||'';
+  document.getElementById('eimg_nome').textContent='Nenhum arquivo selecionado';
+  document.getElementById('eimg_file').value='';
+  var prev=document.getElementById('eimg_preview');
+  if(a.imagem_url){
+    prev.innerHTML='<img src="'+a.imagem_url+'" style="max-height:100px;max-width:100%;border:.5px solid var(--bm)" alt="atual"><p style="font-size:.7rem;color:var(--tt);margin-top:.25rem">Imagem atual</p>';
+  } else {
+    prev.innerHTML='';
+  }
+  document.getElementById('modal-edit').style.display='flex';
+}
+
+function fecharEdicao(){
+  document.getElementById('modal-edit').style.display='none';
+}
+
+function previewEdicaoImagem(input){
+  var file=input.files[0];
+  if(!file)return;
+  document.getElementById('eimg_nome').textContent=file.name;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    document.getElementById('eimg_preview').innerHTML='<img src="'+e.target.result+'" style="max-height:100px;max-width:100%;border:.5px solid var(--bm)" alt="preview"><p style="font-size:.7rem;color:var(--tt);margin-top:.25rem">Nova imagem</p>';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function uploadEdicaoImagem(){
+  var input=document.getElementById('eimg_file');
+  var file=input.files[0];
+  if(!file)return null;
+  var ext=file.name.split('.').pop();
+  var nome='capa_'+Date.now()+'.'+ext;
+  var resp=await fetch(U+'/storage/v1/object/imagens/'+nome,{
+    method:'POST',
+    headers:{'apikey':K,'Authorization':'Bearer '+K,'Content-Type':file.type,'x-upsert':'true'},
+    body:file
+  });
+  if(!resp.ok)return null;
+  return U+'/storage/v1/object/public/imagens/'+nome;
+}
+
+function salvarEdicao(){
+  var id=document.getElementById('modal-edit')._editId;
+  if(!id)return;
+  var title=document.getElementById('et').value.trim();
+  if(!title){alert('Informe o titulo.');document.getElementById('et').focus();return;}
+  var btn=document.getElementById('ebsave');
+  var sst=document.getElementById('esst');
+  btn.disabled=true;btn.textContent='Salvando...';sst.textContent='';
+  uploadEdicaoImagem().then(function(novaImg){
+    var payload={
+      title:title,
+      tag:document.getElementById('eg').value.trim(),
+      excerpt:document.getElementById('ee').value.trim(),
+      body:sanitize(document.getElementById('eb').innerHTML.trim())
+    };
+    var dateVal=document.getElementById('ed').value;
+    if(dateVal)payload.date=fmtDate(dateVal);
+    var imgAtual=document.getElementById('eimg_url').value;
+    if(novaImg)payload.imagem_url=novaImg;
+    else if(imgAtual)payload.imagem_url=imgAtual;
+    api('PATCH','artigos?id=eq.'+id,payload,function(err){
+      if(err){sst.textContent='Erro ao salvar.';btn.disabled=false;btn.textContent='Salvar';return;}
+      var idx=arts.findIndex(function(a){return a.id===id;});
+      if(idx!==-1)arts[idx]=Object.assign(arts[idx],payload);
+      renderHero();renderList();renderMaisLidas();
+      fecharEdicao();
+      btn.disabled=false;btn.textContent='Salvar';
+    });
+  });
+}
+
 function delArt(id){
   if(!isAdmin)return;
   if(!confirm('Remover este artigo permanentemente?'))return;
