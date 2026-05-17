@@ -281,15 +281,9 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
         </div>
       </div>
       <div class="fi">
-        <label>Imagem de capa (opcional)</label>
-        <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
-          <input type="file" id="fimg_file" accept="image/*" style="display:none" onchange="previewImagem(this)">
-          <button type="button" onclick="document.getElementById('fimg_file').click()" style="font-family:'Libre Franklin',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--sf);color:var(--tp);border:.5px solid var(--bm);padding:.5rem 1rem;cursor:pointer">Escolher imagem</button>
-          <span id="fimg_nome" style="font-size:.78rem;color:var(--ts);font-family:'Source Serif 4',serif;font-style:italic">Nenhum arquivo selecionado</span>
-        </div>
-        <div id="fimg_preview" style="margin-top:.6rem;display:none"><img id="fimg_prev_img" style="max-height:120px;max-width:100%;border:.5px solid var(--bm)" alt="preview"></div>
-        <input type="hidden" id="fimg">
-        <p class="fhint">JPG, PNG ou WEBP. Proporção recomendada 16:10.</p>
+        <label>Link da imagem de capa (opcional)</label>
+        <input type="url" id="fimg" placeholder="Cole o link direto da imagem (ex: https://i.imgur.com/abc.jpg)">
+        <p class="fhint">Suba a imagem no <strong>imgur.com</strong> e cole o link aqui. Proporção recomendada 16:10.</p>
       </div>
       <div class="fi">
         <label>Resumo (lead)</label>
@@ -423,15 +417,9 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
       </div>
     </div>
     <div style="margin-bottom:1rem">
-      <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Imagem de capa</label>
-      <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:.5rem">
-        <input type="file" id="eimg_file" accept="image/*" style="display:none" onchange="previewEdicaoImagem(this)">
-        <button type="button" onclick="document.getElementById('eimg_file').click()" style="font-family:'Libre Franklin',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--sf);color:var(--tp);border:.5px solid var(--bm);padding:.5rem 1rem;cursor:pointer">Escolher imagem</button>
-        <span id="eimg_nome" style="font-size:.78rem;color:var(--ts);font-style:italic">Nenhum arquivo selecionado</span>
-      </div>
-      <div id="eimg_preview" style="margin-bottom:.5rem"></div>
-      <input type="hidden" id="eimg_url">
-      <p style="font-size:.7rem;color:var(--tt)">JPG, PNG ou WEBP. Proporção 16:10. Deixe em branco para manter a imagem atual.</p>
+      <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Link da imagem de capa</label>
+      <input type="url" id="eimg_url" style="width:100%;font-size:.88rem;padding:.5rem .75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none" placeholder="https://i.imgur.com/abc.jpg">
+      <p style="font-size:.7rem;color:var(--tt);margin-top:.3rem">Suba a imagem no <strong>imgur.com</strong> e cole o link. Deixe em branco para manter a imagem atual.</p>
     </div>
     <div style="margin-bottom:1rem">
       <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Resumo (lead)</label>
@@ -805,7 +793,8 @@ function salvarEdicao(){
   var btn=document.getElementById('ebsave');
   var sst=document.getElementById('esst');
   btn.disabled=true;btn.textContent='Salvando...';sst.textContent='';
-  uploadEdicaoImagem().then(function(novaImg){
+  var novaImg=null;
+  (function(){
     var payload={
       title:title,
       tag:document.getElementById('eg').value.trim(),
@@ -814,9 +803,8 @@ function salvarEdicao(){
     };
     var dateVal=document.getElementById('ed').value;
     if(dateVal)payload.date=fmtDate(dateVal);
-    var imgAtual=document.getElementById('eimg_url').value;
-    if(novaImg)payload.imagem_url=novaImg;
-    else if(imgAtual)payload.imagem_url=imgAtual;
+    var imgAtual=document.getElementById('eimg_url').value.trim();
+    if(imgAtual)payload.imagem_url=imgAtual;
     api('PATCH','artigos?id=eq.'+id,payload,function(err){
       if(err){sst.textContent='Erro ao salvar.';btn.disabled=false;btn.textContent='Salvar';return;}
       var idx=arts.findIndex(function(a){return a.id===id;});
@@ -825,7 +813,7 @@ function salvarEdicao(){
       fecharEdicao();
       btn.disabled=false;btn.textContent='Salvar';
     });
-  });
+  })();
 }
 
 function delArt(id){
