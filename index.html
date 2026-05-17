@@ -479,6 +479,7 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
 <script>
 var U='https://bnrewcmjuvpnowdaxjpt.supabase.co';
 var K='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJucmV3Y21qdXZwbm93ZGF4anB0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MzMwMDMsImV4cCI6MjA5MDMwOTAwM30.YV5XTane49QcAc_iGqOdjc0CD33qDVu_XOLctgcVcnQ';
+var SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJucmV3Y21qdXZwbm93ZGF4anB0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDczMzAwMywiZXhwIjoyMDkwMzA5MDAzfQ.hvPB3btckoGeTi_Tpiumwcoh2gcvwOwxk6MZFsCPaeI';
 var SENHA='iris2026';
 var isAdmin=false, arts=[], currentId=null;
 
@@ -716,10 +717,10 @@ async function uploadImagem(){
   var nome='capa_'+Date.now()+'.'+ext;
   var resp=await fetch(U+'/storage/v1/object/imagens/'+nome,{
     method:'POST',
-    headers:{'apikey':K,'Authorization':'Bearer '+K,'Content-Type':file.type,'x-upsert':'true'},
+    headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':file.type,'x-upsert':'true'},
     body:file
   });
-  if(!resp.ok)return null;
+  if(!resp.ok){console.error('Upload erro:',resp.status,await resp.text());return null;}
   return U+'/storage/v1/object/public/imagens/'+nome;
 }
 
@@ -789,10 +790,10 @@ async function uploadEdicaoImagem(){
   var nome='capa_'+Date.now()+'.'+ext;
   var resp=await fetch(U+'/storage/v1/object/imagens/'+nome,{
     method:'POST',
-    headers:{'apikey':K,'Authorization':'Bearer '+K,'Content-Type':file.type,'x-upsert':'true'},
+    headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':file.type,'x-upsert':'true'},
     body:file
   });
-  if(!resp.ok)return null;
+  if(!resp.ok){console.error('Upload erro:',resp.status,await resp.text());return null;}
   return U+'/storage/v1/object/public/imagens/'+nome;
 }
 
