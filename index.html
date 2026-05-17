@@ -281,9 +281,15 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
         </div>
       </div>
       <div class="fi">
-        <label>URL da imagem de capa (opcional)</label>
-        <input type="url" id="fimg" placeholder="https://...">
-        <p class="fhint">Cole o link de uma imagem (jpg, png, webp). Proporcao recomendada 16:10.</p>
+        <label>Imagem de capa (opcional)</label>
+        <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
+          <input type="file" id="fimg_file" accept="image/*" style="display:none" onchange="previewImagem(this)">
+          <button type="button" onclick="document.getElementById('fimg_file').click()" style="font-family:'Libre Franklin',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--sf);color:var(--tp);border:.5px solid var(--bm);padding:.5rem 1rem;cursor:pointer">Escolher imagem</button>
+          <span id="fimg_nome" style="font-size:.78rem;color:var(--ts);font-family:'Source Serif 4',serif;font-style:italic">Nenhum arquivo selecionado</span>
+        </div>
+        <div id="fimg_preview" style="margin-top:.6rem;display:none"><img id="fimg_prev_img" style="max-height:120px;max-width:100%;border:.5px solid var(--bm)" alt="preview"></div>
+        <input type="hidden" id="fimg">
+        <p class="fhint">JPG, PNG ou WEBP. Proporção recomendada 16:10.</p>
       </div>
       <div class="fi">
         <label>Resumo (lead)</label>
@@ -634,6 +640,33 @@ function sanitize(html){
   tmp.querySelectorAll('u').forEach(function(el){var s=document.createElement('span');s.style.textDecoration='underline';s.innerHTML=el.innerHTML;el.parentNode.replaceChild(s,el);});
   return tmp.innerHTML;
 }
+function previewImagem(input){
+  var file=input.files[0];
+  if(!file)return;
+  document.getElementById('fimg_nome').textContent=file.name;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    document.getElementById('fimg_prev_img').src=e.target.result;
+    document.getElementById('fimg_preview').style.display='block';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function uploadImagem(){
+  var input=document.getElementById('fimg_file');
+  var file=input.files[0];
+  if(!file)return null;
+  var ext=file.name.split('.').pop();
+  var nome='capa_'+Date.now()+'.'+ext;
+  var resp=await fetch(U+'/storage/v1/object/imagens/'+nome,{
+    method:'POST',
+    headers:{'apikey':K,'Authorization':'Bearer '+K,'Content-Type':file.type,'x-upsert':'true'},
+    body:file
+  });
+  if(!resp.ok)return null;
+  return U+'/storage/v1/object/public/imagens/'+nome;
+}
+
 function addArt(){
   var title=document.getElementById('ft').value.trim();
   var tag=document.getElementById('fg').value.trim();
