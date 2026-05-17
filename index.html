@@ -3,125 +3,207 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iris de Oliveira | Analise e Opiniao</title>
+<title>Iris de Oliveira | Análise e Opinião</title>
+<meta name="description" content="Coluna de analise e opiniao sobre politica, economia, seguranca, sociedade e saude. Por Iris de Oliveira.">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1406809777609408" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#ffffff;--sf:#fff;--tp:#1a1916;--ts:#5a5855;--tt:#9a9895;--bm:#d4d2cc;--bl:#eae8e3;--ac:#8b2c2c}
-@media(prefers-color-scheme:dark){:root{--bg:#141412;--sf:#1e1d1a;--tp:#f0ede8;--ts:#a8a5a0;--tt:#6a6865;--bm:#2e2d2a;--bl:#222120;--ac:#c46060}}
-html{font-size:16px;scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tp);min-height:100vh;line-height:1.6}
-.W{max-width:900px;margin:0 auto;padding:0 1.5rem}
-.N{max-width:680px;margin:0 auto;padding:0 1.5rem}
+:root{
+  --bg:#ffffff;--sf:#fafaf7;--tp:#121212;--ts:#5a5855;--tt:#8e8b85;
+  --bm:#d8d6d0;--bl:#ebe9e3;--ac:#a4221e;--ink:#000;
+}
+@media(prefers-color-scheme:dark){:root{--bg:#0f0f0e;--sf:#1a1a18;--tp:#f0ede8;--ts:#a8a5a0;--tt:#6a6865;--bm:#2e2d2a;--bl:#222120;--ac:#d65656;--ink:#f0ede8}}
+html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Libre Franklin',sans-serif;background:var(--bg);color:var(--tp);min-height:100vh;line-height:1.55}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* CONTAINERS */
+.W{max-width:1240px;margin:0 auto;padding:0 1.5rem}
+.N{max-width:720px;margin:0 auto;padding:0 1.5rem}
 #VI{display:block}#VA{display:none}
-.mast{border-top:3px solid var(--tp);padding:1.75rem 0 0.35rem}
-.mr{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
-.mn{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:600;letter-spacing:-.02em;cursor:pointer;transition:color .15s}
+
+/* TOPBAR (estilo NYT/Folha) */
+.topbar{border-bottom:.5px solid var(--bm);background:var(--bg)}
+.tbi{display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;font-size:.72rem;color:var(--ts);letter-spacing:.02em}
+.tbl,.tbr{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.tbe{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ts);cursor:pointer;background:none;border:none;font-family:inherit;padding:0;transition:color .15s}
+.tbe:hover{color:var(--ac)}
+.tdate{text-transform:capitalize}
+
+/* MASTHEAD (wordmark centralizado tipo jornal) */
+.mast{padding:1.5rem 0 .9rem;text-align:center;border-bottom:.5px solid var(--bm)}
+.mn{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,6.5vw,4.4rem);font-weight:900;letter-spacing:-.025em;cursor:pointer;line-height:1;color:var(--ink);display:inline-block}
 .mn:hover{color:var(--ac)}
-.mt{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tp)}
-.dtopo{font-size:.65rem;letter-spacing:.05em;text-transform:uppercase;color:var(--tt);padding:.5rem 0 0;display:block}
-.dbar{border-top:.5px solid var(--bm);border-bottom:.5px solid var(--bm);padding:0;margin:.75rem 0 2rem;display:flex;align-items:center;gap:0;flex-wrap:wrap}
-.fbtn{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tp);background:none;border:none;border-bottom:2px solid transparent;border-radius:0;outline:none;padding:.5rem .9rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color .15s;white-space:nowrap;-webkit-appearance:none;appearance:none;box-shadow:none}
-.fbtn:first-child{padding-left:0}
-.fbtn:hover{color:var(--tp)}
-.fbtn.fativo{color:var(--tp);font-weight:700;border-bottom:2px solid var(--tp)}
-.fsep{color:var(--bm);font-size:.7rem;user-select:none;padding:0 .1rem}
-.abtn{font-size:.65rem;color:var(--bm);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0;transition:color .2s}
-.abtn:hover{color:var(--tt)}
-.feat{display:grid;grid-template-columns:1fr .5px 1fr;gap:2rem;padding-bottom:2.5rem;border-bottom:.5px solid var(--bm);margin-bottom:2.5rem}
-.fdiv{background:var(--bm)}
-.atg{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);display:block;margin-bottom:.5rem}
-#f0 h2{font-family:'Playfair Display',serif;font-size:clamp(1.35rem,3vw,1.9rem);font-weight:600;line-height:1.2;margin-bottom:.8rem;cursor:pointer;transition:color .15s}
-#f0 h2:hover{color:var(--ac)}
-#f0 .ex{font-family:'Source Serif 4',serif;font-size:1rem;font-weight:300;line-height:1.75;color:var(--ts);margin-bottom:.85rem}
-#f1 h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;line-height:1.25;margin-bottom:.55rem;cursor:pointer;transition:color .15s}
-#f1 h3:hover{color:var(--ac)}
-#f1 .ex{font-family:'Source Serif 4',serif;font-size:.88rem;font-weight:300;line-height:1.7;color:var(--ts);margin-bottom:.6rem}
-.ame{font-size:.7rem;color:var(--tp);font-weight:700}
-.sl{font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ts);border-top:2px solid var(--ts);padding-top:.45rem;display:inline-block}
-.lst{margin-top:1.25rem}
-.row{display:grid;grid-template-columns:1fr auto;align-items:start;gap:1rem;padding:1.25rem 0;border-bottom:.5px solid var(--bl)}
-.row:first-child{border-top:.5px solid var(--bl)}
-.row h4{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:400;line-height:1.35;margin-bottom:.3rem;cursor:pointer;transition:color .15s}
-.row h4:hover{color:var(--ac)}
-.exs{font-family:'Source Serif 4',serif;font-size:.83rem;font-weight:300;line-height:1.6;color:var(--ts)}
-.dt{font-size:.7rem;color:var(--tp);white-space:nowrap;text-align:right}
-.bdel{font-size:.65rem;color:var(--tt);background:none;border:none;cursor:pointer;padding:4px;opacity:.5;display:none;margin-top:4px;margin-left:auto;font-family:'DM Sans',sans-serif;transition:opacity .15s}
-.bdel:hover{opacity:1;color:var(--ac)}
-.aon .bdel{display:block}
-.share-btn{font-size:.65rem;color:var(--tt);background:none;border:none;cursor:pointer;padding:4px;opacity:.6;display:block;margin-top:4px;margin-left:auto;font-family:'DM Sans',sans-serif;transition:opacity .15s;text-decoration:none}
-.share-btn:hover{opacity:1;color:var(--ac)}
-.msg{text-align:center;padding:3rem 1rem;font-size:.85rem;color:var(--tt)}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center}
+.mt{font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--ts);margin-top:.7rem;display:block}
+.medition{font-family:'Source Serif 4',serif;font-size:.74rem;font-style:italic;color:var(--tt);margin-top:.45rem}
+
+/* NAV EDITORIAS */
+.nav{border-bottom:1px solid var(--ink);background:var(--bg);position:sticky;top:0;z-index:50;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav::-webkit-scrollbar{display:none}
+.navi{display:flex;align-items:center;justify-content:center;gap:0;padding:.55rem 0;white-space:nowrap;min-width:max-content;margin:0 auto}
+.fbtn{font-family:'Libre Franklin',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--tp);background:none;border:none;border-bottom:2px solid transparent;outline:none;padding:.4rem 1.1rem;cursor:pointer;transition:color .15s;-webkit-appearance:none;appearance:none}
+.fbtn:hover{color:var(--ac)}
+.fbtn.fativo{color:var(--ac);border-bottom-color:var(--ac)}
+.abtn{font-size:.65rem;color:var(--tt);cursor:pointer;background:none;border:none;font-family:inherit;padding:.4rem .6rem;transition:color .2s}
+.abtn:hover{color:var(--ts)}
+
+/* HERO + GRID PRINCIPAL */
+.hero{display:grid;grid-template-columns:1.7fr .5px 1fr .5px .85fr;gap:1.8rem;padding:2rem 0 2.5rem;border-bottom:1px solid var(--ink)}
+.hdiv{background:var(--bm)}
+
+/* MANCHETE PRINCIPAL */
+.h0 .himg{aspect-ratio:16/10;background:var(--bl);margin-bottom:1rem;overflow:hidden}
+.h0 .himg img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.h0 .himg:hover img{transform:scale(1.02)}
+.atg{font-family:'Libre Franklin',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:.55rem}
+.h0 h2{font-family:'Playfair Display',serif;font-size:clamp(1.75rem,3.4vw,2.55rem);font-weight:700;line-height:1.08;margin-bottom:.7rem;letter-spacing:-.012em;cursor:pointer;transition:color .15s}
+.h0 h2:hover{color:var(--ac)}
+.h0 .ex{font-family:'Source Serif 4',serif;font-size:1.05rem;font-weight:300;line-height:1.65;color:var(--ts);margin-bottom:.7rem}
+.ame{font-family:'Libre Franklin',sans-serif;font-size:.7rem;font-weight:600;color:var(--tp);letter-spacing:.02em}
+.ame .by{color:var(--tt);font-weight:400;letter-spacing:.06em;text-transform:uppercase;font-size:.62rem;margin-right:.35rem}
+
+/* DESTAQUES SECUNDARIOS */
+.h1 .scol{padding-bottom:1.2rem;border-bottom:.5px solid var(--bm);margin-bottom:1.2rem}
+.h1 .scol:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.h1 .simg{aspect-ratio:16/10;background:var(--bl);margin-bottom:.7rem;overflow:hidden}
+.h1 .simg img{width:100%;height:100%;object-fit:cover}
+.h1 h3{font-family:'Playfair Display',serif;font-size:1.18rem;font-weight:600;line-height:1.2;margin-bottom:.45rem;cursor:pointer;letter-spacing:-.005em;transition:color .15s}
+.h1 h3:hover{color:var(--ac)}
+.h1 .ex{font-family:'Source Serif 4',serif;font-size:.88rem;font-weight:300;line-height:1.6;color:var(--ts);margin-bottom:.45rem}
+
+/* SIDEBAR MAIS LIDAS */
+.aside .stt{font-family:'Libre Franklin',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--tp);border-top:2px solid var(--ink);padding-top:.55rem;margin-bottom:1rem;display:block}
+.mlrow{display:grid;grid-template-columns:auto 1fr;gap:.85rem;padding:.9rem 0;border-bottom:.5px solid var(--bl);align-items:start}
+.mlrow:first-of-type{padding-top:.4rem}
+.mlrow:last-of-type{border-bottom:none}
+.mlnum{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:300;color:var(--tt);line-height:.9;font-style:italic}
+.mltt{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:500;line-height:1.25;cursor:pointer;transition:color .15s}
+.mltt:hover{color:var(--ac)}
+.mltg{font-family:'Libre Franklin',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:.25rem}
+
+/* SECTION TITLE */
+.secthdr{display:flex;align-items:center;gap:1rem;margin:2.5rem 0 1.5rem}
+.sectt{font-family:'Libre Franklin',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--tp);white-space:nowrap}
+.sectl{flex:1;height:1px;background:var(--ink)}
+
+/* GRID DE ULTIMAS (cards 3 colunas) */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem 1.8rem;padding-bottom:2rem;border-bottom:1px solid var(--ink)}
+.card{cursor:default;position:relative}
+.card .cimg{aspect-ratio:16/10;background:var(--bl);margin-bottom:.75rem;overflow:hidden}
+.card .cimg img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.card:hover .cimg img{transform:scale(1.03)}
+.card h4{font-family:'Playfair Display',serif;font-size:1.18rem;font-weight:600;line-height:1.22;margin-bottom:.45rem;letter-spacing:-.005em;cursor:pointer;transition:color .15s}
+.card h4:hover{color:var(--ac)}
+.card .exs{font-family:'Source Serif 4',serif;font-size:.88rem;font-weight:300;line-height:1.55;color:var(--ts);margin-bottom:.5rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card .meta{display:flex;justify-content:space-between;align-items:center;font-family:'Libre Franklin',sans-serif;font-size:.66rem;color:var(--tt);letter-spacing:.04em;text-transform:uppercase}
+.bdel{font-size:.65rem;color:var(--tt);background:var(--bg);border:.5px solid var(--bm);cursor:pointer;padding:3px 6px;display:none;font-family:inherit;border-radius:2px;transition:all .15s}
+.bdel:hover{color:var(--ac);border-color:var(--ac)}
+.aon .bdel{display:inline-block}
+
+/* MENSAGENS */
+.msg{text-align:center;padding:4rem 1rem;font-family:'Source Serif 4',serif;font-style:italic;font-size:.95rem;color:var(--tt);grid-column:1/-1}
+
+/* ADMIN */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:center;justify-content:center}
 .modal.open{display:flex}
-.mbox{background:var(--sf);border-radius:10px;padding:2rem;width:100%;max-width:340px;margin:1rem}
-.mttl{font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ts);margin-bottom:1.25rem}
-.mbox input[type=password]{width:100%;font-size:.9rem;padding:.5rem .75rem;border:.5px solid var(--bm);border-radius:5px;background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none;margin-bottom:.75rem}
+.mbox{background:var(--sf);padding:2rem;width:100%;max-width:360px;margin:1rem;border-top:3px solid var(--ink)}
+.mttl{font-family:'Libre Franklin',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tp);margin-bottom:1.25rem}
+.mbox input[type=password]{width:100%;font-size:.95rem;padding:.6rem .8rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:inherit;outline:none;margin-bottom:.75rem;border-radius:0}
 .merr{font-size:.75rem;color:var(--ac);margin-bottom:.75rem;display:none}
 .macts{display:flex;gap:.5rem}
-.benter{font-size:.8rem;font-weight:500;background:var(--tp);color:var(--bg);border:none;border-radius:3px;padding:.5rem 1.2rem;cursor:pointer;font-family:'DM Sans',sans-serif}
-.bcls{font-size:.8rem;background:transparent;color:var(--ts);border:.5px solid var(--bm);border-radius:3px;padding:.5rem .9rem;cursor:pointer;font-family:'DM Sans',sans-serif}
-.abar{display:none;background:var(--sf);border:.5px solid var(--bm);border-radius:8px;padding:.75rem 1rem;margin-bottom:1.5rem;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.benter{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--bg);border:none;padding:.6rem 1.4rem;cursor:pointer;font-family:inherit}
+.bcls{font-size:.75rem;background:transparent;color:var(--ts);border:.5px solid var(--bm);padding:.6rem 1rem;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.1em}
+.abar{display:none;background:var(--sf);border:.5px solid var(--bm);padding:.75rem 1rem;margin:1.5rem 0 0;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .abar.on{display:flex}
-.albl{font-size:.72rem;color:var(--ts)}
-.albl span{color:var(--ac);font-weight:500}
+.albl{font-family:'Libre Franklin',sans-serif;font-size:.72rem;color:var(--ts);letter-spacing:.04em}
+.albl span{color:var(--ac);font-weight:600;text-transform:uppercase;letter-spacing:.1em}
 .aacts{display:flex;gap:.5rem}
-.bnew{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;color:var(--tp);background:transparent;border:.5px solid var(--bm);border-radius:3px;padding:.4rem .9rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
-.bnew:hover{background:var(--bg)}
-.bout{font-size:.72rem;color:var(--tt);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:.4rem .5rem}
+.bnew{font-family:'Libre Franklin',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--bg);background:var(--ink);border:none;padding:.55rem 1rem;cursor:pointer}
+.bnew:hover{opacity:.85}
+.bout{font-size:.7rem;color:var(--tt);background:none;border:none;cursor:pointer;font-family:inherit;padding:.4rem .5rem;text-transform:uppercase;letter-spacing:.08em}
 .bout:hover{color:var(--ac)}
-.fwrap{display:none;margin-bottom:1.5rem;padding:1.5rem;border:.5px solid var(--bm);border-radius:8px;background:var(--sf)}
+
+/* FORM */
+.fwrap{display:none;margin:1.5rem 0;padding:1.75rem;border:.5px solid var(--bm);background:var(--sf)}
 .fwrap.open{display:block}
-.fttl{font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ts);margin-bottom:1.25rem}
+.fttl{font-family:'Libre Franklin',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tp);margin-bottom:1.5rem;border-bottom:.5px solid var(--bm);padding-bottom:.75rem}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.fi{margin-bottom:1rem}
-.fi label{display:block;font-size:.7rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ts);margin-bottom:.35rem}
-.fi input,.fi textarea{width:100%;font-size:.88rem;padding:.5rem .75rem;border:.5px solid var(--bm);border-radius:5px;background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
-.fi input:focus,.fi textarea:focus{border-color:var(--ts)}
-.fi textarea.sh{min-height:80px;resize:vertical}
-.tbar{display:flex;gap:4px;margin-bottom:4px}
-.tb{font-size:.78rem;font-weight:500;background:var(--bg);color:var(--tp);border:.5px solid var(--bm);border-radius:4px;padding:4px 10px;cursor:pointer;font-family:'DM Sans',sans-serif;line-height:1.4;transition:background .1s}
+.fi{margin-bottom:1.1rem}
+.fi label{display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem}
+.fi input,.fi textarea{width:100%;font-size:.92rem;padding:.55rem .8rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:inherit;outline:none;border-radius:0;transition:border-color .15s}
+.fi input:focus,.fi textarea:focus{border-color:var(--ink)}
+.fi textarea.sh{min-height:80px;resize:vertical;font-family:'Source Serif 4',serif}
+.tbar{display:flex;gap:4px;margin-bottom:6px}
+.tb{font-size:.8rem;font-weight:500;background:var(--bg);color:var(--tp);border:.5px solid var(--bm);padding:4px 11px;cursor:pointer;font-family:inherit;line-height:1.4;transition:background .1s;border-radius:0}
 .tb:hover{background:var(--bl)}
-.tb.B{font-weight:700}
-.tb.I{font-style:italic}
-.tb.U{text-decoration:underline}
-.editor{width:100%;min-height:360px;padding:.75rem;border:.5px solid var(--bm);border-radius:5px;background:var(--bg);color:var(--tp);font-family:'Source Serif 4',serif;font-size:.9rem;line-height:1.8;outline:none;overflow-y:auto}
-.editor:focus{border-color:var(--ts)}
-.fhint{font-size:.7rem;color:var(--tt);margin-top:.35rem;line-height:1.5}
-.facts{display:flex;gap:.5rem;align-items:center;margin-top:1rem}
-.bsave{font-size:.8rem;font-weight:500;background:var(--tp);color:var(--bg);border:none;border-radius:3px;padding:.55rem 1.4rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .15s}
-.bsave:hover{opacity:.82}
+.tb.B{font-weight:700}.tb.I{font-style:italic}.tb.U{text-decoration:underline}
+.editor{width:100%;min-height:360px;padding:.85rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'Source Serif 4',serif;font-size:.95rem;line-height:1.8;outline:none;overflow-y:auto}
+.editor:focus{border-color:var(--ink)}
+.fhint{font-size:.7rem;color:var(--tt);margin-top:.4rem;line-height:1.5}
+.facts{display:flex;gap:.5rem;align-items:center;margin-top:1.25rem}
+.bsave{font-family:'Libre Franklin',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:var(--bg);border:none;padding:.7rem 1.8rem;cursor:pointer;transition:opacity .15s}
+.bsave:hover{opacity:.85}
 .bsave:disabled{opacity:.5;cursor:default}
-.bcanc{font-size:.8rem;background:transparent;color:var(--ts);border:.5px solid var(--bm);border-radius:3px;padding:.55rem 1rem;cursor:pointer;font-family:'DM Sans',sans-serif}
-.sst{font-size:.75rem;color:var(--tt)}
-.bio{margin-top:4rem;padding:1.5rem 0;border-top:.5px solid var(--bm);display:flex;align-items:flex-start;gap:1.25rem}
-.bii{width:46px;height:46px;min-width:46px;border-radius:50%;border:.5px solid var(--bm);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--ts)}
-.bit{font-size:.82rem;color:var(--ts);line-height:1.65}
-.bit strong{color:var(--tp);font-weight:500}
-.bit a{color:var(--ts);text-decoration:none;border-bottom:.5px solid var(--bm)}
-.bit a:hover{color:var(--tp)}
-footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;text-align:center;font-size:.7rem;color:var(--tt);letter-spacing:.04em}
-.ab{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--ts);cursor:pointer;border:none;background:none;font-family:'DM Sans',sans-serif;padding:0;margin-bottom:2rem;transition:color .15s}
-.ab:hover{color:var(--tp)}
-.ahdr{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:.5px solid var(--bm)}
-.aatg{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);display:block;margin-bottom:.75rem}
-.attl{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:600;line-height:1.15;margin-bottom:1rem}
-.alead{font-family:'Source Serif 4',serif;font-size:1.1rem;font-weight:300;line-height:1.75;color:var(--ts);margin-bottom:1rem;font-style:italic}
-.amet{font-size:.72rem;color:var(--tt)}
-.abody{font-family:'Source Serif 4',serif;font-size:1.05rem;font-weight:300;line-height:1.85}
-.abody p{margin-bottom:1.4rem}
-.abody p:last-child{margin-bottom:0}
+.bcanc{font-family:inherit;font-size:.75rem;background:transparent;color:var(--ts);border:.5px solid var(--bm);padding:.7rem 1.2rem;cursor:pointer;text-transform:uppercase;letter-spacing:.1em}
+.sst{font-size:.75rem;color:var(--tt);font-style:italic;font-family:'Source Serif 4',serif}
+
+/* ARTIGO INDIVIDUAL */
+.ab{display:inline-flex;align-items:center;gap:6px;font-family:'Libre Franklin',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);cursor:pointer;border:none;background:none;padding:0;margin-bottom:2rem;transition:color .15s}
+.ab:hover{color:var(--ac)}
+.ahdr{margin-bottom:2.5rem;padding-bottom:1.75rem;border-bottom:.5px solid var(--bm)}
+.aatg{font-family:'Libre Franklin',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:1rem}
+.attl{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4.5vw,2.9rem);font-weight:700;line-height:1.1;margin-bottom:1.1rem;letter-spacing:-.015em}
+.alead{font-family:'Source Serif 4',serif;font-size:1.15rem;font-weight:300;line-height:1.65;color:var(--ts);margin-bottom:1.25rem;font-style:italic}
+.amet{font-family:'Libre Franklin',sans-serif;font-size:.72rem;color:var(--tt);letter-spacing:.04em}
+.amet strong{color:var(--tp);font-weight:600}
+.aimg{margin:0 0 2rem;aspect-ratio:16/9;background:var(--bl);overflow:hidden}
+.aimg img{width:100%;height:100%;object-fit:cover}
+.abody{font-family:'Source Serif 4',serif;font-size:1.12rem;font-weight:300;line-height:1.85;color:var(--tp)}
+.abody p{margin-bottom:1.5rem}
+.abody>.cap::first-letter{font-family:'Playfair Display',serif;font-size:3.8rem;font-weight:700;float:left;line-height:1;padding:0 .45rem 0 0;margin-top:.1rem;color:var(--ink)}
 .aft{margin-top:3rem;padding-top:1.5rem;border-top:.5px solid var(--bm);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.aftsig{font-size:.82rem;color:var(--ts)}
-.aftsig strong{color:var(--tp);font-weight:500}
-.aftb{font-size:.78rem;color:var(--ts);cursor:pointer;border:.5px solid var(--bm);background:none;font-family:'DM Sans',sans-serif;padding:.45rem .9rem;border-radius:3px;transition:background .15s}
-.aftb:hover{background:var(--sf)}
-.share-art{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;color:var(--ts);cursor:pointer;border:.5px solid var(--bm);background:none;font-family:'DM Sans',sans-serif;padding:.45rem .9rem;border-radius:3px;transition:background .15s}
-.share-art:hover{background:var(--sf)}
-.copied{font-size:.72rem;color:var(--ac);margin-left:.5rem;opacity:0;transition:opacity .3s}
-@media(max-width:620px){.feat{grid-template-columns:1fr;gap:1.5rem}.fdiv{display:none}.fg2{grid-template-columns:1fr}}
+.aftsig{font-family:'Source Serif 4',serif;font-size:.88rem;color:var(--ts);font-style:italic}
+.aftsig strong{color:var(--tp);font-weight:600;font-style:normal}
+.aftb,.share-art{font-family:'Libre Franklin',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);cursor:pointer;border:.5px solid var(--bm);background:none;padding:.55rem 1rem;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.aftb:hover,.share-art:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.copied{font-size:.7rem;color:var(--ac);margin-left:.5rem;opacity:0;transition:opacity .3s;font-style:italic;font-family:'Source Serif 4',serif}
+
+/* FOOTER */
+.bio{margin-top:4rem;padding:2rem;background:var(--sf);border-top:3px solid var(--ink);display:flex;align-items:flex-start;gap:1.5rem}
+.bio img{width:80px;height:80px;min-width:80px;border-radius:50%;object-fit:cover;object-position:center top}
+.bit{font-family:'Source Serif 4',serif;font-size:.92rem;color:var(--ts);line-height:1.65}
+.bit strong{color:var(--tp);font-weight:600;font-family:'Playfair Display',serif;font-size:1.05rem;display:block;margin-bottom:.35rem}
+.bit a{color:var(--ac);border-bottom:.5px solid var(--bm)}
+.bit a:hover{color:var(--ac);border-color:var(--ac)}
+
+footer{background:var(--ink);color:var(--bg);margin-top:0;padding:2.5rem 0 1.5rem}
+footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
+.fcol h5{font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.9rem;opacity:.7}
+.fcol p,.fcol button{font-family:'Source Serif 4',serif;font-size:.85rem;color:rgba(255,255,255,.78);line-height:1.7;background:none;border:none;cursor:pointer;display:block;padding:0;text-align:left;font-family:inherit}
+.fcol button:hover{color:#fff}
+.flogo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:.5rem;letter-spacing:-.01em}
+.fbot{border-top:1px solid rgba(255,255,255,.15);margin-top:2rem;padding-top:1.2rem;text-align:center;font-size:.7rem;color:rgba(255,255,255,.55);letter-spacing:.06em}
+
+/* RESPONSIVO */
+@media(max-width:980px){
+  .hero{grid-template-columns:1fr;gap:2rem}
+  .hdiv{display:none}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  footer .W{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+  .cards{grid-template-columns:1fr;gap:2rem}
+  .fg2{grid-template-columns:1fr}
+  .tbi{font-size:.68rem;gap:.5rem}
+  .tbl,.tbr{gap:.6rem}
+  footer .W{grid-template-columns:1fr;gap:1.5rem}
+  .bio{flex-direction:column;text-align:left;padding:1.5rem}
+  .navi{justify-content:flex-start;padding:.5rem 1.5rem}
+  .abody>.cap::first-letter{font-size:3.4rem}
+}
 </style>
 </head>
 <body>
@@ -138,29 +220,42 @@ footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;t
   </div>
 </div>
 
+<!-- VIEW: INDEX -->
 <div id="VI">
-  <div class="W">
-    <span class="dtopo" id="hoje"></span>
-    <header class="mast">
-      <div style="position:relative;min-height:120px">
-        <img src="IMG_4578.PNG" alt="Iris de Oliveira" onclick="goIdx()" style="height:120px;cursor:pointer;display:block">
-        <span class="mt" style="position:absolute;bottom:0;right:0">Analise &amp; Opiniao</span>
+
+  <div class="topbar">
+    <div class="W tbi">
+      <div class="tbl">
+        <span class="tdate" id="hoje"></span>
       </div>
-    </header>
-    <div class="dbar">
-      <button class="fbtn fativo" onclick="filtrar(this,'todos')">Todos</button>
-      <span class="fsep">|</span>
-      <button class="fbtn" onclick="filtrar(this,'política')">Política</button>
-      <span class="fsep">|</span>
-      <button class="fbtn" onclick="filtrar(this,'economia')">Economia</button>
-      <span class="fsep">|</span>
-      <button class="fbtn" onclick="filtrar(this,'segurança')">Segurança</button>
-      <span class="fsep">|</span>
-      <button class="fbtn" onclick="filtrar(this,'sociedade')">Sociedade</button>
-      <span class="fsep">|</span>
-      <button class="fbtn" onclick="filtrar(this,'saúde')">Saúde</button>
-      <button class="abtn" id="abtn" onclick="openModal()" style="margin-left:auto">&#9679;</button>
+      <div class="tbr">
+        <button class="tbe" onclick="alert('Em breve: assinatura da newsletter.')">Newsletter</button>
+        <button class="tbe" onclick="document.getElementById('eml').click()">Contato</button>
+        <button class="abtn" id="abtn" onclick="openModal()" title="Admin">&#9679;</button>
+      </div>
     </div>
+  </div>
+
+  <header class="mast">
+    <div class="W">
+      <span onclick="goIdx()" class="mn">Iris de Oliveira</span>
+      <span class="mt">Analise &amp; Opiniao</span>
+      <p class="medition"></p>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <div class="navi W">
+      <button class="fbtn fativo" onclick="filtrar(this,'todos')">Inicio</button>
+      <button class="fbtn" onclick="filtrar(this,'política')">Politica</button>
+      <button class="fbtn" onclick="filtrar(this,'economia')">Economia</button>
+      <button class="fbtn" onclick="filtrar(this,'segurança')">Seguranca</button>
+      <button class="fbtn" onclick="filtrar(this,'sociedade')">Sociedade</button>
+      <button class="fbtn" onclick="filtrar(this,'saúde')">Saude</button>
+    </div>
+  </nav>
+
+  <div class="W">
 
     <div class="abar" id="abar">
       <span class="albl">Modo <span>administrador</span> ativo</span>
@@ -178,13 +273,18 @@ footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;t
       </div>
       <div class="fg2">
         <div class="fi">
-          <label>Tema / Editoria</label>
-          <input type="text" id="fg" placeholder="Ex: Judiciario, Economia...">
+          <label>Editoria</label>
+          <input type="text" id="fg" placeholder="Ex: Politica, Economia, Saude...">
         </div>
         <div class="fi">
           <label>Data de publicacao</label>
           <input type="date" id="fd">
         </div>
+      </div>
+      <div class="fi">
+        <label>URL da imagem de capa (opcional)</label>
+        <input type="url" id="fimg" placeholder="https://...">
+        <p class="fhint">Cole o link de uma imagem (jpg, png, webp). Proporcao recomendada 16:10.</p>
       </div>
       <div class="fi">
         <label>Resumo (lead)</label>
@@ -207,37 +307,77 @@ footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;t
       </div>
     </div>
 
-    <div class="feat" id="feat" style="display:none">
-      <div id="f0"></div>
-      <div class="fdiv"></div>
-      <div id="f1"></div>
+    <!-- HERO: manchete + 2 destaques + sidebar mais lidas -->
+    <section class="hero" id="hero" style="display:none">
+      <div class="h0" id="h0"></div>
+      <div class="hdiv"></div>
+      <div class="h1" id="h1"></div>
+      <div class="hdiv"></div>
+      <aside class="aside" id="aside">
+        <span class="stt">Mais lidas</span>
+        <div id="mlist"></div>
+      </aside>
+    </section>
+
+    <div class="secthdr">
+      <span class="sectt" id="secttl">Ultimas publicacoes</span>
+      <span class="sectl"></span>
     </div>
 
-    <span class="sl">Todos os artigos</span>
-    <div class="lst" id="lst">
+    <div class="cards" id="lst">
       <div class="msg" id="lmsg">Carregando artigos...</div>
     </div>
 
-    <div class="bio">
-      <img src="foto_iris.png" alt="Iris de Oliveira" style="width:72px;height:72px;min-width:72px;border-radius:50%;object-fit:cover;object-position:center top;border:.5px solid var(--bm)">
-      <div>
-        <p class="bit"><strong>Iris de Oliveira</strong> e analista de politicas publicas e colunista. Escreve sobre poder, economia e instituicoes, explicando como decisoes do Estado impactam a vida real — do trabalho a renda e a saude — em linguagem clara, direta e acessivel.</p>
-        <p style="margin-top:.5rem;font-size:.78rem;color:var(--tt)">Contato: <a id="eml" href="#">-</a></p>
+    <div id="secao-autor"></div>
+  </div>
+
+  <footer>
+    <div class="W">
+      <div class="fcol">
+        <p class="flogo">Iris de Oliveira</p>
+        <p style="font-style:italic;opacity:.7">Analise e opiniao independente sobre politica, economia e sociedade brasileira.</p>
+      </div>
+      <div class="fcol">
+        <h5>Editorias</h5>
+        <button onclick="navTo('política')">Politica</button>
+        <button onclick="navTo('economia')">Economia</button>
+        <button onclick="navTo('segurança')">Seguranca</button>
+        <button onclick="navTo('sociedade')">Sociedade</button>
+        <button onclick="navTo('saúde')">Saude</button>
+      </div>
+      <div class="fcol">
+        <h5>Sobre</h5>
+        <button onclick="abrirAutor()">O autor</button>
+        <button onclick="abrirContato()">Contato</button>
+      </div>
+      <div class="fcol">
+        <h5>Siga</h5>
+        <a href="https://www.tiktok.com/@colunairisdeoliveira" target="_blank" style="display:flex;align-items:center;gap:.5rem;color:rgba(255,255,255,.78);text-decoration:none;font-family:'Source Serif 4',serif;font-size:.85rem;transition:color .15s">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+          @colunairisdeoliveira
+        </a>
       </div>
     </div>
-  </div>
-  <footer><div class="W">&copy; <span id="ano"></span> Iris de Oliveira &middot; Todos os direitos reservados</div></footer>
+    <div class="fbot W" style="display:block">&copy; <span id="ano"></span> Iris de Oliveira &middot; Todos os direitos reservados</div>
+  </footer>
 </div>
 
+<!-- VIEW: ARTIGO -->
 <div id="VA">
-  <div class="N">
-    <header class="mast">
-      <div style="position:relative;min-height:120px">
-        <img src="IMG_4578.PNG" alt="Iris de Oliveira" onclick="goIdx()" style="height:120px;cursor:pointer;display:block">
-        <span class="mt" style="position:absolute;bottom:0;right:0">Analise &amp; Opiniao</span>
-      </div>
-    </header>
-    <div style="height:2rem"></div>
+  <div class="topbar">
+    <div class="W tbi">
+      <span class="tdate" id="hoje2"></span>
+      <button class="tbe" onclick="goIdx()">&#8592; Inicio</button>
+    </div>
+  </div>
+  <header class="mast">
+    <div class="W">
+      <span onclick="goIdx()" class="mn">Iris de Oliveira</span>
+      <span class="mt">Analise &amp; Opiniao</span>
+    </div>
+  </header>
+
+  <div class="N" style="padding-top:2.5rem">
     <button class="ab" onclick="goIdx()">&#8592; Voltar aos artigos</button>
     <div class="ahdr">
       <span class="aatg" id="aatg"></span>
@@ -245,6 +385,7 @@ footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;t
       <p class="alead" id="alead"></p>
       <span class="amet" id="amet"></span>
     </div>
+    <div class="aimg" id="aimg" style="display:none"><img id="aimg_i" alt=""></div>
     <div class="abody" id="abody"></div>
     <div class="aft">
       <p class="aftsig"><strong>Iris de Oliveira</strong> &mdash; Analista de politicas publicas e colunista</p>
@@ -258,20 +399,59 @@ footer{border-top:.5px solid var(--bl);padding:1.5rem 0 2.5rem;margin-top:3rem;t
   </div>
 </div>
 
+<!-- MODAL O AUTOR -->
+<div id="modal-autor" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center">
+  <div style="background:#fff;max-width:480px;width:90%;border-radius:8px;padding:2rem;position:relative">
+    <button onclick="fecharModal('modal-autor')" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#555">&times;</button>
+    <div style="display:flex;align-items:center;gap:1.25rem;margin-bottom:1.25rem">
+      <img src="foto_iris.png" alt="Iris de Oliveira" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:center top;border:1px solid #ddd">
+      <strong style="font-family:'Playfair Display',serif;font-size:1.2rem">Iris de Oliveira</strong>
+    </div>
+    <p style="font-size:.88rem;line-height:1.75;color:#444">Analista de políticas públicas e colunista. Escreve sobre poder, economia e instituições, explicando como decisões do Estado impactam a vida real — do trabalho à renda e à saúde — em linguagem clara, direta e acessível.</p>
+  </div>
+</div>
+
+<!-- MODAL CONTATO -->
+<div id="modal-contato" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center">
+  <div style="background:#fff;max-width:400px;width:90%;border-radius:8px;padding:2rem;position:relative">
+    <button onclick="fecharModal('modal-contato')" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#555">&times;</button>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:1rem">Contato</h3>
+    <p style="font-size:.88rem;color:#444;margin-bottom:.5rem">Para sugestões, parcerias ou imprensa:</p>
+    <a id="eml" href="#" style="font-size:.95rem;color:#8b2c2c;font-weight:500">-</a>
+  </div>
+</div>
+
 <script>
 var U='https://bnrewcmjuvpnowdaxjpt.supabase.co';
 var K='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJucmV3Y21qdXZwbm93ZGF4anB0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MzMwMDMsImV4cCI6MjA5MDMwOTAwM30.YV5XTane49QcAc_iGqOdjc0CD33qDVu_XOLctgcVcnQ';
 var SENHA='iris2026';
-var isAdmin=false;
-var arts=[];
-var currentId=null;
+var isAdmin=false, arts=[], currentId=null;
 
 var d=new Date();
-document.getElementById('hoje').textContent=d.toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+var dateStr=d.toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+document.getElementById('hoje').textContent=dateStr;
+document.getElementById('hoje2').textContent=dateStr;
 document.getElementById('ano').textContent=d.getFullYear();
-var el=document.getElementById('eml');
-var em='irisoliveiram'+'@'+'gmail.com';
-el.textContent=em;el.href='mailto:'+em;
+var els=document.querySelectorAll('#eml'), em='irisoliveiram'+'@'+'gmail.com';
+els.forEach(function(el){el.textContent=em;el.href='mailto:'+em;});
+
+function abrirAutor(){
+  var m=document.getElementById('modal-autor');
+  m.style.display='flex';
+}
+function abrirContato(){
+  var m=document.getElementById('modal-contato');
+  m.style.display='flex';
+}
+function fecharModal(id){
+  document.getElementById(id).style.display='none';
+}
+// fechar clicando fora
+['modal-autor','modal-contato'].forEach(function(id){
+  document.getElementById(id).addEventListener('click',function(e){
+    if(e.target===this)fecharModal(id);
+  });
+});
 
 function api(method,path,body,cb){
   var x=new XMLHttpRequest();
@@ -287,66 +467,103 @@ function api(method,path,body,cb){
   x.onerror=function(){cb(new Error('network'));};
   x.send(body?JSON.stringify(body):null);
 }
-
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 api('GET','artigos?select=*&order=created_at.desc',null,function(err,data){
   if(err){document.getElementById('lmsg').textContent='Erro ao carregar: '+err.message;return;}
   arts=data||[];
-  renderFeat();
+  renderHero();
   renderList();
+  renderMaisLidas();
   checkHash();
 });
 
 function checkHash(){
   var h=window.location.hash;
-  if(h&&h.indexOf('#artigo-')===0){
-    var id=parseInt(h.replace('#artigo-',''));
-    if(id)openArt(id);
-  }
+  if(h&&h.indexOf('#artigo-')===0){var id=parseInt(h.replace('#artigo-',''));if(id)openArt(id);}
 }
-
 window.addEventListener('hashchange',function(){
   var h=window.location.hash;
-  if(h&&h.indexOf('#artigo-')===0){
-    var id=parseInt(h.replace('#artigo-',''));
-    if(id)openArt(id);
-  } else if(h===''||h==='#'){
-    goIdx();
-  }
+  if(h&&h.indexOf('#artigo-')===0){var id=parseInt(h.replace('#artigo-',''));if(id)openArt(id);}
+  else if(h===''||h==='#'){goIdx();}
 });
 
-function renderFeat(){
-  var feat=document.getElementById('feat');
-  if(arts.length===0){feat.style.display='none';return;}
-  feat.style.display='grid';
-  var f0=document.getElementById('f0');
-  var f1=document.getElementById('f1');
+function imgTag(url,alt){
+  if(!url)return '<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--bl),var(--sf));display:flex;align-items:center;justify-content:center;font-family:\'Playfair Display\',serif;font-style:italic;color:var(--tt);font-size:.8rem">sem imagem</div>';
+  return '<img src="'+esc(url)+'" alt="'+esc(alt||'')+'" loading="lazy">';
+}
+
+function renderHero(){
+  var hero=document.getElementById('hero');
+  if(arts.length===0){hero.style.display='none';return;}
+  hero.style.display='grid';
   var a0=arts[0];
-  f0.innerHTML=(a0.tag?'<span class="atg">'+esc(a0.tag)+'</span>':'')+'<h2 data-id="'+a0.id+'">'+esc(a0.title)+'</h2>'+(a0.excerpt?'<p class="ex">'+esc(a0.excerpt)+'</p>':'')+'<span class="ame">Iris de Oliveira'+(a0.date?' &middot; '+esc(a0.date):'')+'</span>';
-  f0.querySelector('h2').addEventListener('click',function(){openArt(+this.getAttribute('data-id'));});
-  if(arts.length>=2){
-    var a1=arts[1];
-    document.querySelector('.fdiv').style.display='';
-    f1.innerHTML=(a1.tag?'<span class="atg">'+esc(a1.tag)+'</span>':'')+'<h3 data-id="'+a1.id+'">'+esc(a1.title)+'</h3>'+(a1.excerpt?'<p class="ex">'+esc(a1.excerpt)+'</p>':'')+'<span class="ame">'+(a1.date?esc(a1.date):'')+'</span>';
-    f1.querySelector('h3').addEventListener('click',function(){openArt(+this.getAttribute('data-id'));});
-  }else{document.querySelector('.fdiv').style.display='none';f1.innerHTML='';}
+  document.getElementById('h0').innerHTML=
+    '<div class="himg" data-id="'+a0.id+'">'+imgTag(a0.imagem_url,a0.title)+'</div>'+
+    (a0.tag?'<span class="atg">'+esc(a0.tag)+'</span>':'')+
+    '<h2 data-id="'+a0.id+'">'+esc(a0.title)+'</h2>'+
+    (a0.excerpt?'<p class="ex">'+esc(a0.excerpt)+'</p>':'')+
+    '<span class="ame"><span class="by">Por</span>Iris de Oliveira'+(a0.date?' &middot; '+esc(a0.date):'')+'</span>';
+
+  var h1=document.getElementById('h1'); h1.innerHTML='';
+  for(var i=1;i<=2;i++){
+    if(!arts[i])continue;
+    var a=arts[i];
+    var div=document.createElement('div'); div.className='scol';
+    div.innerHTML=
+      '<div class="simg" data-id="'+a.id+'">'+imgTag(a.imagem_url,a.title)+'</div>'+
+      (a.tag?'<span class="atg">'+esc(a.tag)+'</span>':'')+
+      '<h3 data-id="'+a.id+'">'+esc(a.title)+'</h3>'+
+      (a.excerpt?'<p class="ex">'+esc(a.excerpt)+'</p>':'')+
+      '<span class="ame">'+(a.date?esc(a.date):'')+'</span>';
+    h1.appendChild(div);
+  }
+  bindOpen('#hero [data-id]');
+}
+
+function renderMaisLidas(){
+  var m=document.getElementById('mlist'); m.innerHTML='';
+  var pool=arts.slice(3,8);
+  if(pool.length===0){pool=arts.slice(0,5);}
+  pool.forEach(function(a,i){
+    var r=document.createElement('div'); r.className='mlrow';
+    r.innerHTML='<div class="mlnum">'+(i+1)+'</div>'+
+      '<div>'+(a.tag?'<span class="mltg">'+esc(a.tag)+'</span>':'')+
+      '<div class="mltt" data-id="'+a.id+'">'+esc(a.title)+'</div></div>';
+    m.appendChild(r);
+  });
+  bindOpen('#mlist [data-id]');
 }
 
 function renderList(){
   var lst=document.getElementById('lst');
-  var lmsg=document.getElementById('lmsg');
-  lst.querySelectorAll('.row').forEach(function(r){r.remove();});
-  lmsg.style.display='none';
+  lst.querySelectorAll('.card').forEach(function(r){r.remove();});
+  var lmsg=document.getElementById('lmsg'); lmsg.style.display='none';
   if(arts.length===0){lmsg.textContent='Nenhum artigo publicado ainda.';lmsg.style.display='block';return;}
   arts.forEach(function(a){
-    var row=document.createElement('div');
-    row.className='row';
-    row.setAttribute('data-tag',(a.tag||'').toLowerCase());row.innerHTML='<div>'+(a.tag?'<span class="atg">'+esc(a.tag)+'</span>':'')+'<h4 data-id="'+a.id+'">'+esc(a.title)+'</h4>'+(a.excerpt?'<p class="exs">'+esc(a.excerpt)+'</p>':'')+'</div>'+'<div><div class="dt">'+esc(a.date||'')+'</div><button class="bdel" data-id="'+a.id+'" title="Remover">&#10005;</button></div>';
-    lst.appendChild(row);
+    var card=document.createElement('article');
+    card.className='card';
+    card.setAttribute('data-tag',(a.tag||'').toLowerCase());
+    card.innerHTML=
+      '<div class="cimg" data-id="'+a.id+'">'+imgTag(a.imagem_url,a.title)+'</div>'+
+      (a.tag?'<span class="atg">'+esc(a.tag)+'</span>':'')+
+      '<h4 data-id="'+a.id+'">'+esc(a.title)+'</h4>'+
+      (a.excerpt?'<p class="exs">'+esc(a.excerpt)+'</p>':'')+
+      '<div class="meta"><span>'+esc(a.date||'')+'</span>'+
+      '<button class="bdel" data-del="'+a.id+'" title="Remover">remover</button></div>';
+    lst.appendChild(card);
   });
-  lst.querySelectorAll('h4[data-id]').forEach(function(el){el.addEventListener('click',function(){openArt(+this.getAttribute('data-id'));});});
-  lst.querySelectorAll('.bdel[data-id]').forEach(function(el){el.addEventListener('click',function(){delArt(+this.getAttribute('data-id'));});});
+  bindOpen('#lst [data-id]');
+  lst.querySelectorAll('[data-del]').forEach(function(b){
+    b.addEventListener('click',function(e){e.stopPropagation();delArt(+this.getAttribute('data-del'));});
+  });
+}
+
+function bindOpen(sel){
+  document.querySelectorAll(sel).forEach(function(el){
+    el.style.cursor='pointer';
+    el.addEventListener('click',function(){openArt(+this.getAttribute('data-id'));});
+  });
 }
 
 function openArt(id){
@@ -356,9 +573,13 @@ function openArt(id){
   document.getElementById('aatg').textContent=a.tag||'';
   document.getElementById('attl').textContent=a.title||'';
   document.getElementById('alead').textContent=a.excerpt||'';
-  document.getElementById('amet').textContent='Iris de Oliveira'+(a.date?' \u00b7 '+a.date:'');
-  var b=document.getElementById('abody');
-  b.innerHTML=a.body||'<p style="color:var(--tt)">Texto nao disponivel.</p>';
+  document.getElementById('amet').innerHTML='<strong>Iris de Oliveira</strong>'+(a.date?' &middot; '+esc(a.date):'');
+  var aimg=document.getElementById('aimg');
+  if(a.imagem_url){document.getElementById('aimg_i').src=a.imagem_url;document.getElementById('aimg_i').alt=a.title||'';aimg.style.display='block';}
+  else{aimg.style.display='none';}
+  document.getElementById('abody').innerHTML=a.body||'<p style="color:var(--tt)">Texto nao disponivel.</p>';
+  var primeiroP=document.querySelector('#abody>p:first-child');
+  if(primeiroP)primeiroP.classList.add('cap');
   history.pushState(null,'','#artigo-'+id);
   document.getElementById('VI').style.display='none';
   document.getElementById('VA').style.display='block';
@@ -376,29 +597,12 @@ function goIdx(){
 function shareArt(){
   if(!currentId)return;
   var url=window.location.origin+window.location.pathname+'#artigo-'+currentId;
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(url).then(function(){showCopied();});
-  }else{
-    var ta=document.createElement('textarea');
-    ta.value=url;document.body.appendChild(ta);ta.select();
-    document.execCommand('copy');document.body.removeChild(ta);
-    showCopied();
-  }
+  if(navigator.clipboard){navigator.clipboard.writeText(url).then(showCopied);}
+  else{var ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showCopied();}
 }
+function showCopied(){var c=document.getElementById('copied');c.style.opacity='1';setTimeout(function(){c.style.opacity='0';},2000);}
 
-function showCopied(){
-  var c=document.getElementById('copied');
-  c.style.opacity='1';
-  setTimeout(function(){c.style.opacity='0';},2000);
-}
-
-function openModal(){
-  if(isAdmin){logout();return;}
-  document.getElementById('modal').classList.add('open');
-  document.getElementById('pwd').value='';
-  document.getElementById('merr').style.display='none';
-  setTimeout(function(){document.getElementById('pwd').focus();},50);
-}
+function openModal(){if(isAdmin){logout();return;}document.getElementById('modal').classList.add('open');document.getElementById('pwd').value='';document.getElementById('merr').style.display='none';setTimeout(function(){document.getElementById('pwd').focus();},50);}
 function closeModal(){document.getElementById('modal').classList.remove('open');}
 document.getElementById('pwd').addEventListener('keydown',function(e){if(e.key==='Enter')checkPwd();if(e.key==='Escape')closeModal();});
 document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
@@ -409,12 +613,8 @@ function checkPwd(){
     document.getElementById('abar').classList.add('on');
     document.getElementById('abtn').style.color='var(--ac)';
     document.getElementById('lst').classList.add('aon');
-  }else{
-    document.getElementById('merr').style.display='block';
-    document.getElementById('pwd').select();
-  }
+  }else{document.getElementById('merr').style.display='block';document.getElementById('pwd').select();}
 }
-
 function logout(){
   isAdmin=false;
   document.getElementById('abar').classList.remove('on');
@@ -422,20 +622,13 @@ function logout(){
   document.getElementById('abtn').style.color='';
   document.getElementById('lst').classList.remove('aon');
 }
-
 function toggleForm(){
   var f=document.getElementById('fwrap');
   if(f.classList.contains('open')){f.classList.remove('open');}
   else{f.classList.add('open');document.getElementById('fd').valueAsDate=new Date();document.getElementById('ft').focus();}
 }
-
 function fmt(cmd){document.getElementById('fb').focus();document.execCommand(cmd,false,null);}
-
-function fmtDate(v){
-  if(!v)return'';
-  return new Date(v+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
-}
-
+function fmtDate(v){if(!v)return'';return new Date(v+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});}
 function sanitize(html){
   var tmp=document.createElement('div');tmp.innerHTML=html;
   tmp.querySelectorAll('b,strong').forEach(function(el){var s=document.createElement('span');s.style.fontWeight='700';s.innerHTML=el.innerHTML;el.parentNode.replaceChild(s,el);});
@@ -443,51 +636,60 @@ function sanitize(html){
   tmp.querySelectorAll('u').forEach(function(el){var s=document.createElement('span');s.style.textDecoration='underline';s.innerHTML=el.innerHTML;el.parentNode.replaceChild(s,el);});
   return tmp.innerHTML;
 }
-
 function addArt(){
   var title=document.getElementById('ft').value.trim();
   var tag=document.getElementById('fg').value.trim();
   var excerpt=document.getElementById('fe').value.trim();
   var body=sanitize(document.getElementById('fb').innerHTML.trim());
+  var imagem_url=document.getElementById('fimg').value.trim();
   var dateVal=document.getElementById('fd').value;
   if(!title){alert('Informe o titulo do artigo.');document.getElementById('ft').focus();return;}
-  var btn=document.getElementById('bsave');
-  var sst=document.getElementById('sst');
+  var btn=document.getElementById('bsave'), sst=document.getElementById('sst');
   btn.disabled=true;btn.textContent='Salvando...';sst.textContent='';
-  api('POST','artigos',{tag:tag,title:title,excerpt:excerpt,body:body,date:fmtDate(dateVal)},function(err,data){
-    if(err){sst.textContent='Erro ao salvar.';btn.disabled=false;btn.textContent='Publicar';return;}
+  var payload={tag:tag,title:title,excerpt:excerpt,body:body,date:fmtDate(dateVal)};
+  if(imagem_url)payload.imagem_url=imagem_url;
+  api('POST','artigos',payload,function(err,data){
+    if(err){sst.textContent='Erro ao salvar. Verifique se a coluna imagem_url existe.';btn.disabled=false;btn.textContent='Publicar';return;}
     if(data&&data[0])arts.unshift(data[0]);
-    renderFeat();renderList();
-    document.getElementById('ft').value='';
-    document.getElementById('fg').value='';
-    document.getElementById('fe').value='';
-    document.getElementById('fb').innerHTML='';
-    toggleForm();
-    btn.disabled=false;btn.textContent='Publicar';
+    renderHero();renderList();renderMaisLidas();
+    document.getElementById('ft').value='';document.getElementById('fg').value='';
+    document.getElementById('fe').value='';document.getElementById('fb').innerHTML='';
+    document.getElementById('fimg').value='';
+    toggleForm();btn.disabled=false;btn.textContent='Publicar';
   });
 }
-
 function delArt(id){
   if(!isAdmin)return;
   if(!confirm('Remover este artigo permanentemente?'))return;
   api('DELETE','artigos?id=eq.'+id,null,function(err){
     if(err){alert('Erro ao remover.');return;}
     arts=arts.filter(function(a){return a.id!==id;});
-    renderFeat();renderList();
+    renderHero();renderList();renderMaisLidas();
   });
 }
-
+function navTo(cat){
+  document.querySelectorAll('.fbtn').forEach(function(b,i){
+    b.classList.remove('fativo');
+    if(b.textContent.toLowerCase().indexOf(cat.substring(0,4))!==-1)b.classList.add('fativo');
+  });
+  filtrarCore(cat);
+  document.getElementById('lst').scrollIntoView({behavior:'smooth',block:'start'});
+}
 function filtrar(btn,cat){
   document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('fativo');});
   btn.classList.add('fativo');
-  var rows=document.querySelectorAll('#lst .row');
-  rows.forEach(function(row){
-    var tag=row.getAttribute('data-tag')||'';
+  filtrarCore(cat);
+}
+function filtrarCore(cat){
+  var cards=document.querySelectorAll('#lst .card');
+  cards.forEach(function(card){
+    var tag=card.getAttribute('data-tag')||'';
     var match=(cat==='todos')||(tag.indexOf(cat)!==-1);
-    row.style.display=match?'grid':'none';
+    card.style.display=match?'':'none';
   });
-  var feat=document.getElementById('feat');
-  if(feat){feat.style.display=(cat==='todos')?'grid':'none';}
+  var hero=document.getElementById('hero');
+  if(hero){hero.style.display=(cat==='todos'&&arts.length>0)?'grid':'none';}
+  document.getElementById('secttl').textContent=cat==='todos'?'Ultimas publicacoes':cat.charAt(0).toUpperCase()+cat.slice(1);
 }
 </script>
 </body>
