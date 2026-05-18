@@ -744,14 +744,6 @@ function abrirEdicao(id){
   document.getElementById('ee').value=a.excerpt||'';
   document.getElementById('eb').innerHTML=a.body||'';
   document.getElementById('eimg_url').value=a.imagem_url||'';
-  document.getElementById('eimg_nome').textContent='Nenhum arquivo selecionado';
-  document.getElementById('eimg_file').value='';
-  var prev=document.getElementById('eimg_preview');
-  if(a.imagem_url){
-    prev.innerHTML='<img src="'+a.imagem_url+'" style="max-height:100px;max-width:100%;border:.5px solid var(--bm)" alt="atual"><p style="font-size:.7rem;color:var(--tt);margin-top:.25rem">Imagem atual</p>';
-  } else {
-    prev.innerHTML='';
-  }
   document.getElementById('modal-edit').style.display='flex';
 }
 
