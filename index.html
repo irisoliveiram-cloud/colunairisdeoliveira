@@ -504,7 +504,7 @@ function api(method,path,body,cb){
   x.setRequestHeader('Authorization','Bearer '+K);
   x.setRequestHeader('Content-Type','application/json');
   if(method==='POST')x.setRequestHeader('Prefer','return=representation');
-  if(method==='PATCH')x.setRequestHeader('Prefer','return=minimal');
+  if(method==='PATCH')x.setRequestHeader('Prefer','return=representation');
   x.onload=function(){
     if(x.status>=200&&x.status<300){try{cb(null,x.status===204?null:JSON.parse(x.responseText));}catch(e){cb(e);}}
     else{cb(new Error(x.status+' '+x.responseText));}
@@ -514,7 +514,7 @@ function api(method,path,body,cb){
 }
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-api('GET','artigos?select=*&order=created_at.desc',null,function(err,data){
+api('GET','artigos?select=id,tag,title,excerpt,body,date,created_at,imagem_url&order=created_at.desc',null,function(err,data){
   if(err){document.getElementById('lmsg').textContent='Erro ao carregar: '+err.message;return;}
   arts=data||[];
   renderHero();
@@ -797,10 +797,13 @@ function salvarEdicao(){
     if(dateVal)payload.date=fmtDate(dateVal);
     var imgAtual=document.getElementById('eimg_url').value.trim();
     if(imgAtual)payload.imagem_url=imgAtual;
-    api('PATCH','artigos?id=eq.'+id,payload,function(err){
+    api('PATCH','artigos?id=eq.'+id,payload,function(err,data){
       if(err){sst.textContent='Erro ao salvar.';btn.disabled=false;btn.textContent='Salvar';return;}
       var idx=arts.findIndex(function(a){return a.id===id;});
-      if(idx!==-1)arts[idx]=Object.assign(arts[idx],payload);
+      if(idx!==-1){
+        if(data&&data[0])arts[idx]=data[0];
+        else arts[idx]=Object.assign(arts[idx],payload);
+      }
       renderHero();renderList();renderMaisLidas();
       fecharEdicao();
       btn.disabled=false;btn.textContent='Salvar';
