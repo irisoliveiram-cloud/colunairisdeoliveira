@@ -7,6 +7,7 @@
 <meta name="description" content="Coluna de analise e opiniao sobre politica, economia, seguranca, sociedade e saude. Por Iris de Oliveira.">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1406809777609408" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=Libre+Franklin:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -161,7 +162,7 @@ img{max-width:100%;display:block}
 .amet strong{color:var(--tp);font-weight:600}
 .aimg{margin:0 0 2rem;aspect-ratio:16/9;background:var(--bl);overflow:hidden}
 .aimg img{width:100%;height:100%;object-fit:cover}
-.abody{font-family:'Source Serif 4',serif;font-size:1.12rem;font-weight:300;line-height:1.85;color:var(--tp)}
+.abody{font-family:'Inter',sans-serif;font-size:1rem;font-weight:400;line-height:1.85;color:var(--tp)}
 .abody p{margin-bottom:1.5rem}
 .abody>.cap::first-letter{font-family:'Playfair Display',serif;font-size:3.8rem;font-weight:700;float:left;line-height:1;padding:0 .45rem 0 0;margin-top:.1rem;color:var(--ink)}
 .aft{margin-top:3rem;padding-top:1.5rem;border-top:.5px solid var(--bm);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
@@ -246,11 +247,11 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
   <nav class="nav">
     <div class="navi W">
       <button class="fbtn fativo" onclick="filtrar(this,'todos')">Inicio</button>
-      <button class="fbtn" onclick="filtrar(this,'política')">Politica</button>
+      <button class="fbtn" onclick="filtrar(this,'política')">Política</button>
       <button class="fbtn" onclick="filtrar(this,'economia')">Economia</button>
-      <button class="fbtn" onclick="filtrar(this,'segurança')">Seguranca</button>
+      <button class="fbtn" onclick="filtrar(this,'segurança')">Segurança</button>
       <button class="fbtn" onclick="filtrar(this,'sociedade')">Sociedade</button>
-      <button class="fbtn" onclick="filtrar(this,'saúde')">Saude</button>
+      <button class="fbtn" onclick="filtrar(this,'saúde')">Saúde</button>
     </div>
   </nav>
 
@@ -267,16 +268,16 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
     <div class="fwrap" id="fwrap">
       <p class="fttl">Novo artigo</p>
       <div class="fi">
-        <label>Titulo</label>
-        <input type="text" id="ft" placeholder="Titulo completo do artigo">
+        <label>Título</label>
+        <input type="text" id="ft" placeholder="Título completo do artigo">
       </div>
       <div class="fg2">
         <div class="fi">
           <label>Editoria</label>
-          <input type="text" id="fg" placeholder="Ex: Politica, Economia, Saude...">
+          <input type="text" id="fg" placeholder="Ex: Política, Economia, Saúde...">
         </div>
         <div class="fi">
-          <label>Data de publicacao</label>
+          <label>Data de publicação</label>
           <input type="date" id="fd">
         </div>
       </div>
@@ -287,7 +288,7 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
       </div>
       <div class="fi">
         <label>Resumo (lead)</label>
-        <textarea class="sh" id="fe" placeholder="Dois ou tres periodos que sintetizem o argumento central"></textarea>
+        <textarea class="sh" id="fe" placeholder="Dois ou três períodos que sintetizem o argumento central"></textarea>
       </div>
       <div class="fi">
         <label>Texto completo</label>
@@ -297,7 +298,7 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
           <button class="tb U" onclick="fmt('underline')">S</button>
         </div>
         <div class="editor" id="fb" contenteditable="true" spellcheck="true"></div>
-        <p class="fhint">Selecione o texto e clique N (negrito), I (italico) ou S (sublinhado).</p>
+        <p class="fhint">Selecione o texto e clique N (negrito), I (itálico) ou S (sublinhado).</p>
       </div>
       <div class="facts">
         <button class="bsave" id="bsave" onclick="addArt()">Publicar</button>
@@ -319,7 +320,7 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
     </section>
 
     <div class="secthdr">
-      <span class="sectt" id="secttl">Ultimas publicacoes</span>
+      <span class="sectt" id="secttl">Todas as publicações</span>
       <span class="sectl"></span>
     </div>
 
@@ -334,15 +335,15 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
     <div class="W">
       <div class="fcol">
         <p class="flogo">Iris de Oliveira</p>
-        <p style="font-style:italic;opacity:.7">Analise e opiniao independente sobre politica, economia e sociedade brasileira.</p>
+        <p style="font-style:italic;opacity:.7">Análise e opinião independente sobre política, economia e sociedade brasileira.</p>
       </div>
       <div class="fcol">
         <h5>Editorias</h5>
-        <button onclick="navTo('política')">Politica</button>
+        <button onclick="navTo('política')">Política</button>
         <button onclick="navTo('economia')">Economia</button>
-        <button onclick="navTo('segurança')">Seguranca</button>
+        <button onclick="navTo('segurança')">Segurança</button>
         <button onclick="navTo('sociedade')">Sociedade</button>
-        <button onclick="navTo('saúde')">Saude</button>
+        <button onclick="navTo('saúde')">Saúde</button>
       </div>
       <div class="fcol">
         <h5>Sobre</h5>
@@ -403,7 +404,7 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
     <button onclick="fecharEdicao()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--ts)">&times;</button>
     <p style="font-family:'Libre Franklin',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tp);margin-bottom:1.5rem;border-bottom:.5px solid var(--bm);padding-bottom:.75rem">Editar artigo</p>
     <div style="margin-bottom:1rem">
-      <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Titulo</label>
+      <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Título</label>
       <input type="text" id="et" style="width:100%;font-size:.9rem;padding:.5rem .75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none">
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
@@ -624,9 +625,8 @@ function openArt(id){
   document.getElementById('alead').textContent=a.excerpt||'';
   document.getElementById('amet').innerHTML='<strong>Iris de Oliveira</strong>'+(a.date?' &middot; '+esc(a.date):'');
   var aimg=document.getElementById('aimg');
-  if(a.imagem_url){document.getElementById('aimg_i').src=a.imagem_url;document.getElementById('aimg_i').alt=a.title||'';aimg.style.display='block';}
-  else{aimg.style.display='none';}
-  document.getElementById('abody').innerHTML=a.body||'<p style="color:var(--tt)">Texto nao disponivel.</p>';
+  aimg.style.display='none';
+  document.getElementById('abody').innerHTML=a.body||'<p style="color:var(--tt)">Texto não disponível.</p>';
   var primeiroP=document.querySelector('#abody>p:first-child');
   if(primeiroP)primeiroP.classList.add('cap');
   history.pushState(null,'','#artigo-'+id);
@@ -719,7 +719,7 @@ function addArt(){
   var body=sanitize(document.getElementById('fb').innerHTML.trim());
   var imagem_url=document.getElementById('fimg').value.trim();
   var dateVal=document.getElementById('fd').value;
-  if(!title){alert('Informe o titulo do artigo.');document.getElementById('ft').focus();return;}
+  if(!title){alert('Informe o título do artigo.');document.getElementById('ft').focus();return;}
   var btn=document.getElementById('bsave'), sst=document.getElementById('sst');
   btn.disabled=true;btn.textContent='Salvando...';sst.textContent='';
   var payload={tag:tag,title:title,excerpt:excerpt,body:body,date:fmtDate(dateVal)};
@@ -781,7 +781,7 @@ function salvarEdicao(){
   var id=document.getElementById('modal-edit')._editId;
   if(!id)return;
   var title=document.getElementById('et').value.trim();
-  if(!title){alert('Informe o titulo.');document.getElementById('et').focus();return;}
+  if(!title){alert('Informe o título.');document.getElementById('et').focus();return;}
   var btn=document.getElementById('ebsave');
   var sst=document.getElementById('esst');
   btn.disabled=true;btn.textContent='Salvando...';sst.textContent='';
@@ -842,7 +842,7 @@ function filtrarCore(cat){
   });
   var hero=document.getElementById('hero');
   if(hero){hero.style.display=(cat==='todos'&&arts.length>0)?'grid':'none';}
-  document.getElementById('secttl').textContent=cat==='todos'?'Ultimas publicacoes':cat.charAt(0).toUpperCase()+cat.slice(1);
+  document.getElementById('secttl').textContent=cat==='todos'?'Todas as publicações':cat.charAt(0).toUpperCase()+cat.slice(1);
 }
 </script>
 </body>
