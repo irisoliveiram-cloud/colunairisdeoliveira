@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Iris de Oliveira | Análise e Opinião</title>
-<meta name="description" content="Coluna de analise e opiniao sobre politica, economia, seguranca, sociedade e saude. Por Iris de Oliveira.">
+<meta name="description" content="Coluna de análise e opinião sobre política, economia, segurança, sociedade e saúde. Por Iris de Oliveira.">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1406809777609408" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@ img{max-width:100%;display:block}
 .N{max-width:720px;margin:0 auto;padding:0 1.5rem}
 #VI{display:block}#VA{display:none}
 
-/* TOPBAR (estilo NYT/Folha) */
+/* TOPBAR */
 .topbar{border-bottom:.5px solid var(--bm);background:var(--bg)}
 .tbi{display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;font-size:.72rem;color:var(--ts);letter-spacing:.02em}
 .tbl,.tbr{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
@@ -34,11 +34,8 @@ img{max-width:100%;display:block}
 .tbe:hover{color:var(--ac)}
 .tdate{text-transform:capitalize}
 
-/* MASTHEAD (wordmark centralizado tipo jornal) */
+/* MASTHEAD */
 .mast{padding:1rem 0 .6rem;text-align:center;border-bottom:.5px solid var(--bm)}
-.mn{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,6.5vw,4.4rem);font-weight:900;letter-spacing:-.025em;cursor:pointer;line-height:1;color:var(--ink);display:inline-block}
-.mn:hover{color:var(--ac)}
-.mt{font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--ts);margin-top:.15rem;display:block}
 .medition{font-family:'Source Serif 4',serif;font-size:.74rem;font-style:italic;color:var(--tt);margin-top:.45rem}
 
 /* NAV EDITORIAS */
@@ -48,8 +45,6 @@ img{max-width:100%;display:block}
 .fbtn{font-family:'Libre Franklin',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--tp);background:none;border:none;border-bottom:2px solid transparent;outline:none;padding:.4rem 1.1rem;cursor:pointer;transition:color .15s;-webkit-appearance:none;appearance:none}
 .fbtn:hover{color:var(--ac)}
 .fbtn.fativo{color:var(--ac);border-bottom-color:var(--ac)}
-.abtn{font-size:.65rem;color:var(--tt);cursor:pointer;background:none;border:none;font-family:inherit;padding:.4rem .6rem;transition:color .2s}
-.abtn:hover{color:var(--ts)}
 
 /* HERO + GRID PRINCIPAL */
 .hero{display:grid;grid-template-columns:1.7fr .5px 1fr .5px .85fr;gap:1.8rem;padding:2rem 0 2.5rem;border-bottom:1px solid var(--ink)}
@@ -90,7 +85,7 @@ img{max-width:100%;display:block}
 .sectt{font-family:'Libre Franklin',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--tp);white-space:nowrap}
 .sectl{flex:1;height:1px;background:var(--ink)}
 
-/* GRID DE ULTIMAS (cards 3 colunas) */
+/* GRID DE ULTIMAS */
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem 1.8rem;padding-bottom:2rem;border-bottom:1px solid var(--ink)}
 .card{cursor:default;position:relative}
 .card .cimg{aspect-ratio:16/10;background:var(--bl);margin-bottom:.75rem;overflow:hidden}
@@ -100,56 +95,9 @@ img{max-width:100%;display:block}
 .card h4:hover{color:var(--ac)}
 .card .exs{font-family:'Source Serif 4',serif;font-size:.88rem;font-weight:300;line-height:1.55;color:var(--ts);margin-bottom:.5rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .card .meta{display:flex;justify-content:space-between;align-items:center;font-family:'Libre Franklin',sans-serif;font-size:.66rem;color:var(--tt);letter-spacing:.04em;text-transform:uppercase}
-.bdel{font-size:.65rem;color:var(--tt);background:var(--bg);border:.5px solid var(--bm);cursor:pointer;padding:3px 6px;display:none;font-family:inherit;border-radius:2px;transition:all .15s}
-.bdel:hover{color:var(--ac);border-color:var(--ac)}
-.aon .bdel{display:inline-block}
 
 /* MENSAGENS */
 .msg{text-align:center;padding:4rem 1rem;font-family:'Source Serif 4',serif;font-style:italic;font-size:.95rem;color:var(--tt);grid-column:1/-1}
-
-/* ADMIN */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:center;justify-content:center}
-.modal.open{display:flex}
-.mbox{background:var(--sf);padding:2rem;width:100%;max-width:360px;margin:1rem;border-top:3px solid var(--ink)}
-.mttl{font-family:'Libre Franklin',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tp);margin-bottom:1.25rem}
-.mbox input[type=password]{width:100%;font-size:.95rem;padding:.6rem .8rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:inherit;outline:none;margin-bottom:.75rem;border-radius:0}
-.merr{font-size:.75rem;color:var(--ac);margin-bottom:.75rem;display:none}
-.macts{display:flex;gap:.5rem}
-.benter{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--bg);border:none;padding:.6rem 1.4rem;cursor:pointer;font-family:inherit}
-.bcls{font-size:.75rem;background:transparent;color:var(--ts);border:.5px solid var(--bm);padding:.6rem 1rem;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.1em}
-.abar{display:none;background:var(--sf);border:.5px solid var(--bm);padding:.75rem 1rem;margin:1.5rem 0 0;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.abar.on{display:flex}
-.albl{font-family:'Libre Franklin',sans-serif;font-size:.72rem;color:var(--ts);letter-spacing:.04em}
-.albl span{color:var(--ac);font-weight:600;text-transform:uppercase;letter-spacing:.1em}
-.aacts{display:flex;gap:.5rem}
-.bnew{font-family:'Libre Franklin',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--bg);background:var(--ink);border:none;padding:.55rem 1rem;cursor:pointer}
-.bnew:hover{opacity:.85}
-.bout{font-size:.7rem;color:var(--tt);background:none;border:none;cursor:pointer;font-family:inherit;padding:.4rem .5rem;text-transform:uppercase;letter-spacing:.08em}
-.bout:hover{color:var(--ac)}
-
-/* FORM */
-.fwrap{display:none;margin:1.5rem 0;padding:1.75rem;border:.5px solid var(--bm);background:var(--sf)}
-.fwrap.open{display:block}
-.fttl{font-family:'Libre Franklin',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tp);margin-bottom:1.5rem;border-bottom:.5px solid var(--bm);padding-bottom:.75rem}
-.fg2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.fi{margin-bottom:1.1rem}
-.fi label{display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem}
-.fi input,.fi textarea{width:100%;font-size:.92rem;padding:.55rem .8rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:inherit;outline:none;border-radius:0;transition:border-color .15s}
-.fi input:focus,.fi textarea:focus{border-color:var(--ink)}
-.fi textarea.sh{min-height:80px;resize:vertical;font-family:'Source Serif 4',serif}
-.tbar{display:flex;gap:4px;margin-bottom:6px}
-.tb{font-size:.8rem;font-weight:500;background:var(--bg);color:var(--tp);border:.5px solid var(--bm);padding:4px 11px;cursor:pointer;font-family:inherit;line-height:1.4;transition:background .1s;border-radius:0}
-.tb:hover{background:var(--bl)}
-.tb.B{font-weight:700}.tb.I{font-style:italic}.tb.U{text-decoration:underline}
-.editor{width:100%;min-height:360px;padding:.85rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'Source Serif 4',serif;font-size:.95rem;line-height:1.8;outline:none;overflow-y:auto}
-.editor:focus{border-color:var(--ink)}
-.fhint{font-size:.7rem;color:var(--tt);margin-top:.4rem;line-height:1.5}
-.facts{display:flex;gap:.5rem;align-items:center;margin-top:1.25rem}
-.bsave{font-family:'Libre Franklin',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:var(--bg);border:none;padding:.7rem 1.8rem;cursor:pointer;transition:opacity .15s}
-.bsave:hover{opacity:.85}
-.bsave:disabled{opacity:.5;cursor:default}
-.bcanc{font-family:inherit;font-size:.75rem;background:transparent;color:var(--ts);border:.5px solid var(--bm);padding:.7rem 1.2rem;cursor:pointer;text-transform:uppercase;letter-spacing:.1em}
-.sst{font-size:.75rem;color:var(--tt);font-style:italic;font-family:'Source Serif 4',serif}
 
 /* ARTIGO INDIVIDUAL */
 .ab{display:inline-flex;align-items:center;gap:6px;font-family:'Libre Franklin',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);cursor:pointer;border:none;background:none;padding:0;margin-bottom:2rem;transition:color .15s}
@@ -173,20 +121,19 @@ img{max-width:100%;display:block}
 .copied{font-size:.7rem;color:var(--ac);margin-left:.5rem;opacity:0;transition:opacity .3s;font-style:italic;font-family:'Source Serif 4',serif}
 
 /* FOOTER */
-.bio{margin-top:4rem;padding:2rem;background:var(--sf);border-top:3px solid var(--ink);display:flex;align-items:flex-start;gap:1.5rem}
-.bio img{width:80px;height:80px;min-width:80px;border-radius:50%;object-fit:cover;object-position:center top}
-.bit{font-family:'Source Serif 4',serif;font-size:.92rem;color:var(--ts);line-height:1.65}
-.bit strong{color:var(--tp);font-weight:600;font-family:'Playfair Display',serif;font-size:1.05rem;display:block;margin-bottom:.35rem}
-.bit a{color:var(--ac);border-bottom:.5px solid var(--bm)}
-.bit a:hover{color:var(--ac);border-color:var(--ac)}
-
-footer{background:var(--ink);color:var(--bg);margin-top:0;padding:2.5rem 0 1.5rem}
+footer{background:var(--ink);color:var(--bg);margin-top:4rem;padding:2.5rem 0 1.5rem}
 footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
 .fcol h5{font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.9rem;opacity:.7}
 .fcol p,.fcol button{font-family:'Source Serif 4',serif;font-size:.85rem;color:rgba(255,255,255,.78);line-height:1.7;background:none;border:none;cursor:pointer;display:block;padding:0;text-align:left;font-family:inherit}
 .fcol button:hover{color:#fff}
 .flogo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:.5rem;letter-spacing:-.01em}
 .fbot{border-top:1px solid rgba(255,255,255,.15);margin-top:2rem;padding-top:1.2rem;text-align:center;font-size:.7rem;color:rgba(255,255,255,.55);letter-spacing:.06em}
+
+/* MODAIS LEITURA */
+.lmodal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
+.lmodal.open{display:flex}
+.lmbox{background:var(--bg);max-width:480px;width:90%;border-radius:8px;padding:2rem;position:relative}
+.lmclose{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--ts)}
 
 /* RESPONSIVO */
 @media(max-width:980px){
@@ -197,29 +144,15 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
 }
 @media(max-width:620px){
   .cards{grid-template-columns:1fr;gap:2rem}
-  .fg2{grid-template-columns:1fr}
   .tbi{font-size:.68rem;gap:.5rem}
   .tbl,.tbr{gap:.6rem}
   footer .W{grid-template-columns:1fr;gap:1.5rem}
-  .bio{flex-direction:column;text-align:left;padding:1.5rem}
   .navi{justify-content:flex-start;padding:.5rem 1.5rem}
   .abody>.cap::first-letter{font-size:3.4rem}
 }
 </style>
 </head>
 <body>
-
-<div class="modal" id="modal">
-  <div class="mbox">
-    <p class="mttl">Acesso administrativo</p>
-    <input type="password" id="pwd" placeholder="Digite a senha">
-    <p class="merr" id="merr">Senha incorreta.</p>
-    <div class="macts">
-      <button class="benter" onclick="checkPwd()">Entrar</button>
-      <button class="bcls" onclick="closeModal()">Cancelar</button>
-    </div>
-  </div>
-</div>
 
 <!-- VIEW: INDEX -->
 <div id="VI">
@@ -231,8 +164,7 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
       </div>
       <div class="tbr">
         <button class="tbe" onclick="alert('Em breve: assinatura da newsletter.')">Newsletter</button>
-        <button class="tbe" onclick="document.getElementById('eml').click()">Contato</button>
-        <button class="abtn" id="abtn" onclick="openModal()" title="Admin">&#9679;</button>
+        <button class="tbe" onclick="abrirContato()">Contato</button>
       </div>
     </div>
   </div>
@@ -257,56 +189,6 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
 
   <div class="W">
 
-    <div class="abar" id="abar">
-      <span class="albl">Modo <span>administrador</span> ativo</span>
-      <div class="aacts">
-        <button class="bnew" onclick="toggleForm()">+ Novo artigo</button>
-        <button class="bout" onclick="logout()">Sair</button>
-      </div>
-    </div>
-
-    <div class="fwrap" id="fwrap">
-      <p class="fttl">Novo artigo</p>
-      <div class="fi">
-        <label>Título</label>
-        <input type="text" id="ft" placeholder="Título completo do artigo">
-      </div>
-      <div class="fg2">
-        <div class="fi">
-          <label>Editoria</label>
-          <input type="text" id="fg" placeholder="Ex: Política, Economia, Saúde...">
-        </div>
-        <div class="fi">
-          <label>Data de publicação</label>
-          <input type="date" id="fd">
-        </div>
-      </div>
-      <div class="fi">
-        <label>Link da imagem de capa (opcional)</label>
-        <input type="url" id="fimg" placeholder="Cole o link direto da imagem (ex: https://i.imgur.com/abc.jpg)">
-        <p class="fhint">Suba a imagem no <strong>imgur.com</strong> e cole o link aqui. Proporção recomendada 16:10.</p>
-      </div>
-      <div class="fi">
-        <label>Resumo (lead)</label>
-        <textarea class="sh" id="fe" placeholder="Dois ou três períodos que sintetizem o argumento central"></textarea>
-      </div>
-      <div class="fi">
-        <label>Texto completo</label>
-        <div class="tbar">
-          <button class="tb B" onclick="fmt('bold')">N</button>
-          <button class="tb I" onclick="fmt('italic')">I</button>
-          <button class="tb U" onclick="fmt('underline')">S</button>
-        </div>
-        <div class="editor" id="fb" contenteditable="true" spellcheck="true"></div>
-        <p class="fhint">Selecione o texto e clique N (negrito), I (itálico) ou S (sublinhado).</p>
-      </div>
-      <div class="facts">
-        <button class="bsave" id="bsave" onclick="addArt()">Publicar</button>
-        <button class="bcanc" onclick="toggleForm()">Cancelar</button>
-        <span class="sst" id="sst"></span>
-      </div>
-    </div>
-
     <!-- HERO: manchete + 2 destaques + sidebar mais lidas -->
     <section class="hero" id="hero" style="display:none">
       <div class="h0" id="h0"></div>
@@ -328,7 +210,6 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
       <div class="msg" id="lmsg">Carregando artigos...</div>
     </div>
 
-    <div id="secao-autor"></div>
   </div>
 
   <footer>
@@ -387,7 +268,7 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
     <div class="aimg" id="aimg" style="display:none"><img id="aimg_i" alt=""></div>
     <div class="abody" id="abody"></div>
     <div class="aft">
-      <p class="aftsig"><strong>Iris de Oliveira</strong> &mdash; Analista de politicas publicas e colunista</p>
+      <p class="aftsig"><strong>Iris de Oliveira</strong> &mdash; Analista de políticas públicas e colunista</p>
       <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap">
         <button class="share-art" onclick="shareArt()">&#128279; Copiar link</button>
         <span class="copied" id="copied">Link copiado!</span>
@@ -398,125 +279,78 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
   </div>
 </div>
 
-<!-- MODAL EDITAR ARTIGO -->
-<div id="modal-edit" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:300;align-items:flex-start;justify-content:center;overflow-y:auto;padding:2rem 1rem">
-  <div style="background:var(--sf);width:100%;max-width:680px;border-radius:4px;padding:2rem;position:relative;margin:auto">
-    <button onclick="fecharEdicao()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--ts)">&times;</button>
-    <p style="font-family:'Libre Franklin',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tp);margin-bottom:1.5rem;border-bottom:.5px solid var(--bm);padding-bottom:.75rem">Editar artigo</p>
-    <div style="margin-bottom:1rem">
-      <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Título</label>
-      <input type="text" id="et" style="width:100%;font-size:.9rem;padding:.5rem .75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none">
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
-      <div>
-        <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Editoria</label>
-        <input type="text" id="eg" style="width:100%;font-size:.9rem;padding:.5rem .75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none">
-      </div>
-      <div>
-        <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Data</label>
-        <input type="date" id="ed" style="width:100%;font-size:.9rem;padding:.5rem .75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none">
-      </div>
-    </div>
-    <div style="margin-bottom:1rem">
-      <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Link da imagem de capa</label>
-      <input type="url" id="eimg_url" style="width:100%;font-size:.88rem;padding:.5rem .75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'DM Sans',sans-serif;outline:none" placeholder="https://i.imgur.com/abc.jpg">
-      <p style="font-size:.7rem;color:var(--tt);margin-top:.3rem">Suba a imagem no <strong>imgur.com</strong> e cole o link. Deixe em branco para manter a imagem atual.</p>
-    </div>
-    <div style="margin-bottom:1rem">
-      <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Resumo (lead)</label>
-      <textarea id="ee" style="width:100%;min-height:80px;font-size:.88rem;padding:.5rem .75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'Source Serif 4',serif;outline:none;resize:vertical"></textarea>
-    </div>
-    <div style="margin-bottom:1.5rem">
-      <label style="display:block;font-family:'Libre Franklin',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-bottom:.4rem">Texto completo</label>
-      <div style="display:flex;gap:4px;margin-bottom:4px">
-        <button onclick="document.getElementById('eb').focus();document.execCommand('bold')" style="font-size:.78rem;font-weight:700;background:var(--bg);color:var(--tp);border:.5px solid var(--bm);padding:4px 10px;cursor:pointer">N</button>
-        <button onclick="document.getElementById('eb').focus();document.execCommand('italic')" style="font-size:.78rem;font-style:italic;background:var(--bg);color:var(--tp);border:.5px solid var(--bm);padding:4px 10px;cursor:pointer">I</button>
-        <button onclick="document.getElementById('eb').focus();document.execCommand('underline')" style="font-size:.78rem;text-decoration:underline;background:var(--bg);color:var(--tp);border:.5px solid var(--bm);padding:4px 10px;cursor:pointer">S</button>
-      </div>
-      <div id="eb" contenteditable="true" spellcheck="true" style="width:100%;min-height:250px;padding:.75rem;border:.5px solid var(--bm);background:var(--bg);color:var(--tp);font-family:'Source Serif 4',serif;font-size:.9rem;line-height:1.8;outline:none;overflow-y:auto"></div>
-    </div>
-    <div style="display:flex;gap:.75rem;align-items:center">
-      <button onclick="salvarEdicao()" id="ebsave" style="font-family:'Libre Franklin',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:var(--bg);border:none;padding:.7rem 1.8rem;cursor:pointer">Salvar</button>
-      <button onclick="fecharEdicao()" style="font-family:'Libre Franklin',sans-serif;font-size:.75rem;background:transparent;color:var(--ts);border:.5px solid var(--bm);padding:.7rem 1rem;cursor:pointer">Cancelar</button>
-      <span id="esst" style="font-size:.75rem;color:var(--tt)"></span>
-    </div>
-  </div>
-</div>
-
 <!-- MODAL O AUTOR -->
-<div id="modal-autor" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center">
-  <div style="background:#fff;max-width:480px;width:90%;border-radius:8px;padding:2rem;position:relative">
-    <button onclick="fecharModal('modal-autor')" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#555">&times;</button>
+<div class="lmodal" id="modal-autor">
+  <div class="lmbox">
+    <button class="lmclose" onclick="fecharModal('modal-autor')">&times;</button>
     <div style="display:flex;align-items:center;gap:1.25rem;margin-bottom:1.25rem">
-      <img src="foto_iris.png" alt="Iris de Oliveira" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:center top;border:1px solid #ddd">
+      <img src="foto_iris.png" alt="Iris de Oliveira" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:center top;border:1px solid var(--bm)">
       <strong style="font-family:'Playfair Display',serif;font-size:1.2rem">Iris de Oliveira</strong>
     </div>
-    <p style="font-size:.88rem;line-height:1.75;color:#444">Analista de políticas públicas e colunista. Escreve sobre poder, economia e instituições, explicando como decisões do Estado impactam a vida real — do trabalho à renda e à saúde — em linguagem clara, direta e acessível.</p>
+    <p style="font-family:'Source Serif 4',serif;font-size:.95rem;line-height:1.75;color:var(--ts)">Analista de políticas públicas e colunista. Escreve sobre poder, economia e instituições, explicando como decisões do Estado impactam a vida real — do trabalho à renda e à saúde — em linguagem clara, direta e acessível.</p>
   </div>
 </div>
 
 <!-- MODAL CONTATO -->
-<div id="modal-contato" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center">
-  <div style="background:#fff;max-width:400px;width:90%;border-radius:8px;padding:2rem;position:relative">
-    <button onclick="fecharModal('modal-contato')" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#555">&times;</button>
+<div class="lmodal" id="modal-contato">
+  <div class="lmbox" style="max-width:400px">
+    <button class="lmclose" onclick="fecharModal('modal-contato')">&times;</button>
     <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:1rem">Contato</h3>
-    <p style="font-size:.88rem;color:#444;margin-bottom:.5rem">Para sugestões, parcerias ou imprensa:</p>
-    <a id="eml" href="#" style="font-size:.95rem;color:#8b2c2c;font-weight:500">-</a>
+    <p style="font-family:'Source Serif 4',serif;font-size:.95rem;color:var(--ts);margin-bottom:.5rem">Para sugestões, parcerias ou imprensa:</p>
+    <a id="eml" href="#" style="font-family:'Libre Franklin',sans-serif;font-size:.95rem;color:var(--ac);font-weight:500">-</a>
   </div>
 </div>
 
 <script>
+// ====== CONFIGURAÇÃO ======
+// Chave publicável (segura para exposição em browser - protegida por RLS do Supabase)
 var U='https://bnrewcmjuvpnowdaxjpt.supabase.co';
-var K='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJucmV3Y21qdXZwbm93ZGF4anB0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MzMwMDMsImV4cCI6MjA5MDMwOTAwM30.YV5XTane49QcAc_iGqOdjc0CD33qDVu_XOLctgcVcnQ';
-var SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJucmV3Y21qdXZwbm93ZGF4anB0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDczMzAwMywiZXhwIjoyMDkwMzA5MDAzfQ.hvPB3btckoGeTi_Tpiumwcoh2gcvwOwxk6MZFsCPaeI';
-var SENHA='iris2026';
-var isAdmin=false, arts=[], currentId=null;
+var K='sb_publishable_NgWXnZWJNbCRcd7uKugCkw_-dv55FjZ';
 
+// ====== ESTADO ======
+var arts=[], currentId=null;
+
+// ====== INICIALIZAÇÃO ======
 var d=new Date();
 var dateStr=d.toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 document.getElementById('hoje').textContent=dateStr;
 document.getElementById('hoje2').textContent=dateStr;
 document.getElementById('ano').textContent=d.getFullYear();
+
+// E-mail montado dinamicamente
 var els=document.querySelectorAll('#eml'), em='irisoliveiram'+'@'+'gmail.com';
 els.forEach(function(el){el.textContent=em;el.href='mailto:'+em;});
 
-function abrirAutor(){
-  var m=document.getElementById('modal-autor');
-  m.style.display='flex';
-}
-function abrirContato(){
-  var m=document.getElementById('modal-contato');
-  m.style.display='flex';
-}
-function fecharModal(id){
-  document.getElementById(id).style.display='none';
-}
-// fechar clicando fora
+// ====== MODAIS ======
+function abrirAutor(){document.getElementById('modal-autor').classList.add('open');}
+function abrirContato(){document.getElementById('modal-contato').classList.add('open');}
+function fecharModal(id){document.getElementById(id).classList.remove('open');}
 ['modal-autor','modal-contato'].forEach(function(id){
   document.getElementById(id).addEventListener('click',function(e){
     if(e.target===this)fecharModal(id);
   });
 });
 
-function api(method,path,body,cb){
+// ====== API ======
+function api(path,cb){
   var x=new XMLHttpRequest();
-  x.open(method,U+'/rest/v1/'+path,true);
+  x.open('GET',U+'/rest/v1/'+path,true);
   x.setRequestHeader('apikey',K);
   x.setRequestHeader('Authorization','Bearer '+K);
-  x.setRequestHeader('Content-Type','application/json');
-  if(method==='POST')x.setRequestHeader('Prefer','return=representation');
-  if(method==='PATCH')x.setRequestHeader('Prefer','return=representation');
   x.onload=function(){
-    if(x.status>=200&&x.status<300){try{cb(null,x.status===204?null:JSON.parse(x.responseText));}catch(e){cb(e);}}
-    else{cb(new Error(x.status+' '+x.responseText));}
+    if(x.status>=200&&x.status<300){
+      try{cb(null,JSON.parse(x.responseText));}catch(e){cb(e);}
+    }else{cb(new Error(x.status+' '+x.responseText));}
   };
   x.onerror=function(){cb(new Error('network'));};
-  x.send(body?JSON.stringify(body):null);
+  x.send();
 }
+
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-api('GET','artigos?select=id,tag,title,excerpt,body,date,created_at,imagem_url&order=created_at.desc',null,function(err,data){
-  if(err){document.getElementById('lmsg').textContent='Erro ao carregar: '+err.message;return;}
+// ====== CARREGAMENTO INICIAL ======
+api('artigos?select=id,tag,title,excerpt,body,date,created_at,imagem_url&order=created_at.desc',function(err,data){
+  if(err){document.getElementById('lmsg').textContent='Erro ao carregar artigos.';return;}
   arts=data||[];
   renderHero();
   renderList();
@@ -524,6 +358,7 @@ api('GET','artigos?select=id,tag,title,excerpt,body,date,created_at,imagem_url&o
   checkHash();
 });
 
+// ====== ROUTING ======
 function checkHash(){
   var h=window.location.hash;
   if(h&&h.indexOf('#artigo-')===0){var id=parseInt(h.replace('#artigo-',''));if(id)openArt(id);}
@@ -534,6 +369,7 @@ window.addEventListener('hashchange',function(){
   else if(h===''||h==='#'){goIdx();}
 });
 
+// ====== RENDER ======
 function imgTag(url,alt){
   if(!url)return '<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--bl),var(--sf));display:flex;align-items:center;justify-content:center;font-family:\'Playfair Display\',serif;font-style:italic;color:var(--tt);font-size:.8rem">sem imagem</div>';
   return '<img src="'+esc(url)+'" alt="'+esc(alt||'')+'" loading="lazy">';
@@ -595,18 +431,10 @@ function renderList(){
       (a.tag?'<span class="atg">'+esc(a.tag)+'</span>':'')+
       '<h4 data-id="'+a.id+'">'+esc(a.title)+'</h4>'+
       (a.excerpt?'<p class="exs">'+esc(a.excerpt)+'</p>':'')+
-      '<div class="meta"><span>'+esc(a.date||'')+'</span>'+
-      '<button class="bdel" data-del="'+a.id+'" title="Remover">remover</button>'+
-      '<button class="bdel" data-edit="'+a.id+'" title="Editar" style="margin-left:.3rem">editar</button></div>';
+      '<div class="meta"><span>'+esc(a.date||'')+'</span></div>';
     lst.appendChild(card);
   });
   bindOpen('#lst [data-id]');
-  lst.querySelectorAll('[data-del]').forEach(function(b){
-    b.addEventListener('click',function(e){e.stopPropagation();delArt(+this.getAttribute('data-del'));});
-  });
-  lst.querySelectorAll('[data-edit]').forEach(function(b){
-    b.addEventListener('click',function(e){e.stopPropagation();abrirEdicao(+this.getAttribute('data-edit'));});
-  });
 }
 
 function bindOpen(sel){
@@ -616,6 +444,7 @@ function bindOpen(sel){
   });
 }
 
+// ====== ARTIGO ======
 function openArt(id){
   var a=arts.find(function(x){return x.id===id;});
   if(!a)return;
@@ -651,177 +480,9 @@ function shareArt(){
 }
 function showCopied(){var c=document.getElementById('copied');c.style.opacity='1';setTimeout(function(){c.style.opacity='0';},2000);}
 
-function openModal(){if(isAdmin){logout();return;}document.getElementById('modal').classList.add('open');document.getElementById('pwd').value='';document.getElementById('merr').style.display='none';setTimeout(function(){document.getElementById('pwd').focus();},50);}
-function closeModal(){document.getElementById('modal').classList.remove('open');}
-document.getElementById('pwd').addEventListener('keydown',function(e){if(e.key==='Enter')checkPwd();if(e.key==='Escape')closeModal();});
-document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
-
-function checkPwd(){
-  if(document.getElementById('pwd').value===SENHA){
-    isAdmin=true;closeModal();
-    document.getElementById('abar').classList.add('on');
-    document.getElementById('abtn').style.color='var(--ac)';
-    document.getElementById('lst').classList.add('aon');
-  }else{document.getElementById('merr').style.display='block';document.getElementById('pwd').select();}
-}
-function logout(){
-  isAdmin=false;
-  document.getElementById('abar').classList.remove('on');
-  document.getElementById('fwrap').classList.remove('open');
-  document.getElementById('abtn').style.color='';
-  document.getElementById('lst').classList.remove('aon');
-}
-function toggleForm(){
-  var f=document.getElementById('fwrap');
-  if(f.classList.contains('open')){f.classList.remove('open');}
-  else{f.classList.add('open');document.getElementById('fd').valueAsDate=new Date();document.getElementById('ft').focus();}
-}
-function fmt(cmd){document.getElementById('fb').focus();document.execCommand(cmd,false,null);}
-function fmtDate(v){if(!v)return'';return new Date(v+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});}
-function sanitize(html){
-  var tmp=document.createElement('div');tmp.innerHTML=html;
-  tmp.querySelectorAll('b,strong').forEach(function(el){var s=document.createElement('span');s.style.fontWeight='700';s.innerHTML=el.innerHTML;el.parentNode.replaceChild(s,el);});
-  tmp.querySelectorAll('i,em').forEach(function(el){var s=document.createElement('span');s.style.fontStyle='italic';s.innerHTML=el.innerHTML;el.parentNode.replaceChild(s,el);});
-  tmp.querySelectorAll('u').forEach(function(el){var s=document.createElement('span');s.style.textDecoration='underline';s.innerHTML=el.innerHTML;el.parentNode.replaceChild(s,el);});
-  return tmp.innerHTML;
-}
-function previewImagem(input){
-  var file=input.files[0];
-  if(!file)return;
-  document.getElementById('fimg_nome').textContent=file.name;
-  var reader=new FileReader();
-  reader.onload=function(e){
-    document.getElementById('fimg_prev_img').src=e.target.result;
-    document.getElementById('fimg_preview').style.display='block';
-  };
-  reader.readAsDataURL(file);
-}
-
-async function uploadImagem(){
-  var input=document.getElementById('fimg_file');
-  var file=input.files[0];
-  if(!file)return null;
-  var ext=file.name.split('.').pop();
-  var nome='capa_'+Date.now()+'.'+ext;
-  var resp=await fetch(U+'/storage/v1/object/imagens/'+nome,{
-    method:'POST',
-    headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':file.type,'x-upsert':'true'},
-    body:file
-  });
-  if(!resp.ok){console.error('Upload erro:',resp.status,await resp.text());return null;}
-  return U+'/storage/v1/object/public/imagens/'+nome;
-}
-
-function addArt(){
-  var title=document.getElementById('ft').value.trim();
-  var tag=document.getElementById('fg').value.trim();
-  var excerpt=document.getElementById('fe').value.trim();
-  var body=sanitize(document.getElementById('fb').innerHTML.trim());
-  var imagem_url=document.getElementById('fimg').value.trim();
-  var dateVal=document.getElementById('fd').value;
-  if(!title){alert('Informe o título do artigo.');document.getElementById('ft').focus();return;}
-  var btn=document.getElementById('bsave'), sst=document.getElementById('sst');
-  btn.disabled=true;btn.textContent='Salvando...';sst.textContent='';
-  var payload={tag:tag,title:title,excerpt:excerpt,body:body,date:fmtDate(dateVal)};
-  if(imagem_url)payload.imagem_url=imagem_url;
-  api('POST','artigos',payload,function(err,data){
-    if(err){sst.textContent='Erro ao salvar. Verifique se a coluna imagem_url existe.';btn.disabled=false;btn.textContent='Publicar';return;}
-    if(data&&data[0])arts.unshift(data[0]);
-    renderHero();renderList();renderMaisLidas();
-    document.getElementById('ft').value='';document.getElementById('fg').value='';
-    document.getElementById('fe').value='';document.getElementById('fb').innerHTML='';
-    document.getElementById('fimg').value='';
-    toggleForm();btn.disabled=false;btn.textContent='Publicar';
-  });
-}
-function abrirEdicao(id){
-  var a=arts.find(function(x){return x.id===id;});
-  if(!a)return;
-  document.getElementById('modal-edit')._editId=id;
-  document.getElementById('et').value=a.title||'';
-  document.getElementById('eg').value=a.tag||'';
-  document.getElementById('ed').value=a.date_raw||'';
-  document.getElementById('ee').value=a.excerpt||'';
-  document.getElementById('eb').innerHTML=a.body||'';
-  document.getElementById('eimg_url').value=a.imagem_url||'';
-  document.getElementById('modal-edit').style.display='flex';
-}
-
-function fecharEdicao(){
-  document.getElementById('modal-edit').style.display='none';
-}
-
-function previewEdicaoImagem(input){
-  var file=input.files[0];
-  if(!file)return;
-  document.getElementById('eimg_nome').textContent=file.name;
-  var reader=new FileReader();
-  reader.onload=function(e){
-    document.getElementById('eimg_preview').innerHTML='<img src="'+e.target.result+'" style="max-height:100px;max-width:100%;border:.5px solid var(--bm)" alt="preview"><p style="font-size:.7rem;color:var(--tt);margin-top:.25rem">Nova imagem</p>';
-  };
-  reader.readAsDataURL(file);
-}
-
-async function uploadEdicaoImagem(){
-  var input=document.getElementById('eimg_file');
-  var file=input.files[0];
-  if(!file)return null;
-  var ext=file.name.split('.').pop();
-  var nome='capa_'+Date.now()+'.'+ext;
-  var resp=await fetch(U+'/storage/v1/object/imagens/'+nome,{
-    method:'POST',
-    headers:{'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':file.type,'x-upsert':'true'},
-    body:file
-  });
-  if(!resp.ok){console.error('Upload erro:',resp.status,await resp.text());return null;}
-  return U+'/storage/v1/object/public/imagens/'+nome;
-}
-
-function salvarEdicao(){
-  var id=document.getElementById('modal-edit')._editId;
-  if(!id)return;
-  var title=document.getElementById('et').value.trim();
-  if(!title){alert('Informe o título.');document.getElementById('et').focus();return;}
-  var btn=document.getElementById('ebsave');
-  var sst=document.getElementById('esst');
-  btn.disabled=true;btn.textContent='Salvando...';sst.textContent='';
-  var novaImg=null;
-  (function(){
-    var payload={
-      title:title,
-      tag:document.getElementById('eg').value.trim(),
-      excerpt:document.getElementById('ee').value.trim(),
-      body:sanitize(document.getElementById('eb').innerHTML.trim())
-    };
-    var dateVal=document.getElementById('ed').value;
-    if(dateVal)payload.date=fmtDate(dateVal);
-    var imgAtual=document.getElementById('eimg_url').value.trim();
-    if(imgAtual)payload.imagem_url=imgAtual;
-    api('PATCH','artigos?id=eq.'+id,payload,function(err,data){
-      if(err){sst.textContent='Erro ao salvar.';btn.disabled=false;btn.textContent='Salvar';return;}
-      var idx=arts.findIndex(function(a){return a.id===id;});
-      if(idx!==-1){
-        if(data&&data[0])arts[idx]=data[0];
-        else arts[idx]=Object.assign(arts[idx],payload);
-      }
-      renderHero();renderList();renderMaisLidas();
-      fecharEdicao();
-      btn.disabled=false;btn.textContent='Salvar';
-    });
-  })();
-}
-
-function delArt(id){
-  if(!isAdmin)return;
-  if(!confirm('Remover este artigo permanentemente?'))return;
-  api('DELETE','artigos?id=eq.'+id,null,function(err){
-    if(err){alert('Erro ao remover.');return;}
-    arts=arts.filter(function(a){return a.id!==id;});
-    renderHero();renderList();renderMaisLidas();
-  });
-}
+// ====== FILTROS ======
 function navTo(cat){
-  document.querySelectorAll('.fbtn').forEach(function(b,i){
+  document.querySelectorAll('.fbtn').forEach(function(b){
     b.classList.remove('fativo');
     if(b.textContent.toLowerCase().indexOf(cat.substring(0,4))!==-1)b.classList.add('fativo');
   });
