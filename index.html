@@ -3707,7 +3707,7 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
       </div>
       <div class="tbr">
         <button class="tbe" onclick="alert('Em breve: assinatura da newsletter.')">Newsletter</button>
-        <button class="tbe" onclick="abrirContato()">Contato</button>
+        <button class="tbe" onclick="window.location.href='/contato.html'">Contato</button>
       </div>
     </div>
   </div>
@@ -3771,8 +3771,8 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
       </div>
       <div class="fcol">
         <h5>Sobre</h5>
-        <button onclick="abrirAutor()">O autor</button>
-        <button onclick="abrirContato()">Contato</button>
+        <button onclick="window.location.href='/sobre.html'">O autor</button>
+        <button onclick="window.location.href='/contato.html'">Contato</button>
         <button onclick="window.location.href='/privacidade.html'">Privacidade</button>
         <button onclick="window.location.href='/termos.html'">Termos</button>
       </div>
@@ -3824,27 +3824,7 @@ footer .W{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
   </div>
 </div>
 
-<!-- MODAL O AUTOR -->
-<div class="lmodal" id="modal-autor">
-  <div class="lmbox">
-    <button class="lmclose" onclick="fecharModal('modal-autor')">&times;</button>
-    <div style="display:flex;align-items:center;gap:1.25rem;margin-bottom:1.25rem">
-      <img src="foto_iris.png" alt="Iris de Oliveira" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:center top;border:1px solid var(--bm)">
-      <strong style="font-family:'Playfair Display',serif;font-size:1.2rem">Iris de Oliveira</strong>
-    </div>
-    <p style="font-family:'Source Serif 4',serif;font-size:.95rem;line-height:1.75;color:var(--ts)">Analista de políticas públicas e colunista. Escreve sobre poder, economia e instituições, explicando como decisões do Estado impactam a vida real — do trabalho à renda e à saúde — em linguagem clara, direta e acessível.</p>
-  </div>
-</div>
 
-<!-- MODAL CONTATO -->
-<div class="lmodal" id="modal-contato">
-  <div class="lmbox" style="max-width:400px">
-    <button class="lmclose" onclick="fecharModal('modal-contato')">&times;</button>
-    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:1rem">Contato</h3>
-    <p style="font-family:'Source Serif 4',serif;font-size:.95rem;color:var(--ts);margin-bottom:.5rem">Para sugestões, parcerias ou imprensa:</p>
-    <a id="eml" href="#" style="font-family:'Libre Franklin',sans-serif;font-size:.95rem;color:var(--ac);font-weight:500">-</a>
-  </div>
-</div>
 
 <script>
 // ====== CONFIGURAÇÃO ======
@@ -3865,16 +3845,6 @@ document.getElementById('ano').textContent=d.getFullYear();
 // E-mail montado dinamicamente
 var els=document.querySelectorAll('#eml'), em='irisoliveiram'+'@'+'gmail.com';
 els.forEach(function(el){el.textContent=em;el.href='mailto:'+em;});
-
-// ====== MODAIS ======
-function abrirAutor(){document.getElementById('modal-autor').classList.add('open');}
-function abrirContato(){document.getElementById('modal-contato').classList.add('open');}
-function fecharModal(id){document.getElementById(id).classList.remove('open');}
-['modal-autor','modal-contato'].forEach(function(id){
-  document.getElementById(id).addEventListener('click',function(e){
-    if(e.target===this)fecharModal(id);
-  });
-});
 
 // ====== API ======
 function api(path,cb){
