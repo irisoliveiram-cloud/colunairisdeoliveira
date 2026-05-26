@@ -1,0 +1,12 @@
+{
+  "name": "coluna-iris-de-oliveira",
+  "version": "1.0.0",
+  "description": "Site editorial com pré-renderização para o crawler do AdSense",
+  "private": true,
+  "scripts": {
+    "build": "node prerender.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}
