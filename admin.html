@@ -101,11 +101,11 @@ input,textarea,select{font-family:inherit}
 }
 #corpo-editor:focus{border-color:var(--ac2)}
 #corpo-editor p{margin-bottom:1.2rem;text-align:justify}
-#corpo-editor h2,#corpo-editor h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin:1.5rem 0 .6rem;color:var(--tp)}
+#corpo-editor h2,#corpo-editor h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin:1.5rem 0 .6rem;color:var(--tp);text-align:justify}
 #corpo-editor strong{font-weight:600}
 #corpo-editor em{font-style:italic}
-#corpo-editor hr{border:none;border-top:1px solid var(--bm);margin:1.8rem 0}
-#corpo-editor p.fontes{font-size:.82rem;font-style:italic;color:var(--tt);line-height:1.6;margin-top:.5rem}
+#corpo-editor hr{border:none;border-top:1px solid rgba(255,255,255,.35);margin:1.8rem 0;display:block}
+#corpo-editor p.fontes{font-size:.82rem;font-style:italic;color:var(--tt);line-height:1.7;margin-top:.5rem;text-align:justify}
 #corpo-editor blockquote{
   border-left:3px solid var(--ac2);
   padding:.6rem 0 .6rem 1.1rem;
@@ -133,9 +133,9 @@ input,textarea,select{font-family:inherit}
 .pv-body p{margin-bottom:1.1rem;text-align:justify}
 .pv-body strong{font-weight:600}
 .pv-body em{font-style:italic}
-.pv-body h2,.pv-body h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin:1.2rem 0 .5rem;color:var(--tp)}
+.pv-body h2,.pv-body h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin:1.2rem 0 .5rem;color:var(--tp);text-align:justify}
 .pv-body hr{border:none;border-top:1px solid var(--bm);margin:1.5rem 0}
-.pv-body p.fontes{font-size:.78rem;font-style:italic;color:var(--tt);line-height:1.6;margin-top:.3rem}
+.pv-body p.fontes{font-size:.78rem;font-style:italic;color:var(--tt);line-height:1.7;margin-top:.3rem;text-align:justify}
 .pv-body blockquote{border-left:3px solid var(--ac2);padding:.5rem 0 .5rem .9rem;margin:1rem 0;font-style:italic;color:var(--ts)}
 .pv-body blockquote p{margin-bottom:0}
 .pv-body>.cap::first-letter{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;float:left;line-height:1;padding:0 .4rem 0 0;margin-top:.1rem;color:var(--tp)}
@@ -808,14 +808,20 @@ function limparHTML(raw){
     if(el.parentNode) el.parentNode.replaceChild(h3, el);
   });
 
-  // 3d. Parágrafo vazio com border-bottom → <hr>
+  // 3d. Parágrafo separador → <hr>
+  // Word usa várias formas: border-bottom, border-top, mso-border-top-alt, ou parágrafo vazio com borda
   tmp.querySelectorAll('p,div').forEach(function(el){
     var st = (el.getAttribute('style')||'').toLowerCase();
-    if(st.indexOf('border-bottom') !== -1 && el.textContent.trim() === ''){
+    var temBorda = st.indexOf('border-bottom') !== -1 || st.indexOf('border-top') !== -1
+                || st.indexOf('mso-border-top') !== -1 || st.indexOf('mso-border-bottom') !== -1;
+    var vazio = el.textContent.trim() === '';
+    if(temBorda && vazio){
       var hr = document.createElement('hr');
       if(el.parentNode) el.parentNode.replaceChild(hr, el);
     }
   });
+  // Detectar também <hr> nativo que o Word pode gerar
+  // (já são preservados pela função processarNo)
 
   // 3e. Parágrafo que começa com "Fontes:" → class="fontes"
   tmp.querySelectorAll('p').forEach(function(el){
@@ -916,9 +922,11 @@ function limparHTML(raw){
     el.className = 'fontes';
   });
 
-  // Remover parágrafos vazios
+  // Remover parágrafos vazios (incluindo os com só <br> ou espaço)
   tmp.querySelectorAll('p').forEach(function(p){
-    if(p.textContent.trim() === '' && !p.querySelector('img,br')) p.remove();
+    var txt = p.textContent.replace(/\u00A0/g,'').trim();
+    var apenasBreaks = p.innerHTML.replace(/<br\s*\/?>/gi,'').replace(/&nbsp;/g,'').trim() === '';
+    if((txt === '' || apenasBreaks) && !p.querySelector('img')) p.remove();
   });
 
   // Remover espaços extras finais
