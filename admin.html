@@ -355,8 +355,8 @@ var pagina = 1;
 var POR_PAG = 20;
 
 // ===== AUTENTICAÇÃO SIMPLES =====
-// Hash SHA-256 da senha "iris2026" — a senha real nunca fica no código
-var HASH_SENHA = 'e3b914e3b9b2e3f6a1d2c5e8f4b7a0c9d3e1f5b8a2c6d9e0f3b7a1c4d8e2f6b9';
+// Hash SHA-256 da senha de acesso — a senha real nunca fica no código
+var HASH_SENHA = '94bd6de73dc007bdf19abdd415b1c8fbb5199e52c6c7dd72b9c41791ed9da286';
 
 function hashSenha(senha){
   // Implementação simples de hash via SubtleCrypto (nativa no browser moderno)
@@ -375,7 +375,7 @@ function entrar(){
     // Valida contra hash armazenado OU via verificação direta
     // A senha real é validada no Supabase; aqui usamos uma proteção client-side
     // para evitar que a tela de admin fique exposta sem nenhuma barreira
-    if(senha === 'iris2026' || h === HASH_SENHA){
+    if(h === HASH_SENHA){
       sessionStorage.setItem('admin_ok','1');
       document.getElementById('tela-login').style.display = 'none';
       document.getElementById('tela-admin').style.display = 'flex';
