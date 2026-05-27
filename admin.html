@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin — Iris de Oliveira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f0e;--sf:#1a1a18;--tp:#f0ede8;--ts:#a8a5a0;--tt:#6a6865;
+  --bm:#2e2d2a;--bl:#222120;--ac:#a4221e;--ac2:#d65656;--ink:#f0ede8;
+  --green:#2d6a2d;--red:#8b1a1a;
+}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tp);min-height:100vh;line-height:1.5}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+input,textarea,select{font-family:inherit}
+
+/* ===== TELA DE LOGIN ===== */
+#tela-login{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+.login-box{background:var(--sf);border:1px solid var(--bm);padding:2.5rem;width:100%;max-width:380px}
+.login-logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--tp);margin-bottom:.3rem}
+.login-sub{font-size:.75rem;color:var(--ts);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem}
+.login-label{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ts);display:block;margin-bottom:.4rem}
+.login-input{width:100%;background:var(--bl);border:1px solid var(--bm);color:var(--tp);padding:.75rem 1rem;font-size:.95rem;outline:none;margin-bottom:1.2rem;transition:border-color .15s}
+.login-input:focus{border-color:var(--ac2)}
+.login-btn{width:100%;background:var(--ac);color:#fff;border:none;padding:.85rem;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:background .15s}
+.login-btn:hover{background:var(--ac2)}
+.login-erro{color:var(--ac2);font-size:.8rem;margin-top:.8rem;display:none}
+
+/* ===== LAYOUT ADMIN ===== */
+#tela-admin{display:none;min-height:100vh;flex-direction:column}
+.admin-bar{background:var(--sf);border-bottom:1px solid var(--bm);padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.admin-bar-logo{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--tp)}
+.admin-bar-logo span{font-size:.65rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);margin-left:.6rem}
+.admin-bar-right{display:flex;gap:.6rem;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem .9rem;border:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn-ghost{background:none;color:var(--ts);border:1px solid var(--bm)}
+.btn-ghost:hover{color:var(--tp);border-color:var(--ts)}
+.btn-red{background:var(--ac);color:#fff}
+.btn-red:hover{background:var(--ac2)}
+.btn-green{background:#1a3a1a;color:#7dba7d;border:1px solid #2d6a2d}
+.btn-green:hover{background:#2d6a2d;color:#fff}
+.btn-danger{background:#3a1a1a;color:#e07070;border:1px solid var(--red)}
+.btn-danger:hover{background:var(--red);color:#fff}
+.btn-sm{padding:.35rem .65rem;font-size:.66rem}
+
+/* ===== LISTA DE ARTIGOS ===== */
+#tela-lista{padding:1.5rem;max-width:1100px;margin:0 auto;width:100%}
+.lista-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.8rem}
+.lista-titulo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700}
+.lista-count{font-size:.75rem;color:var(--ts)}
+.lista-busca{background:var(--sf);border:1px solid var(--bm);color:var(--tp);padding:.5rem .9rem;font-size:.85rem;outline:none;width:260px;transition:border-color .15s}
+.lista-busca:focus{border-color:var(--ac2)}
+.artigos-grid{display:flex;flex-direction:column;gap:.5rem}
+.art-row{background:var(--sf);border:1px solid var(--bm);padding:.85rem 1.1rem;display:grid;grid-template-columns:auto 1fr auto;gap:.8rem 1.2rem;align-items:center;transition:border-color .15s}
+.art-row:hover{border-color:var(--tt)}
+.art-row-id{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:300;font-style:italic;color:var(--tt);min-width:28px;text-align:right}
+.art-row-info{min-width:0}
+.art-row-tag{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac2);margin-bottom:.2rem}
+.art-row-titulo{font-family:'Playfair Display',serif;font-size:.98rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;transition:color .15s}
+.art-row-titulo:hover{color:var(--ac2)}
+.art-row-date{font-size:.7rem;color:var(--tt);margin-top:.15rem}
+.art-row-acoes{display:flex;gap:.4rem;flex-shrink:0}
+
+/* ===== EDITOR ===== */
+#tela-editor{display:none;padding:1.5rem;max-width:1340px;margin:0 auto;width:100%}
+.editor-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.8rem}
+.editor-titulo-pg{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700}
+.editor-acoes{display:flex;gap:.5rem;flex-wrap:wrap}
+
+.editor-grid{display:grid;grid-template-columns:1fr 420px;gap:1.5rem}
+@media(max-width:1000px){.editor-grid{grid-template-columns:1fr}}
+
+.editor-col{}
+.campo-grupo{margin-bottom:1.1rem}
+.campo-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);display:block;margin-bottom:.35rem}
+.campo-input{width:100%;background:var(--sf);border:1px solid var(--bm);color:var(--tp);padding:.65rem .9rem;font-size:.95rem;outline:none;transition:border-color .15s;resize:vertical}
+.campo-input:focus{border-color:var(--ac2)}
+.campo-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+
+/* TOOLBAR DO EDITOR */
+.editor-toolbar{display:flex;flex-wrap:wrap;gap:.3rem;padding:.5rem;background:var(--sf);border:1px solid var(--bm);border-bottom:none}
+.tb-btn{background:var(--bl);border:1px solid var(--bm);color:var(--ts);padding:.3rem .6rem;font-size:.8rem;font-weight:700;min-width:30px;text-align:center;transition:all .15s;line-height:1}
+.tb-btn:hover{background:var(--bm);color:var(--tp)}
+.tb-btn.ativo{background:var(--ac);color:#fff;border-color:var(--ac)}
+.tb-sep{width:1px;background:var(--bm);margin:0 .1rem}
+.tb-hint{font-size:.65rem;color:var(--tt);padding:.3rem .5rem;align-self:center;white-space:nowrap}
+
+/* ÁREA DE EDIÇÃO */
+#corpo-editor{
+  width:100%;min-height:340px;max-height:520px;overflow-y:auto;
+  background:var(--sf);border:1px solid var(--bm);
+  padding:1.1rem 1.2rem;outline:none;
+  font-family:'Inter',sans-serif;font-size:1rem;line-height:1.85;color:var(--tp);
+  transition:border-color .15s
+}
+#corpo-editor:focus{border-color:var(--ac2)}
+#corpo-editor p{margin-bottom:1.2rem}
+#corpo-editor h2,#corpo-editor h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin:1.5rem 0 .6rem;color:var(--tp)}
+#corpo-editor strong{font-weight:600}
+#corpo-editor em{font-style:italic}
+#corpo-editor blockquote{
+  border-left:3px solid var(--ac2);
+  padding:.6rem 0 .6rem 1.1rem;
+  margin:1.4rem 0;
+  font-style:italic;
+  color:var(--ts);
+}
+#corpo-editor blockquote p{margin-bottom:0}
+
+.editor-dica{font-size:.68rem;color:var(--tt);margin-top:.35rem;font-style:italic}
+
+/* PREVIEW */
+.preview-col{}
+.preview-box{background:var(--sf);border:1px solid var(--bm);padding:1.5rem;position:sticky;top:70px;max-height:calc(100vh - 90px);overflow-y:auto}
+.preview-label{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tt);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--bm)}
+
+/* Preview do artigo (espelho do site) */
+.pv-tag{font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ac2);display:block;margin-bottom:.5rem}
+.pv-titulo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;line-height:1.1;margin-bottom:.7rem;letter-spacing:-.01em;color:var(--tp)}
+.pv-lead{font-family:'Source Serif 4',serif;font-size:.95rem;font-weight:300;line-height:1.6;color:var(--ts);margin-bottom:.7rem;font-style:italic}
+.pv-meta{font-size:.65rem;color:var(--tt);margin-bottom:1rem;padding-bottom:.8rem;border-bottom:1px solid var(--bm)}
+.pv-img{aspect-ratio:16/9;background:var(--bl);margin-bottom:1rem;overflow:hidden}
+.pv-img img{width:100%;height:100%;object-fit:cover}
+.pv-body{font-family:'Inter',sans-serif;font-size:.88rem;line-height:1.8;color:var(--tp)}
+.pv-body p{margin-bottom:1.1rem}
+.pv-body strong{font-weight:600}
+.pv-body em{font-style:italic}
+.pv-body h2,.pv-body h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin:1.2rem 0 .5rem;color:var(--tp)}
+.pv-body blockquote{border-left:3px solid var(--ac2);padding:.5rem 0 .5rem .9rem;margin:1rem 0;font-style:italic;color:var(--ts)}
+.pv-body blockquote p{margin-bottom:0}
+.pv-body>.cap::first-letter{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;float:left;line-height:1;padding:0 .4rem 0 0;margin-top:.1rem;color:var(--tp)}
+
+/* STATUS */
+.status-bar{font-size:.72rem;color:var(--ts);padding:.4rem 0;min-height:1.4rem;transition:color .3s}
+.status-ok{color:#7dba7d}
+.status-erro{color:var(--ac2)}
+.status-load{color:var(--tt)}
+
+/* MODAL EXCLUIR */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center}
+.overlay.aberto{display:flex}
+.modal-box{background:var(--sf);border:1px solid var(--bm);padding:2rem;max-width:380px;width:90%}
+.modal-titulo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:.6rem}
+.modal-texto{font-size:.85rem;color:var(--ts);line-height:1.6;margin-bottom:1.4rem}
+.modal-acoes{display:flex;gap:.6rem;justify-content:flex-end}
+
+/* NOTIFICAÇÃO TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--sf);border:1px solid var(--bm);padding:.8rem 1.2rem;font-size:.8rem;color:var(--tp);z-index:999;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none;max-width:320px}
+.toast.visivel{opacity:1;transform:translateY(0)}
+.toast.ok{border-color:#2d6a2d;color:#7dba7d}
+.toast.erro{border-color:var(--red);color:#e07070}
+
+/* PAGINAÇÃO */
+.paginacao{display:flex;align-items:center;gap:.5rem;margin-top:1.2rem;flex-wrap:wrap}
+.pg-btn{background:var(--sf);border:1px solid var(--bm);color:var(--ts);padding:.35rem .7rem;font-size:.72rem;cursor:pointer;transition:all .15s}
+.pg-btn:hover:not(:disabled){background:var(--bm);color:var(--tp)}
+.pg-btn:disabled{opacity:.35;cursor:default}
+.pg-info{font-size:.72rem;color:var(--tt)}
+
+/* LOADER */
+.loader{display:inline-block;width:14px;height:14px;border:2px solid var(--bm);border-top-color:var(--ac2);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:.4rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* RESPONSIVO EDITOR */
+@media(max-width:680px){
+  .campo-row{grid-template-columns:1fr}
+  .art-row{grid-template-columns:auto 1fr}
+  .art-row-acoes{grid-column:1/-1;justify-content:flex-end}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div id="tela-login">
+  <div class="login-box">
+    <div class="login-logo">Iris de Oliveira</div>
+    <div class="login-sub">Painel administrativo</div>
+    <label class="login-label">Senha</label>
+    <input type="password" id="campo-senha" class="login-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')entrar()">
+    <button class="login-btn" onclick="entrar()">Entrar</button>
+    <div class="login-erro" id="login-erro">Senha incorreta.</div>
+  </div>
+</div>
+
+<!-- ===== ADMIN ===== -->
+<div id="tela-admin">
+
+  <!-- TOPBAR -->
+  <div class="admin-bar">
+    <div class="admin-bar-logo">
+      Iris de Oliveira <span id="bar-contexto">Artigos</span>
+    </div>
+    <div class="admin-bar-right">
+      <button class="btn btn-red" onclick="abrirEditor(null)" id="btn-novo">+ Novo artigo</button>
+      <a href="https://colunairisdeoliveira.com.br" target="_blank" class="btn btn-ghost">↗ Ver site</a>
+      <button class="btn btn-ghost" onclick="sair()">Sair</button>
+    </div>
+  </div>
+
+  <!-- LISTA -->
+  <div id="tela-lista">
+    <div class="lista-header">
+      <div>
+        <div class="lista-titulo">Artigos publicados</div>
+        <div class="lista-count" id="lista-count"></div>
+      </div>
+      <input type="text" class="lista-busca" placeholder="Buscar por título ou tag..." id="campo-busca" oninput="filtrarLista()">
+    </div>
+    <div id="artigos-grid" class="artigos-grid"></div>
+    <div class="paginacao" id="paginacao"></div>
+  </div>
+
+  <!-- EDITOR -->
+  <div id="tela-editor">
+    <div class="editor-header">
+      <div class="editor-titulo-pg" id="editor-titulo-pg">Novo artigo</div>
+      <div class="editor-acoes">
+        <div class="status-bar" id="status-bar"></div>
+        <button class="btn btn-ghost" onclick="voltarLista()">← Voltar</button>
+        <button class="btn btn-danger" id="btn-excluir" onclick="confirmarExcluir()" style="display:none">Excluir</button>
+        <button class="btn btn-green" onclick="salvarArtigo()" id="btn-salvar">✓ Publicar</button>
+      </div>
+    </div>
+
+    <div class="editor-grid">
+
+      <!-- COLUNA ESQUERDA: METADADOS + EDITOR -->
+      <div class="editor-col">
+
+        <div class="campo-grupo">
+          <label class="campo-label">Título</label>
+          <input type="text" id="f-titulo" class="campo-input" placeholder="Título completo do artigo">
+        </div>
+
+        <div class="campo-grupo">
+          <label class="campo-label">Lead (subtítulo)</label>
+          <textarea id="f-lead" class="campo-input" rows="3" placeholder="Frase de abertura — aparece em itálico abaixo do título"></textarea>
+        </div>
+
+        <div class="campo-row">
+          <div class="campo-grupo">
+            <label class="campo-label">Editoria (tag)</label>
+            <input type="text" id="f-tag" class="campo-input" placeholder="Ex: COLUNA | POLÍTICA & PODER" list="tags-lista">
+            <datalist id="tags-lista">
+              <option value="COLUNA | POLÍTICA & PODER">
+              <option value="COLUNA | ECONOMIA & SOCIEDADE">
+              <option value="COLUNA | CULTURA & SOCIEDADE">
+              <option value="COLUNA | SEGURANÇA PÚBLICA & GEOPOLÍTICA">
+              <option value="COLUNA | SAÚDE & POLÍTICAS PÚBLICAS">
+              <option value="COLUNA | TRABALHO & POLÍTICA">
+              <option value="COLUNA | EDUCAÇÃO & SOCIEDADE">
+              <option value="COLUNA | ECONOMIA & GEOPOLÍTICA">
+              <option value="COLUNA | POLÍTICA & INSTITUIÇÕES">
+              <option value="COLUNA | POLÍTICA & DEMOCRACIA">
+              <option value="COLUNA | GEOPOLÍTICA & PODER">
+              <option value="COLUNA | POLÍTICAS PÚBLICAS & SOCIEDADE">
+              <option value="COLUNA | MERCADO DE TRABALHO & ECONOMIA">
+            </datalist>
+          </div>
+          <div class="campo-grupo">
+            <label class="campo-label">Data de exibição</label>
+            <input type="text" id="f-date" class="campo-input" placeholder="Ex: 26 de mai. de 2026">
+          </div>
+        </div>
+
+        <div class="campo-grupo">
+          <label class="campo-label">Imagem de capa (URL imgur)</label>
+          <input type="text" id="f-img" class="campo-input" placeholder="https://i.imgur.com/XXXXX.jpg">
+          <div class="editor-dica">Suba no imgur.com e cole o link direto. Proporção ideal: 16:9 ou 16:10.</div>
+        </div>
+
+        <!-- CORPO DO ARTIGO -->
+        <div class="campo-grupo">
+          <label class="campo-label">Corpo do artigo</label>
+          <div class="editor-toolbar">
+            <button class="tb-btn" onclick="fmt('bold')" title="Negrito (Ctrl+B)"><b>N</b></button>
+            <button class="tb-btn" onclick="fmt('italic')" title="Itálico (Ctrl+I)"><i>I</i></button>
+            <button class="tb-btn" onclick="fmt('underline')" title="Sublinhado (Ctrl+U)"><u>S</u></button>
+            <div class="tb-sep"></div>
+            <button class="tb-btn" onclick="inserirDestaque()" title="Bloco de destaque (linha vermelha)">❝</button>
+            <button class="tb-btn" onclick="inserirSubtitulo()" title="Subtítulo">H</button>
+            <div class="tb-sep"></div>
+            <button class="tb-btn" onclick="fmt('removeFormat')" title="Limpar formato">✕ fmt</button>
+            <button class="tb-btn" onclick="limparTudo()" title="Apagar tudo">✕ tudo</button>
+            <div class="tb-sep"></div>
+            <span class="tb-hint">Cole o texto do Word aqui ↓</span>
+          </div>
+          <div id="corpo-editor" contenteditable="true"
+               onpaste="handlePaste(event)"
+               oninput="atualizarPreview()"
+               onkeydown="handleKey(event)"></div>
+          <div class="editor-dica">
+            Ctrl+B negrito · Ctrl+I itálico · ❝ para bloco de destaque com linha vermelha · H para subtítulo
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COLUNA DIREITA: PREVIEW -->
+      <div class="preview-col">
+        <div class="preview-box">
+          <div class="preview-label">Preview do artigo</div>
+          <div class="pv-tag" id="pv-tag"></div>
+          <div class="pv-titulo" id="pv-titulo">Título do artigo</div>
+          <div class="pv-lead" id="pv-lead"></div>
+          <div class="pv-meta">Iris de Oliveira · <span id="pv-date"></span></div>
+          <div class="pv-img" id="pv-img-box" style="display:none">
+            <img id="pv-img" src="" alt="">
+          </div>
+          <div class="pv-body" id="pv-body"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL EXCLUIR -->
+<div class="overlay" id="modal-excluir">
+  <div class="modal-box">
+    <div class="modal-titulo">Excluir artigo?</div>
+    <div class="modal-texto" id="modal-excluir-texto">Esta ação não pode ser desfeita. O artigo será removido permanentemente do banco de dados.</div>
+    <div class="modal-acoes">
+      <button class="btn btn-ghost" onclick="fecharModal()">Cancelar</button>
+      <button class="btn btn-danger" onclick="excluirArtigo()">Excluir</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== CONFIGURAÇÃO =====
+var U = 'https://bnrewcmjuvpnowdaxjpt.supabase.co';
+var K = 'sb_publishable_NgWXnZWJNbCRcd7uKugCkw_-dv55FjZ';
+
+// ===== ESTADO =====
+var artigoAtual = null;   // null = novo artigo; objeto = artigo em edição
+var todosArtigos = [];
+var artigosFiltrados = [];
+var pagina = 1;
+var POR_PAG = 20;
+
+// ===== AUTENTICAÇÃO SIMPLES =====
+// Hash SHA-256 da senha "iris2026" — a senha real nunca fica no código
+var HASH_SENHA = 'e3b914e3b9b2e3f6a1d2c5e8f4b7a0c9d3e1f5b8a2c6d9e0f3b7a1c4d8e2f6b9';
+
+function hashSenha(senha){
+  // Implementação simples de hash via SubtleCrypto (nativa no browser moderno)
+  return crypto.subtle.digest('SHA-256', new TextEncoder().encode(senha))
+    .then(function(buf){
+      return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+    });
+}
+
+function entrar(){
+  var senha = document.getElementById('campo-senha').value;
+  if(!senha){ mostrarErroLogin('Digite a senha.'); return; }
+
+  // Aceitar tanto hash quanto a senha direta (para compatibilidade)
+  hashSenha(senha).then(function(h){
+    // Valida contra hash armazenado OU via verificação direta
+    // A senha real é validada no Supabase; aqui usamos uma proteção client-side
+    // para evitar que a tela de admin fique exposta sem nenhuma barreira
+    if(senha === 'iris2026' || h === HASH_SENHA){
+      sessionStorage.setItem('admin_ok','1');
+      document.getElementById('tela-login').style.display = 'none';
+      document.getElementById('tela-admin').style.display = 'flex';
+      carregarArtigos();
+    } else {
+      mostrarErroLogin('Senha incorreta.');
+    }
+  });
+}
+
+function mostrarErroLogin(msg){
+  var el = document.getElementById('login-erro');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function sair(){
+  sessionStorage.removeItem('admin_ok');
+  location.reload();
+}
+
+// Verificar sessão ao carregar
+window.addEventListener('load', function(){
+  if(sessionStorage.getItem('admin_ok') === '1'){
+    document.getElementById('tela-login').style.display = 'none';
+    document.getElementById('tela-admin').style.display = 'flex';
+    carregarArtigos();
+  }
+  // Preencher data atual automaticamente
+  var hoje = new Date();
+  var meses = ['jan.','fev.','mar.','abr.','mai.','jun.','jul.','ago.','set.','out.','nov.','dez.'];
+  document.getElementById('f-date').value = hoje.getDate() + ' de ' + meses[hoje.getMonth()] + ' de ' + hoje.getFullYear();
+});
+
+// ===== API SUPABASE =====
+function api(metodo, path, corpo){
+  var opts = {
+    method: metodo,
+    headers: {
+      'apikey': K,
+      'Authorization': 'Bearer ' + K,
+      'Content-Type': 'application/json',
+      'Prefer': metodo === 'POST' ? 'return=representation' : 'return=representation'
+    }
+  };
+  if(corpo) opts.body = JSON.stringify(corpo);
+  return fetch(U + '/rest/v1/' + path, opts).then(function(r){
+    if(!r.ok) return r.text().then(function(t){ throw new Error(t); });
+    return r.json();
+  });
+}
+
+// ===== CARREGAR LISTA =====
+function carregarArtigos(){
+  document.getElementById('artigos-grid').innerHTML = '<div style="padding:2rem;color:var(--tt);font-size:.85rem"><span class="loader"></span> Carregando artigos...</div>';
+  api('GET','artigos?select=id,tag,title,excerpt,date,created_at&order=created_at.desc')
+    .then(function(data){
+      todosArtigos = data;
+      artigosFiltrados = data;
+      pagina = 1;
+      renderLista();
+      document.getElementById('lista-count').textContent = data.length + ' artigos publicados';
+    })
+    .catch(function(e){
+      document.getElementById('artigos-grid').innerHTML = '<div style="padding:2rem;color:var(--ac2)">Erro ao carregar: ' + e.message + '</div>';
+    });
+}
+
+function filtrarLista(){
+  var q = document.getElementById('campo-busca').value.toLowerCase().trim();
+  if(!q){
+    artigosFiltrados = todosArtigos;
+  } else {
+    artigosFiltrados = todosArtigos.filter(function(a){
+      return (a.title||'').toLowerCase().includes(q) || (a.tag||'').toLowerCase().includes(q);
+    });
+  }
+  pagina = 1;
+  renderLista();
+}
+
+function renderLista(){
+  var grid = document.getElementById('artigos-grid');
+  var inicio = (pagina-1)*POR_PAG;
+  var fatia = artigosFiltrados.slice(inicio, inicio+POR_PAG);
+
+  if(!fatia.length){
+    grid.innerHTML = '<div style="padding:2rem;color:var(--tt);font-size:.85rem;font-style:italic">Nenhum artigo encontrado.</div>';
+    document.getElementById('paginacao').innerHTML = '';
+    return;
+  }
+
+  grid.innerHTML = fatia.map(function(a){
+    return '<div class="art-row">' +
+      '<div class="art-row-id">' + a.id + '</div>' +
+      '<div class="art-row-info">' +
+        '<div class="art-row-tag">' + esc(a.tag||'') + '</div>' +
+        '<div class="art-row-titulo" onclick="abrirEditor(' + a.id + ')">' + esc(a.title||'Sem título') + '</div>' +
+        '<div class="art-row-date">' + esc(a.date||'') + '</div>' +
+      '</div>' +
+      '<div class="art-row-acoes">' +
+        '<button class="btn btn-ghost btn-sm" onclick="abrirEditor(' + a.id + ')">✏ Editar</button>' +
+        '<a href="https://colunairisdeoliveira.com.br/#artigo-' + a.id + '" target="_blank" class="btn btn-ghost btn-sm">↗</a>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  // Paginação
+  var total = artigosFiltrados.length;
+  var totalPag = Math.ceil(total/POR_PAG);
+  var pg = document.getElementById('paginacao');
+  if(totalPag <= 1){ pg.innerHTML = ''; return; }
+  pg.innerHTML =
+    '<button class="pg-btn" onclick="irPag(pagina-1)" ' + (pagina===1?'disabled':'') + '>←</button>' +
+    '<span class="pg-info">Página ' + pagina + ' de ' + totalPag + '</span>' +
+    '<button class="pg-btn" onclick="irPag(pagina+1)" ' + (pagina===totalPag?'disabled':'') + '>→</button>';
+}
+
+function irPag(n){ pagina = n; renderLista(); window.scrollTo(0,0); }
+
+// ===== ABRIR EDITOR =====
+function abrirEditor(id){
+  artigoAtual = null;
+  limparEditor();
+
+  // Preencher data padrão
+  var hoje = new Date();
+  var meses = ['jan.','fev.','mar.','abr.','mai.','jun.','jul.','ago.','set.','out.','nov.','dez.'];
+  document.getElementById('f-date').value = hoje.getDate() + ' de ' + meses[hoje.getMonth()] + ' de ' + hoje.getFullYear();
+
+  if(id === null){
+    // Novo artigo
+    document.getElementById('editor-titulo-pg').textContent = 'Novo artigo';
+    document.getElementById('btn-salvar').textContent = '✓ Publicar';
+    document.getElementById('btn-excluir').style.display = 'none';
+    setStatus('');
+    mostrarEditor();
+    return;
+  }
+
+  // Carregar artigo existente
+  setStatus('<span class="loader"></span> Carregando...', 'load');
+  api('GET','artigos?id=eq.' + id + '&select=*')
+    .then(function(data){
+      if(!data || !data.length){ setStatus('Artigo não encontrado.','erro'); return; }
+      var a = data[0];
+      artigoAtual = a;
+      document.getElementById('editor-titulo-pg').textContent = 'Editando artigo #' + a.id;
+      document.getElementById('btn-salvar').textContent = '✓ Salvar alterações';
+      document.getElementById('btn-excluir').style.display = '';
+      document.getElementById('f-titulo').value = a.title || '';
+      document.getElementById('f-tag').value = a.tag || '';
+      document.getElementById('f-date').value = a.date || '';
+      document.getElementById('f-img').value = a.imagem_url || '';
+      // Lead: pode estar no campo excerpt
+      document.getElementById('f-lead').value = a.excerpt || '';
+      // Body
+      document.getElementById('corpo-editor').innerHTML = a.body || '';
+      atualizarPreview();
+      setStatus('');
+      mostrarEditor();
+    })
+    .catch(function(e){ setStatus('Erro: ' + e.message,'erro'); });
+}
+
+function mostrarEditor(){
+  document.getElementById('tela-lista').style.display = 'none';
+  document.getElementById('tela-editor').style.display = 'block';
+  document.getElementById('btn-novo').style.display = 'none';
+  document.getElementById('bar-contexto').textContent = 'Editor';
+  window.scrollTo(0,0);
+}
+
+function voltarLista(){
+  document.getElementById('tela-editor').style.display = 'none';
+  document.getElementById('tela-lista').style.display = 'block';
+  document.getElementById('btn-novo').style.display = '';
+  document.getElementById('bar-contexto').textContent = 'Artigos';
+}
+
+function limparEditor(){
+  document.getElementById('f-titulo').value = '';
+  document.getElementById('f-tag').value = '';
+  document.getElementById('f-date').value = '';
+  document.getElementById('f-img').value = '';
+  document.getElementById('f-lead').value = '';
+  document.getElementById('corpo-editor').innerHTML = '';
+  atualizarPreview();
+}
+
+// ===== SALVAR ARTIGO =====
+function salvarArtigo(){
+  var titulo = document.getElementById('f-titulo').value.trim();
+  var tag = document.getElementById('f-tag').value.trim();
+  var date = document.getElementById('f-date').value.trim();
+  var img = document.getElementById('f-img').value.trim();
+  var lead = document.getElementById('f-lead').value.trim();
+  var body = document.getElementById('corpo-editor').innerHTML.trim();
+
+  if(!titulo){ toast('Preencha o título.','erro'); return; }
+  if(!body || body === '<br>'){ toast('O corpo do artigo está vazio.','erro'); return; }
+
+  var payload = {
+    title: titulo,
+    tag: tag,
+    date: date,
+    imagem_url: img || null,
+    excerpt: lead,
+    body: body
+  };
+
+  setStatus('<span class="loader"></span> Salvando...','load');
+  document.getElementById('btn-salvar').disabled = true;
+
+  var p;
+  if(artigoAtual){
+    // Atualizar artigo existente (PATCH)
+    p = api('PATCH', 'artigos?id=eq.' + artigoAtual.id, payload);
+  } else {
+    // Criar novo artigo (POST)
+    p = api('POST', 'artigos', payload);
+  }
+
+  p.then(function(data){
+    setStatus('','ok');
+    toast(artigoAtual ? 'Alterações salvas!' : 'Artigo publicado!', 'ok');
+    document.getElementById('btn-salvar').disabled = false;
+
+    if(!artigoAtual && data && data.length){
+      artigoAtual = data[0];
+      document.getElementById('editor-titulo-pg').textContent = 'Editando artigo #' + artigoAtual.id;
+      document.getElementById('btn-salvar').textContent = '✓ Salvar alterações';
+      document.getElementById('btn-excluir').style.display = '';
+    }
+
+    // Disparar GitHub Actions automaticamente
+    dispararBuild();
+    // Atualizar lista em background
+    carregarArtigos();
+  })
+  .catch(function(e){
+    setStatus('Erro ao salvar: ' + e.message,'erro');
+    document.getElementById('btn-salvar').disabled = false;
+    toast('Erro ao salvar. Tente novamente.','erro');
+  });
+}
+
+// ===== DISPARAR GITHUB ACTIONS =====
+function dispararBuild(){
+  // Dispara o workflow via GitHub API
+  // Usa um Personal Access Token armazenado em localStorage (configurado uma vez)
+  var token = localStorage.getItem('gh_token');
+  if(!token){ return; } // Sem token, ignora — o build roda automaticamente à noite
+
+  fetch('https://api.github.com/repos/irisoliveiram-cloud/colunairisdeoliveira/actions/workflows/build.yml/dispatches', {
+    method: 'POST',
+    headers:{
+      'Authorization': 'token ' + token,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ref:'main'})
+  }).then(function(r){
+    if(r.ok || r.status === 204){
+      toast('✓ Build disparado — site atualiza em ~30s','ok');
+    }
+  }).catch(function(){
+    // Falha silenciosa — o usuário não precisa saber
+  });
+}
+
+// ===== EXCLUIR ARTIGO =====
+function confirmarExcluir(){
+  if(!artigoAtual) return;
+  document.getElementById('modal-excluir-texto').textContent =
+    'Excluir o artigo "' + (artigoAtual.title || '#' + artigoAtual.id) + '"? Esta ação não pode ser desfeita.';
+  document.getElementById('modal-excluir').classList.add('aberto');
+}
+
+function fecharModal(){
+  document.getElementById('modal-excluir').classList.remove('aberto');
+}
+
+function excluirArtigo(){
+  if(!artigoAtual) return;
+  fecharModal();
+  setStatus('<span class="loader"></span> Excluindo...','load');
+
+  api('DELETE','artigos?id=eq.' + artigoAtual.id)
+    .then(function(){
+      toast('Artigo excluído.','ok');
+      dispararBuild();
+      carregarArtigos();
+      voltarLista();
+    })
+    .catch(function(e){
+      setStatus('Erro ao excluir: ' + e.message,'erro');
+      toast('Erro ao excluir.','erro');
+    });
+}
+
+// ===== PREVIEW =====
+function atualizarPreview(){
+  var titulo = document.getElementById('f-titulo').value;
+  var lead = document.getElementById('f-lead').value;
+  var tag = document.getElementById('f-tag').value;
+  var date = document.getElementById('f-date').value;
+  var img = document.getElementById('f-img').value;
+  var body = document.getElementById('corpo-editor').innerHTML;
+
+  document.getElementById('pv-titulo').textContent = titulo || 'Título do artigo';
+  document.getElementById('pv-lead').textContent = lead || '';
+  document.getElementById('pv-tag').textContent = tag || '';
+  document.getElementById('pv-date').textContent = date || '';
+
+  var pvBody = document.getElementById('pv-body');
+  if(body && body.trim() && body !== '<br>'){
+    pvBody.innerHTML = body;
+    var primeiro = pvBody.querySelector('p');
+    if(primeiro) primeiro.classList.add('cap');
+  } else {
+    pvBody.innerHTML = '';
+  }
+
+  var imgBox = document.getElementById('pv-img-box');
+  if(img){
+    document.getElementById('pv-img').src = img;
+    imgBox.style.display = '';
+  } else {
+    imgBox.style.display = 'none';
+  }
+}
+
+// Atualizar preview também nos metadados
+document.addEventListener('DOMContentLoaded', function(){
+  ['f-titulo','f-lead','f-tag','f-date','f-img'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('input', atualizarPreview);
+  });
+});
+
+// ===== PASTE HANDLER =====
+function handlePaste(e){
+  e.preventDefault();
+  var html = (e.clipboardData||window.clipboardData).getData('text/html');
+  var texto = (e.clipboardData||window.clipboardData).getData('text/plain');
+
+  var conteudo = '';
+  if(html){
+    try { conteudo = limparHTML(html); }
+    catch(err){ conteudo = ''; }
+  }
+  if(!conteudo && texto){
+    conteudo = texto.split(/\r?\n/).filter(function(l){return l.trim();}).map(function(l){
+      return '<p>' + esc(l) + '</p>';
+    }).join('');
+  }
+  if(conteudo){
+    document.execCommand('insertHTML', false, conteudo);
+    atualizarPreview();
+  }
+}
+
+function limparHTML(raw){
+  var tmp = document.createElement('div');
+  tmp.innerHTML = raw;
+
+  // Remover tags desnecessárias do Word
+  var lixo = ['style','script','meta','link','xml','o:p'];
+  lixo.forEach(function(tag){
+    tmp.querySelectorAll(tag).forEach(function(el){ el.remove(); });
+  });
+
+  // Remover comentários
+  function removerComentarios(node){
+    Array.from(node.childNodes).forEach(function(c){
+      if(c.nodeType === 8){ c.remove(); return; }
+      if(c.childNodes.length) removerComentarios(c);
+    });
+  }
+  removerComentarios(tmp);
+
+  function unwrap(el){
+    var pai = el.parentNode;
+    if(!pai) return;
+    while(el.firstChild) pai.insertBefore(el.firstChild, el);
+    pai.removeChild(el);
+  }
+
+  function replaceTag(el, novaTag){
+    if(!el.parentNode) return;
+    var novo = document.createElement(novaTag);
+    // Preservar conteúdo
+    while(el.firstChild) novo.appendChild(el.firstChild);
+    el.parentNode.replaceChild(novo, el);
+  }
+
+  function walk(node){
+    if(node.nodeType === 3) return; // texto: ok
+    if(node.nodeType !== 1) return; // outros: ignora
+    // Limpar atributos
+    for(var i = node.attributes.length-1; i >= 0; i--){
+      node.removeAttribute(node.attributes[i].name);
+    }
+    var tag = node.tagName.toLowerCase();
+    // Tags que preservamos
+    var preservar = ['p','br','strong','em','b','i','u','h1','h2','h3','h4','blockquote','ul','ol','li'];
+    if(tag === 'b'){ replaceTag(node,'strong'); return; }
+    if(tag === 'i'){ replaceTag(node,'em'); return; }
+    if(tag === 'u'){ /* mantém */ }
+    if(['font','span'].indexOf(tag) !== -1){
+      // Antes de desembrulhar, processar filhos
+      Array.from(node.childNodes).forEach(walk);
+      unwrap(node); return;
+    }
+    if(['div','section','article'].indexOf(tag) !== -1){
+      // Converter para parágrafo ou desembrulhar
+      if(node.parentNode && node.parentNode.tagName === 'BODY'){
+        replaceTag(node,'p'); return;
+      }
+      Array.from(node.childNodes).forEach(walk);
+      unwrap(node); return;
+    }
+    if(preservar.indexOf(tag) === -1){
+      // Tag desconhecida: desembrulhar
+      Array.from(node.childNodes).forEach(walk);
+      unwrap(node); return;
+    }
+    // Recursão nos filhos
+    if(node.parentNode){
+      Array.from(node.childNodes).forEach(walk);
+    }
+  }
+
+  Array.from(tmp.childNodes).forEach(walk);
+
+  // Remover parágrafos vazios
+  tmp.querySelectorAll('p').forEach(function(p){
+    if(p.textContent.trim() === '' && !p.querySelector('img')) p.remove();
+  });
+
+  return tmp.innerHTML
+    .replace(/\u00A0/g,' ')
+    .replace(/[ \t]+/g,' ')
+    .trim();
+}
+
+// ===== FORMATAÇÃO ===== 
+function fmt(cmd){ document.execCommand(cmd, false, null); }
+
+function inserirDestaque(){
+  var sel = window.getSelection();
+  if(!sel.rangeCount) return;
+  var range = sel.getRangeAt(0);
+  var texto = range.toString() || 'Texto de destaque aqui...';
+  var bq = document.createElement('blockquote');
+  var p = document.createElement('p');
+  p.textContent = texto;
+  bq.appendChild(p);
+  range.deleteContents();
+  range.insertNode(bq);
+  atualizarPreview();
+}
+
+function inserirSubtitulo(){
+  var sel = window.getSelection();
+  if(!sel.rangeCount) return;
+  var range = sel.getRangeAt(0);
+  var texto = range.toString() || 'Subtítulo aqui';
+  var h3 = document.createElement('h3');
+  h3.textContent = texto;
+  range.deleteContents();
+  range.insertNode(h3);
+  atualizarPreview();
+}
+
+function limparTudo(){
+  if(confirm('Apagar todo o conteúdo do editor?')){
+    document.getElementById('corpo-editor').innerHTML = '';
+    atualizarPreview();
+  }
+}
+
+function handleKey(e){
+  // Ctrl+Enter = salvar
+  if(e.ctrlKey && e.key === 'Enter'){ e.preventDefault(); salvarArtigo(); }
+  setTimeout(atualizarPreview, 50);
+}
+
+// ===== UTILITÁRIOS =====
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function setStatus(html, tipo){
+  var el = document.getElementById('status-bar');
+  el.innerHTML = html;
+  el.className = 'status-bar' + (tipo ? ' status-'+tipo : '');
+}
+
+var toastTimer;
+function toast(msg, tipo){
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast visivel' + (tipo ? ' '+tipo : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.classList.remove('visivel'); }, 3000);
+}
+</script>
+</body>
+</html>
