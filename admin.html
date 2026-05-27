@@ -726,7 +726,7 @@ function handlePaste(e){
   var conteudo = '';
   if(html){
     try { conteudo = limparHTML(html); }
-    catch(err){ conteudo = ''; }
+    catch(err){ console.warn('Paste HTML falhou:', err); conteudo = ''; }
   }
   if(!conteudo && texto){
     conteudo = texto.split(/\r?\n/).filter(function(l){return l.trim();}).map(function(l){
@@ -737,6 +737,195 @@ function handlePaste(e){
     document.execCommand('insertHTML', false, conteudo);
     atualizarPreview();
   }
+}
+
+function limparHTML(raw){
+  // ---- PASSO 1: pré-processamento do HTML cru (string) ----
+  // Remover quebras de linha DENTRO de tags (Word quebra linhas no meio do HTML)
+  // Estratégia: remover \n que não estão entre > e <
+  var s = raw
+    .replace(/\r\n/g, '\n')
+    .replace(/[ \t]*\n[ \t]*/g, ' ')  // toda quebra de linha vira espaço
+    .replace(/&nbsp;/g, ' ')           // &nbsp; → espaço normal
+    .replace(/[ \t]{2,}/g, ' ');       // múltiplos espaços → um
+
+  var tmp = document.createElement('div');
+  tmp.innerHTML = s;
+
+  // ---- PASSO 2: remover lixo do Office ----
+  ['style','script','meta','link','xml'].forEach(function(sel){
+    tmp.querySelectorAll(sel).forEach(function(el){ el.remove(); });
+  });
+  // Tags com namespace (o:p, w:sdt, etc)
+  tmp.querySelectorAll('*').forEach(function(el){
+    if(el.tagName && el.tagName.indexOf(':') !== -1) el.remove();
+  });
+  // Comentários
+  function remComentarios(node){
+    Array.from(node.childNodes).forEach(function(c){
+      if(c.nodeType === 8){ c.remove(); return; }
+      if(c.childNodes && c.childNodes.length) remComentarios(c);
+    });
+  }
+  remComentarios(tmp);
+
+  // ---- PASSO 3: detectar elementos especiais (antes de limpar atributos) ----
+
+  // 3a. Blockquote duplo aninhado (Word gera <bq><p/><bq><p>texto</p></bq><p/></bq>)
+  // → colapsar para <blockquote><p>texto</p></blockquote>
+  tmp.querySelectorAll('blockquote blockquote').forEach(function(bqInner){
+    var bqOuter = bqInner.parentNode;
+    if(!bqOuter || bqOuter.tagName !== 'BLOCKQUOTE') return;
+    // Mover conteúdo do inner para o outer, removendo parágrafos vazios do outer
+    var pai = bqOuter.parentNode;
+    if(!pai) return;
+    var novo = document.createElement('blockquote');
+    // Pegar apenas os filhos não-vazios do inner
+    Array.from(bqInner.childNodes).forEach(function(c){
+      novo.appendChild(c.cloneNode(true));
+    });
+    pai.replaceChild(novo, bqOuter);
+  });
+
+  // 3b. Parágrafo com borda esquerda → <blockquote>
+  tmp.querySelectorAll('p,div').forEach(function(el){
+    var st = (el.getAttribute('style')||'').toLowerCase();
+    var cls = (el.getAttribute('class')||'').toLowerCase();
+    if((st.indexOf('border-left') !== -1 || /quote|cita|destaque/.test(cls))
+        && el.tagName !== 'BLOCKQUOTE' && !el.closest('blockquote')){
+      var bq = document.createElement('blockquote');
+      var p2 = document.createElement('p');
+      while(el.firstChild) p2.appendChild(el.firstChild);
+      bq.appendChild(p2);
+      if(el.parentNode) el.parentNode.replaceChild(bq, el);
+    }
+  });
+
+  // 3c. Headings → <h3>
+  tmp.querySelectorAll('h1,h2,h4,h5,h6').forEach(function(el){
+    var h3 = document.createElement('h3');
+    while(el.firstChild) h3.appendChild(el.firstChild);
+    if(el.parentNode) el.parentNode.replaceChild(h3, el);
+  });
+
+  // 3d. Parágrafo vazio com border-bottom → <hr>
+  tmp.querySelectorAll('p,div').forEach(function(el){
+    var st = (el.getAttribute('style')||'').toLowerCase();
+    if(st.indexOf('border-bottom') !== -1 && el.textContent.trim() === ''){
+      var hr = document.createElement('hr');
+      if(el.parentNode) el.parentNode.replaceChild(hr, el);
+    }
+  });
+
+  // 3e. Parágrafo que começa com "Fontes:" → class="fontes"
+  tmp.querySelectorAll('p').forEach(function(el){
+    var txt = el.textContent.trim();
+    if(/^Fontes?\s*[:—]/.test(txt)){
+      el.setAttribute('data-fontes','1');
+    }
+  });
+
+  // ---- PASSO 4: limpar atributos e normalizar tags ----
+
+  function unwrap(el){
+    var pai = el.parentNode;
+    if(!pai) return;
+    while(el.firstChild) pai.insertBefore(el.firstChild, el);
+    if(el.parentNode) el.parentNode.removeChild(el);
+  }
+
+  function processarNo(node){
+    if(node.nodeType === 3) return;
+    if(node.nodeType !== 1) return;
+    var tag = node.tagName.toLowerCase();
+
+    // Tags intocáveis: limpar atributos mas manter estrutura
+    var preservar = ['p','br','strong','em','u','ul','ol','li','blockquote','h3','hr'];
+
+    if(tag === 'b'){
+      var sb = document.createElement('strong');
+      while(node.firstChild) sb.appendChild(node.firstChild);
+      if(node.parentNode) node.parentNode.replaceChild(sb, node);
+      Array.from(sb.childNodes).forEach(processarNo);
+      return;
+    }
+    if(tag === 'i'){
+      var ei = document.createElement('em');
+      while(node.firstChild) ei.appendChild(node.firstChild);
+      if(node.parentNode) node.parentNode.replaceChild(ei, node);
+      Array.from(ei.childNodes).forEach(processarNo);
+      return;
+    }
+    if(tag === 'span'){
+      var st2 = (node.getAttribute('style')||'').toLowerCase();
+      var bold   = /font-weight\s*:\s*(bold|[6-9]\d\d)/.test(st2);
+      var italic = /font-style\s*:\s*italic/.test(st2);
+      Array.from(node.childNodes).forEach(processarNo);
+      if(bold && italic){
+        var ws = document.createElement('strong');
+        var we = document.createElement('em');
+        while(node.firstChild) we.appendChild(node.firstChild);
+        ws.appendChild(we);
+        if(node.parentNode) node.parentNode.replaceChild(ws, node);
+      } else if(bold){
+        var ws2 = document.createElement('strong');
+        while(node.firstChild) ws2.appendChild(node.firstChild);
+        if(node.parentNode) node.parentNode.replaceChild(ws2, node);
+      } else if(italic){
+        var we2 = document.createElement('em');
+        while(node.firstChild) we2.appendChild(node.firstChild);
+        if(node.parentNode) node.parentNode.replaceChild(we2, node);
+      } else {
+        unwrap(node);
+      }
+      return;
+    }
+    if(tag === 'font'){
+      Array.from(node.childNodes).forEach(processarNo);
+      unwrap(node); return;
+    }
+
+    if(preservar.indexOf(tag) !== -1){
+      // Preservar data-fontes antes de limpar
+      var df = node.getAttribute && node.getAttribute('data-fontes');
+      var attrs = Array.from(node.attributes||[]);
+      attrs.forEach(function(a){ node.removeAttribute(a.name); });
+      if(df) node.setAttribute('data-fontes','1');
+      Array.from(node.childNodes).forEach(processarNo);
+      return;
+    }
+
+    // div/section/article: desembrulhar
+    if(['div','section','article','table','tbody','tr','td','th'].indexOf(tag) !== -1){
+      Array.from(node.childNodes).forEach(processarNo);
+      unwrap(node); return;
+    }
+
+    // Desconhecida: desembrulhar
+    Array.from(node.childNodes).forEach(processarNo);
+    unwrap(node);
+  }
+
+  Array.from(tmp.childNodes).forEach(processarNo);
+
+  // ---- PASSO 5: pós-processamento ----
+
+  // data-fontes → class="fontes"
+  tmp.querySelectorAll('[data-fontes]').forEach(function(el){
+    el.removeAttribute('data-fontes');
+    el.className = 'fontes';
+  });
+
+  // Remover parágrafos vazios
+  tmp.querySelectorAll('p').forEach(function(p){
+    if(p.textContent.trim() === '' && !p.querySelector('img,br')) p.remove();
+  });
+
+  // Remover espaços extras finais
+  return tmp.innerHTML
+    .replace(/\u00A0/g,' ')
+    .replace(/[ \t]{2,}/g,' ')
+    .trim();
 }
 
 function limparHTML(raw){
