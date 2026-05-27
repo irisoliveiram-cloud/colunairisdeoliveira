@@ -743,79 +743,16 @@ function limparHTML(raw){
   var tmp = document.createElement('div');
   tmp.innerHTML = raw;
 
-  // ---- PASSO 1: detectar elementos especiais ANTES de limpar atributos ----
-
-  // 1a. Parágrafos com borda esquerda no Word → <blockquote>
-  // O Word usa border-left ou mso-border-left no style inline
-  tmp.querySelectorAll('p,div').forEach(function(el){
-    var st = el.getAttribute('style') || '';
-    var cls = el.getAttribute('class') || '';
-    var temBordaEsq = /border-left/i.test(st) || /mso-border-left/i.test(st);
-    // Também detecta estilos "Quote", "Citação", "Intense Quote" do Word
-    var temEstiloQuote = /\b(Quote|Cita[çc][aã]o|Intense|Destaque|Blockquote)\b/i.test(cls);
-    if(temBordaEsq || temEstiloQuote){
-      var bq = document.createElement('blockquote');
-      var p = document.createElement('p');
-      // Clonar conteúdo interno
-      while(el.firstChild) p.appendChild(el.firstChild);
-      bq.appendChild(p);
-      if(el.parentNode) el.parentNode.replaceChild(bq, el);
-    }
+  // ---- PASSO 1: remover lixo do Word/Office ----
+  ['style','script','meta','link','xml','o\\:p','w\\:sdt','w\\:sdtContent'].forEach(function(sel){
+    try{ tmp.querySelectorAll(sel).forEach(function(el){ el.remove(); }); }catch(e){}
+  });
+  // Remover tags <o:p> pelo tagName (seletor com : pode falhar em alguns browsers)
+  tmp.querySelectorAll('*').forEach(function(el){
+    if(el.tagName && el.tagName.toLowerCase().indexOf(':') !== -1) el.remove();
   });
 
-  // 1b. Subtítulos (Heading 1-4 do Word, ou classes Ttulo/Título) → <h3>
-  tmp.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(function(el){
-    var h3 = document.createElement('h3');
-    while(el.firstChild) h3.appendChild(el.firstChild);
-    if(el.parentNode) el.parentNode.replaceChild(h3, el);
-  });
-  tmp.querySelectorAll('p,div').forEach(function(el){
-    var cls = el.getAttribute('class') || '';
-    var st = el.getAttribute('style') || '';
-    // Detecta classes de título do Word: Ttulo1, MsoHeading, etc.
-    var ehTitulo = /\b(Heading|Ttulo|T[ií]tulo|MsoHeading|Subtitle)\b/i.test(cls);
-    // Detecta negrito forte sozinho num parágrafo curto (<=80 chars) como subtítulo
-    var textoLimpo = el.textContent.trim();
-    var ehNegritoCurto = textoLimpo.length > 0 && textoLimpo.length <= 80
-      && (/font-weight\s*:\s*(bold|700|800|900)/i.test(st))
-      && !el.closest('blockquote');
-    if(ehTitulo || ehNegritoCurto){
-      var h3 = document.createElement('h3');
-      while(el.firstChild) h3.appendChild(el.firstChild);
-      if(el.parentNode) el.parentNode.replaceChild(h3, el);
-    }
-  });
-
-  // 1c. Linha horizontal (separador antes das fontes) → preservar <hr>
-  // O Word às vezes usa uma linha de border-bottom num parágrafo vazio
-  tmp.querySelectorAll('p,div').forEach(function(el){
-    var st = el.getAttribute('style') || '';
-    var texto = el.textContent.trim();
-    var temLinha = /border-bottom/i.test(st) && texto === '';
-    if(temLinha){
-      var hr = document.createElement('hr');
-      if(el.parentNode) el.parentNode.replaceChild(hr, el);
-    }
-  });
-
-  // 1d. Parágrafo de fontes (itálico, menor, após hr) — marcar com classe
-  // Detecta pela proximidade com <hr> ou pelo estilo font-size pequeno + itálico
-  var encontrouHr = false;
-  Array.from(tmp.childNodes).forEach(function(node){
-    if(node.tagName === 'HR') encontrouHr = true;
-    if(encontrouHr && node.tagName === 'P'){
-      node.setAttribute('data-fontes','1');
-    }
-  });
-
-  // ---- PASSO 2: remover tags e atributos desnecessários ----
-
-  var lixo = ['style','script','meta','link','xml','o:p'];
-  lixo.forEach(function(tag){
-    tmp.querySelectorAll(tag).forEach(function(el){ el.remove(); });
-  });
-
-  // Remover comentários
+  // Remover comentários HTML
   function removerComentarios(node){
     Array.from(node.childNodes).forEach(function(c){
       if(c.nodeType === 8){ c.remove(); return; }
@@ -824,90 +761,165 @@ function limparHTML(raw){
   }
   removerComentarios(tmp);
 
+  // ---- PASSO 2: detectar elementos especiais pelo estilo inline do Word ----
+  // (ANTES de remover atributos)
+
+  // 2a. Parágrafo com borda esquerda → <blockquote>
+  tmp.querySelectorAll('p,div').forEach(function(el){
+    var st = (el.getAttribute('style')||'').toLowerCase();
+    var cls = (el.getAttribute('class')||'').toLowerCase();
+    var temBorda = st.indexOf('border-left') !== -1 || st.indexOf('mso-border-left') !== -1;
+    var temQuote = /quote|cita|destaque|blockquote/.test(cls);
+    if((temBorda || temQuote) && el.tagName !== 'BLOCKQUOTE'){
+      var bq = document.createElement('blockquote');
+      var p2 = document.createElement('p');
+      while(el.firstChild) p2.appendChild(el.firstChild);
+      bq.appendChild(p2);
+      if(el.parentNode) el.parentNode.replaceChild(bq, el);
+    }
+  });
+
+  // 2b. Headings → <h3>
+  tmp.querySelectorAll('h1,h2,h4,h5,h6').forEach(function(el){
+    var h3 = document.createElement('h3');
+    while(el.firstChild) h3.appendChild(el.firstChild);
+    if(el.parentNode) el.parentNode.replaceChild(h3, el);
+  });
+
+  // 2c. Parágrafo vazio com border-bottom → <hr>
+  tmp.querySelectorAll('p,div').forEach(function(el){
+    var st = (el.getAttribute('style')||'').toLowerCase();
+    if(st.indexOf('border-bottom') !== -1 && el.textContent.trim() === ''){
+      var hr = document.createElement('hr');
+      if(el.parentNode) el.parentNode.replaceChild(hr, el);
+    }
+  });
+
+  // 2d. Parágrafo após <hr> = fontes (marcar antes de limpar atributos)
+  var achouHr = false;
+  Array.from(tmp.children).forEach(function(el){
+    if(el.tagName === 'HR'){ achouHr = true; return; }
+    if(achouHr && el.tagName === 'P') el.setAttribute('data-fontes','1');
+  });
+
+  // ---- PASSO 3: limpar atributos mas PRESERVAR negrito/itálico/estrutura ----
+
+  function limparAtributos(el){
+    // Preservar data-fontes
+    var fontes = el.getAttribute && el.getAttribute('data-fontes');
+    // Remover todos os atributos
+    var attrs = Array.from(el.attributes || []);
+    attrs.forEach(function(a){ el.removeAttribute(a.name); });
+    // Restaurar data-fontes
+    if(fontes) el.setAttribute('data-fontes','1');
+  }
+
   function unwrap(el){
     var pai = el.parentNode;
     if(!pai) return;
     while(el.firstChild) pai.insertBefore(el.firstChild, el);
-    pai.removeChild(el);
+    if(el.parentNode) el.parentNode.removeChild(el);
   }
 
-  function replaceTag(el, novaTag, atributos){
-    if(!el.parentNode) return null;
-    var novo = document.createElement(novaTag);
-    if(atributos) Object.keys(atributos).forEach(function(k){ novo.setAttribute(k,atributos[k]); });
-    while(el.firstChild) novo.appendChild(el.firstChild);
-    el.parentNode.replaceChild(novo, el);
-    return novo;
-  }
-
-  function walk(node){
-    if(node.nodeType === 3) return;
+  function processarNo(node){
+    if(node.nodeType === 3) return; // nó de texto: não toca
     if(node.nodeType !== 1) return;
 
     var tag = node.tagName.toLowerCase();
 
-    // Tags que NUNCA tocamos (já foram processadas ou são estruturais)
-    if(tag === 'blockquote' || tag === 'hr' || tag === 'h3'){
-      // Limpar atributos mas manter a tag
-      for(var i = node.attributes.length-1; i >= 0; i--){
-        node.removeAttribute(node.attributes[i].name);
-      }
-      Array.from(node.childNodes).forEach(walk);
+    // Tags estruturais que sempre preservamos (limpa atributos, processa filhos)
+    var preservar = ['p','br','strong','b','em','i','u','ul','ol','li',
+                     'blockquote','h3','hr','table','tr','td','th'];
+
+    // <b> → <strong>, <i> → <em>
+    if(tag === 'b'){
+      var s = document.createElement('strong');
+      while(node.firstChild) s.appendChild(node.firstChild);
+      if(node.parentNode) node.parentNode.replaceChild(s, node);
+      Array.from(s.childNodes).forEach(processarNo);
+      return;
+    }
+    if(tag === 'i'){
+      var em = document.createElement('em');
+      while(node.firstChild) em.appendChild(node.firstChild);
+      if(node.parentNode) node.parentNode.replaceChild(em, node);
+      Array.from(em.childNodes).forEach(processarNo);
       return;
     }
 
-    // Preservar data-fontes antes de limpar atributos
-    var eFontes = node.getAttribute && node.getAttribute('data-fontes') === '1';
-
-    // Limpar todos os atributos
-    for(var i = node.attributes.length-1; i >= 0; i--){
-      node.removeAttribute(node.attributes[i].name);
-    }
-
-    // Restaurar marcação de fontes
-    if(eFontes) node.setAttribute('data-fontes','1');
-
-    if(tag === 'b'){ replaceTag(node,'strong'); return; }
-    if(tag === 'i'){ replaceTag(node,'em'); return; }
-
-    var preservar = ['p','br','strong','em','u','ul','ol','li','hr','blockquote','h3'];
-
-    if(['font','span'].indexOf(tag) !== -1){
-      Array.from(node.childNodes).forEach(walk);
+    // <span> com font-weight:bold ou font-style:italic → converter
+    if(tag === 'span'){
+      var st = (node.getAttribute('style')||'').toLowerCase();
+      var isBold   = /font-weight\s*:\s*(bold|[6-9]\d\d)/.test(st);
+      var isItalic = /font-style\s*:\s*italic/.test(st);
+      if(isBold && isItalic){
+        // Envolver em <strong><em>
+        Array.from(node.childNodes).forEach(processarNo);
+        var wrapper = document.createElement('strong');
+        var wem = document.createElement('em');
+        while(node.firstChild) wem.appendChild(node.firstChild);
+        wrapper.appendChild(wem);
+        if(node.parentNode) node.parentNode.replaceChild(wrapper, node);
+        return;
+      } else if(isBold){
+        Array.from(node.childNodes).forEach(processarNo);
+        var wsb = document.createElement('strong');
+        while(node.firstChild) wsb.appendChild(node.firstChild);
+        if(node.parentNode) node.parentNode.replaceChild(wsb, node);
+        return;
+      } else if(isItalic){
+        Array.from(node.childNodes).forEach(processarNo);
+        var wei = document.createElement('em');
+        while(node.firstChild) wei.appendChild(node.firstChild);
+        if(node.parentNode) node.parentNode.replaceChild(wei, node);
+        return;
+      }
+      // Span sem formatação relevante: desembrulhar
+      Array.from(node.childNodes).forEach(processarNo);
       unwrap(node); return;
     }
-    if(['div','section','article','table','tbody','tr','td','th'].indexOf(tag) !== -1){
-      Array.from(node.childNodes).forEach(walk);
-      unwrap(node); return;
-    }
-    if(preservar.indexOf(tag) === -1){
-      Array.from(node.childNodes).forEach(walk);
+
+    if(tag === 'font'){
+      Array.from(node.childNodes).forEach(processarNo);
       unwrap(node); return;
     }
 
-    if(node.parentNode){
-      Array.from(node.childNodes).forEach(walk);
+    if(preservar.indexOf(tag) !== -1){
+      limparAtributos(node);
+      Array.from(node.childNodes).forEach(processarNo);
+      return;
     }
+
+    // Div/section/article: desembrulhar (preserva conteúdo)
+    if(['div','section','article'].indexOf(tag) !== -1){
+      Array.from(node.childNodes).forEach(processarNo);
+      unwrap(node); return;
+    }
+
+    // Qualquer outra tag desconhecida: desembrulhar
+    Array.from(node.childNodes).forEach(processarNo);
+    unwrap(node);
   }
 
-  Array.from(tmp.childNodes).forEach(walk);
+  Array.from(tmp.childNodes).forEach(processarNo);
 
-  // ---- PASSO 3: pós-processamento ----
+  // ---- PASSO 4: pós-processamento ----
 
-  // Parágrafos de fontes: envolver em <p class="fontes">
-  tmp.querySelectorAll('p[data-fontes]').forEach(function(p){
-    p.removeAttribute('data-fontes');
-    p.setAttribute('class','fontes');
+  // Converter data-fontes → class="fontes"
+  tmp.querySelectorAll('[data-fontes]').forEach(function(el){
+    el.removeAttribute('data-fontes');
+    el.className = 'fontes';
   });
 
-  // Remover parágrafos completamente vazios (mas manter <hr>)
+  // Remover parágrafos completamente vazios
   tmp.querySelectorAll('p').forEach(function(p){
-    if(p.textContent.trim() === '' && !p.querySelector('img')) p.remove();
+    if(p.textContent.trim() === '' && !p.querySelector('img,br')) p.remove();
   });
 
+  // Limpar espaços múltiplos e &nbsp;
   return tmp.innerHTML
     .replace(/\u00A0/g,' ')
-    .replace(/[ \t]+/g,' ')
+    .replace(/[ \t]{2,}/g,' ')
     .trim();
 }
 
