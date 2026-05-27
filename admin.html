@@ -204,6 +204,7 @@ input,textarea,select{font-family:inherit}
     <div class="admin-bar-right">
       <button class="btn btn-red" onclick="abrirEditor(null)" id="btn-novo">+ Novo artigo</button>
       <a href="https://colunairisdeoliveira.com.br" target="_blank" class="btn btn-ghost">↗ Ver site</a>
+      <button class="btn btn-ghost" onclick="mostrarConfigToken()" title="Configurar token GitHub">⚙ Build</button>
       <button class="btn btn-ghost" onclick="sair()">Sair</button>
     </div>
   </div>
@@ -339,6 +340,29 @@ input,textarea,select{font-family:inherit}
   </div>
 </div>
 
+<!-- MODAL CONFIG TOKEN -->
+<div class="overlay" id="modal-token">
+  <div class="modal-box" style="max-width:440px">
+    <div class="modal-titulo">⚙ Configurar build automático</div>
+    <div class="modal-texto">
+      Cole seu GitHub Personal Access Token abaixo. Ele ficará salvo <strong>só no seu navegador</strong> (localStorage) e nunca vai para o código ou repositório.
+      <br><br>
+      <strong style="color:var(--ac2)">Sem token:</strong> o build roda automaticamente às 06:00 UTC todo dia.<br>
+      <strong style="color:#7dba7d">Com token:</strong> o build dispara ~30s após cada publicação.
+    </div>
+    <div style="margin-bottom:1rem">
+      <label class="campo-label" style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);display:block;margin-bottom:.35rem">Personal Access Token (ghp_...)</label>
+      <input type="password" id="campo-token" class="login-input" style="margin-bottom:0" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+    </div>
+    <div id="token-status" style="font-size:.75rem;margin-bottom:1rem;min-height:1.2rem"></div>
+    <div class="modal-acoes">
+      <button class="btn btn-ghost" onclick="fecharModalToken()">Cancelar</button>
+      <button class="btn btn-danger btn-sm" onclick="removerToken()" style="margin-right:auto">Remover token</button>
+      <button class="btn btn-green" onclick="salvarToken()">Salvar token</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -380,6 +404,10 @@ function entrar(){
       document.getElementById('tela-login').style.display = 'none';
       document.getElementById('tela-admin').style.display = 'flex';
       carregarArtigos();
+      // Verificar se token GitHub já está configurado
+      if(!localStorage.getItem('gh_token')){
+        setTimeout(function(){ mostrarConfigToken(); }, 800);
+      }
     } else {
       mostrarErroLogin('Senha incorreta.');
     }
@@ -994,6 +1022,42 @@ function toast(msg, tipo){
   el.className = 'toast visivel' + (tipo ? ' '+tipo : '');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(function(){ el.classList.remove('visivel'); }, 3000);
+}
+
+// ===== CONFIG TOKEN =====
+function mostrarConfigToken(){
+  var el = document.getElementById('campo-token');
+  var atual = localStorage.getItem('gh_token') || '';
+  el.value = atual ? '••••••••••••••••••••' : '';
+  var st = document.getElementById('token-status');
+  if(atual){
+    st.innerHTML = '<span style="color:#7dba7d">✓ Token configurado — build automático ativo</span>';
+  } else {
+    st.innerHTML = '<span style="color:var(--ac2)">Nenhum token configurado</span>';
+  }
+  document.getElementById('modal-token').classList.add('aberto');
+  if(!atual) setTimeout(function(){ el.focus(); }, 100);
+}
+
+function fecharModalToken(){
+  document.getElementById('modal-token').classList.remove('aberto');
+}
+
+function salvarToken(){
+  var val = document.getElementById('campo-token').value.trim();
+  if(!val || val.indexOf('•') !== -1){ toast('Cole o token completo.','erro'); return; }
+  if(!val.startsWith('ghp_') && !val.startsWith('github_pat_')){ 
+    toast('Token inválido. Deve começar com ghp_ ou github_pat_','erro'); return; 
+  }
+  localStorage.setItem('gh_token', val);
+  fecharModalToken();
+  toast('✓ Token salvo! Build automático ativado.','ok');
+}
+
+function removerToken(){
+  localStorage.removeItem('gh_token');
+  fecharModalToken();
+  toast('Token removido.','ok');
 }
 </script>
 </body>
