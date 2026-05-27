@@ -104,6 +104,8 @@ input,textarea,select{font-family:inherit}
 #corpo-editor h2,#corpo-editor h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin:1.5rem 0 .6rem;color:var(--tp)}
 #corpo-editor strong{font-weight:600}
 #corpo-editor em{font-style:italic}
+#corpo-editor hr{border:none;border-top:1px solid var(--bm);margin:1.8rem 0}
+#corpo-editor p.fontes{font-size:.82rem;font-style:italic;color:var(--tt);line-height:1.6;margin-top:.5rem}
 #corpo-editor blockquote{
   border-left:3px solid var(--ac2);
   padding:.6rem 0 .6rem 1.1rem;
@@ -132,6 +134,8 @@ input,textarea,select{font-family:inherit}
 .pv-body strong{font-weight:600}
 .pv-body em{font-style:italic}
 .pv-body h2,.pv-body h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin:1.2rem 0 .5rem;color:var(--tp)}
+.pv-body hr{border:none;border-top:1px solid var(--bm);margin:1.5rem 0}
+.pv-body p.fontes{font-size:.78rem;font-style:italic;color:var(--tt);line-height:1.6;margin-top:.3rem}
 .pv-body blockquote{border-left:3px solid var(--ac2);padding:.5rem 0 .5rem .9rem;margin:1rem 0;font-style:italic;color:var(--ts)}
 .pv-body blockquote p{margin-bottom:0}
 .pv-body>.cap::first-letter{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;float:left;line-height:1;padding:0 .4rem 0 0;margin-top:.1rem;color:var(--tp)}
@@ -739,7 +743,73 @@ function limparHTML(raw){
   var tmp = document.createElement('div');
   tmp.innerHTML = raw;
 
-  // Remover tags desnecessárias do Word
+  // ---- PASSO 1: detectar elementos especiais ANTES de limpar atributos ----
+
+  // 1a. Parágrafos com borda esquerda no Word → <blockquote>
+  // O Word usa border-left ou mso-border-left no style inline
+  tmp.querySelectorAll('p,div').forEach(function(el){
+    var st = el.getAttribute('style') || '';
+    var cls = el.getAttribute('class') || '';
+    var temBordaEsq = /border-left/i.test(st) || /mso-border-left/i.test(st);
+    // Também detecta estilos "Quote", "Citação", "Intense Quote" do Word
+    var temEstiloQuote = /\b(Quote|Cita[çc][aã]o|Intense|Destaque|Blockquote)\b/i.test(cls);
+    if(temBordaEsq || temEstiloQuote){
+      var bq = document.createElement('blockquote');
+      var p = document.createElement('p');
+      // Clonar conteúdo interno
+      while(el.firstChild) p.appendChild(el.firstChild);
+      bq.appendChild(p);
+      if(el.parentNode) el.parentNode.replaceChild(bq, el);
+    }
+  });
+
+  // 1b. Subtítulos (Heading 1-4 do Word, ou classes Ttulo/Título) → <h3>
+  tmp.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(function(el){
+    var h3 = document.createElement('h3');
+    while(el.firstChild) h3.appendChild(el.firstChild);
+    if(el.parentNode) el.parentNode.replaceChild(h3, el);
+  });
+  tmp.querySelectorAll('p,div').forEach(function(el){
+    var cls = el.getAttribute('class') || '';
+    var st = el.getAttribute('style') || '';
+    // Detecta classes de título do Word: Ttulo1, MsoHeading, etc.
+    var ehTitulo = /\b(Heading|Ttulo|T[ií]tulo|MsoHeading|Subtitle)\b/i.test(cls);
+    // Detecta negrito forte sozinho num parágrafo curto (<=80 chars) como subtítulo
+    var textoLimpo = el.textContent.trim();
+    var ehNegritoCurto = textoLimpo.length > 0 && textoLimpo.length <= 80
+      && (/font-weight\s*:\s*(bold|700|800|900)/i.test(st))
+      && !el.closest('blockquote');
+    if(ehTitulo || ehNegritoCurto){
+      var h3 = document.createElement('h3');
+      while(el.firstChild) h3.appendChild(el.firstChild);
+      if(el.parentNode) el.parentNode.replaceChild(h3, el);
+    }
+  });
+
+  // 1c. Linha horizontal (separador antes das fontes) → preservar <hr>
+  // O Word às vezes usa uma linha de border-bottom num parágrafo vazio
+  tmp.querySelectorAll('p,div').forEach(function(el){
+    var st = el.getAttribute('style') || '';
+    var texto = el.textContent.trim();
+    var temLinha = /border-bottom/i.test(st) && texto === '';
+    if(temLinha){
+      var hr = document.createElement('hr');
+      if(el.parentNode) el.parentNode.replaceChild(hr, el);
+    }
+  });
+
+  // 1d. Parágrafo de fontes (itálico, menor, após hr) — marcar com classe
+  // Detecta pela proximidade com <hr> ou pelo estilo font-size pequeno + itálico
+  var encontrouHr = false;
+  Array.from(tmp.childNodes).forEach(function(node){
+    if(node.tagName === 'HR') encontrouHr = true;
+    if(encontrouHr && node.tagName === 'P'){
+      node.setAttribute('data-fontes','1');
+    }
+  });
+
+  // ---- PASSO 2: remover tags e atributos desnecessários ----
+
   var lixo = ['style','script','meta','link','xml','o:p'];
   lixo.forEach(function(tag){
     tmp.querySelectorAll(tag).forEach(function(el){ el.remove(); });
@@ -749,7 +819,7 @@ function limparHTML(raw){
   function removerComentarios(node){
     Array.from(node.childNodes).forEach(function(c){
       if(c.nodeType === 8){ c.remove(); return; }
-      if(c.childNodes.length) removerComentarios(c);
+      if(c.childNodes && c.childNodes.length) removerComentarios(c);
     });
   }
   removerComentarios(tmp);
@@ -761,46 +831,60 @@ function limparHTML(raw){
     pai.removeChild(el);
   }
 
-  function replaceTag(el, novaTag){
-    if(!el.parentNode) return;
+  function replaceTag(el, novaTag, atributos){
+    if(!el.parentNode) return null;
     var novo = document.createElement(novaTag);
-    // Preservar conteúdo
+    if(atributos) Object.keys(atributos).forEach(function(k){ novo.setAttribute(k,atributos[k]); });
     while(el.firstChild) novo.appendChild(el.firstChild);
     el.parentNode.replaceChild(novo, el);
+    return novo;
   }
 
   function walk(node){
-    if(node.nodeType === 3) return; // texto: ok
-    if(node.nodeType !== 1) return; // outros: ignora
-    // Limpar atributos
+    if(node.nodeType === 3) return;
+    if(node.nodeType !== 1) return;
+
+    var tag = node.tagName.toLowerCase();
+
+    // Tags que NUNCA tocamos (já foram processadas ou são estruturais)
+    if(tag === 'blockquote' || tag === 'hr' || tag === 'h3'){
+      // Limpar atributos mas manter a tag
+      for(var i = node.attributes.length-1; i >= 0; i--){
+        node.removeAttribute(node.attributes[i].name);
+      }
+      Array.from(node.childNodes).forEach(walk);
+      return;
+    }
+
+    // Preservar data-fontes antes de limpar atributos
+    var eFontes = node.getAttribute && node.getAttribute('data-fontes') === '1';
+
+    // Limpar todos os atributos
     for(var i = node.attributes.length-1; i >= 0; i--){
       node.removeAttribute(node.attributes[i].name);
     }
-    var tag = node.tagName.toLowerCase();
-    // Tags que preservamos
-    var preservar = ['p','br','strong','em','b','i','u','h1','h2','h3','h4','blockquote','ul','ol','li'];
+
+    // Restaurar marcação de fontes
+    if(eFontes) node.setAttribute('data-fontes','1');
+
     if(tag === 'b'){ replaceTag(node,'strong'); return; }
     if(tag === 'i'){ replaceTag(node,'em'); return; }
-    if(tag === 'u'){ /* mantém */ }
+
+    var preservar = ['p','br','strong','em','u','ul','ol','li','hr','blockquote','h3'];
+
     if(['font','span'].indexOf(tag) !== -1){
-      // Antes de desembrulhar, processar filhos
       Array.from(node.childNodes).forEach(walk);
       unwrap(node); return;
     }
-    if(['div','section','article'].indexOf(tag) !== -1){
-      // Converter para parágrafo ou desembrulhar
-      if(node.parentNode && node.parentNode.tagName === 'BODY'){
-        replaceTag(node,'p'); return;
-      }
+    if(['div','section','article','table','tbody','tr','td','th'].indexOf(tag) !== -1){
       Array.from(node.childNodes).forEach(walk);
       unwrap(node); return;
     }
     if(preservar.indexOf(tag) === -1){
-      // Tag desconhecida: desembrulhar
       Array.from(node.childNodes).forEach(walk);
       unwrap(node); return;
     }
-    // Recursão nos filhos
+
     if(node.parentNode){
       Array.from(node.childNodes).forEach(walk);
     }
@@ -808,7 +892,15 @@ function limparHTML(raw){
 
   Array.from(tmp.childNodes).forEach(walk);
 
-  // Remover parágrafos vazios
+  // ---- PASSO 3: pós-processamento ----
+
+  // Parágrafos de fontes: envolver em <p class="fontes">
+  tmp.querySelectorAll('p[data-fontes]').forEach(function(p){
+    p.removeAttribute('data-fontes');
+    p.setAttribute('class','fontes');
+  });
+
+  // Remover parágrafos completamente vazios (mas manter <hr>)
   tmp.querySelectorAll('p').forEach(function(p){
     if(p.textContent.trim() === '' && !p.querySelector('img')) p.remove();
   });
