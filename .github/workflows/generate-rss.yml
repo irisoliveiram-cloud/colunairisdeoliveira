@@ -16,18 +16,17 @@ jobs:
 
       - name: Gerar feed.xml
         run: |
-          node -e "
+          node << 'EOF'
           const https = require('https');
+          const fs = require('fs');
 
-          const SUPABASE_URL = 'https://bnrewcmjuvpnowdaxjpt.supabase.co';
-          const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJucmV3Y21qdXZwbm93ZGF4anB0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MzMwMDMsImV4cCI6MjA5MDMwOTAwM30.YV5XTane49QcAc_iGqOdjc0CD33qDVu_XOLctgcVcnQ';
+          const SUPABASE_URL = 'bnrewcmjuvpnowdaxjpt.supabase.co';
+          const SUPABASE_KEY = 'sb_publishable_NgWXnZWJNbCRcd7uKugCkw_-dv55FjZ';
           const SITE_URL = 'https://colunairisdeoliveira.com.br';
 
-          const path = '/rest/v1/artigos?select=id,tag,title,excerpt,created_at&order=created_at.desc&limit=20';
-
           const options = {
-            hostname: 'bnrewcmjuvpnowdaxjpt.supabase.co',
-            path: path,
+            hostname: SUPABASE_URL,
+            path: '/rest/v1/artigos?select=id,tag,title,excerpt,created_at&order=created_at.desc&limit=20',
             headers: {
               'apikey': SUPABASE_KEY,
               'Authorization': 'Bearer ' + SUPABASE_KEY
@@ -38,7 +37,23 @@ jobs:
             let data = '';
             res.on('data', chunk => data += chunk);
             res.on('end', () => {
-              const articles = JSON.parse(data);
+              console.log('Status:', res.statusCode);
+              console.log('Resposta raw:', data.substring(0, 300));
+
+              let articles;
+              try {
+                articles = JSON.parse(data);
+              } catch(e) {
+                console.error('Erro ao parsear JSON:', e.message);
+                process.exit(1);
+              }
+
+              if (!Array.isArray(articles)) {
+                console.error('Resposta nao e array:', JSON.stringify(articles));
+                process.exit(1);
+              }
+
+              console.log('Artigos encontrados:', articles.length);
 
               const items = articles.map(a => {
                 const pub = new Date(a.created_at).toUTCString();
@@ -55,26 +70,28 @@ jobs:
                 ].join('\n');
               }).join('\n');
 
-              const xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n' +
-                '<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n' +
-                '  <channel>\n' +
-                '    <title>Iris de Oliveira | Análise e Opinião</title>\n' +
-                '    <link>' + SITE_URL + '</link>\n' +
-                '    <description>Coluna de análise e opinião sobre política, economia, segurança, sociedade e saúde. Por Iris de Oliveira.</description>\n' +
-                '    <language>pt-BR</language>\n' +
-                '    <atom:link href=\"' + SITE_URL + '/feed.xml\" rel=\"self\" type=\"application/rss+xml\" />\n' +
-                items + '\n' +
-                '  </channel>\n' +
-                '</rss>';
+              const xml = [
+                '<?xml version="1.0" encoding="UTF-8"?>',
+                '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+                '  <channel>',
+                '    <title>Iris de Oliveira | Análise e Opinião</title>',
+                '    <link>' + SITE_URL + '</link>',
+                '    <description>Coluna de análise e opinião sobre política, economia, segurança, sociedade e saúde.</description>',
+                '    <language>pt-BR</language>',
+                '    <atom:link href="' + SITE_URL + '/feed.xml" rel="self" type="application/rss+xml" />',
+                items,
+                '  </channel>',
+                '</rss>'
+              ].join('\n');
 
-              require('fs').writeFileSync('feed.xml', xml, 'utf8');
-              console.log('feed.xml gerado com ' + articles.length + ' artigos.');
+              fs.writeFileSync('feed.xml', xml, 'utf8');
+              console.log('feed.xml gerado com sucesso!');
             });
           }).on('error', (e) => {
-            console.error('Erro:', e.message);
+            console.error('Erro de rede:', e.message);
             process.exit(1);
           });
-          "
+          EOF
 
       - name: Commit e push do feed.xml
         run: |
