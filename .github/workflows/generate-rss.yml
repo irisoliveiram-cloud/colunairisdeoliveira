@@ -1,4 +1,4 @@
-name: Gerar RSS Feed
+name: Gerar RSS Feed e Enviar Newsletter
 
 on:
   schedule:
@@ -14,7 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Gerar feed.xml
+      - name: Gerar feed.xml e enviar newsletter
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
         run: |
           node << 'EOF'
           const https = require('https');
@@ -23,80 +25,172 @@ jobs:
           const SUPABASE_URL = 'bnrewcmjuvpnowdaxjpt.supabase.co';
           const SUPABASE_KEY = 'sb_publishable_NgWXnZWJNbCRcd7uKugCkw_-dv55FjZ';
           const SITE_URL = 'https://colunairisdeoliveira.com.br';
+          const BREVO_KEY = process.env.BREVO_API_KEY;
 
-          const options = {
-            hostname: SUPABASE_URL,
-            path: '/rest/v1/artigos?select=id,tag,title,excerpt,created_at&order=created_at.desc&limit=20',
-            headers: {
-              'apikey': SUPABASE_KEY,
-              'Authorization': 'Bearer ' + SUPABASE_KEY
-            }
-          };
-
-          https.get(options, (res) => {
-            let data = '';
-            res.on('data', chunk => data += chunk);
-            res.on('end', () => {
-              console.log('Status:', res.statusCode);
-              console.log('Resposta raw:', data.substring(0, 300));
-
-              let articles;
-              try {
-                articles = JSON.parse(data);
-              } catch(e) {
-                console.error('Erro ao parsear JSON:', e.message);
-                process.exit(1);
-              }
-
-              if (!Array.isArray(articles)) {
-                console.error('Resposta nao e array:', JSON.stringify(articles));
-                process.exit(1);
-              }
-
-              console.log('Artigos encontrados:', articles.length);
-
-              const items = articles.map(a => {
-                const pub = new Date(a.created_at).toUTCString();
-                const link = SITE_URL + '/#artigo-' + a.id;
-                return [
-                  '    <item>',
-                  '      <title><![CDATA[' + (a.title || '') + ']]></title>',
-                  '      <link>' + link + '</link>',
-                  '      <guid>' + link + '</guid>',
-                  '      <description><![CDATA[' + (a.excerpt || '') + ']]></description>',
-                  '      <category><![CDATA[' + (a.tag || '') + ']]></category>',
-                  '      <pubDate>' + pub + '</pubDate>',
-                  '    </item>'
-                ].join('\n');
-              }).join('\n');
-
-              const xml = [
-                '<?xml version="1.0" encoding="UTF-8"?>',
-                '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
-                '  <channel>',
-                '    <title>Iris de Oliveira | Análise e Opinião</title>',
-                '    <link>' + SITE_URL + '</link>',
-                '    <description>Coluna de análise e opinião sobre política, economia, segurança, sociedade e saúde.</description>',
-                '    <language>pt-BR</language>',
-                '    <atom:link href="' + SITE_URL + '/feed.xml" rel="self" type="application/rss+xml" />',
-                items,
-                '  </channel>',
-                '</rss>'
-              ].join('\n');
-
-              fs.writeFileSync('feed.xml', xml, 'utf8');
-              console.log('feed.xml gerado com sucesso!');
+          function request(options, body) {
+            return new Promise((resolve, reject) => {
+              const req = https.request(options, (res) => {
+                let data = '';
+                res.on('data', chunk => data += chunk);
+                res.on('end', () => {
+                  try { resolve({ status: res.statusCode, body: JSON.parse(data) }); }
+                  catch(e) { resolve({ status: res.statusCode, body: data }); }
+                });
+              });
+              req.on('error', reject);
+              if (body) req.write(JSON.stringify(body));
+              req.end();
             });
-          }).on('error', (e) => {
-            console.error('Erro de rede:', e.message);
-            process.exit(1);
-          });
+          }
+
+          async function main() {
+            // 1. Buscar artigos do Supabase
+            const supRes = await request({
+              hostname: SUPABASE_URL,
+              path: '/rest/v1/artigos?select=id,tag,title,excerpt,created_at&order=created_at.desc&limit=20',
+              headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+            });
+
+            const articles = supRes.body;
+            if (!Array.isArray(articles) || articles.length === 0) {
+              console.log('Nenhum artigo encontrado.');
+              return;
+            }
+
+            console.log('Artigos encontrados:', articles.length);
+
+            // 2. Gerar feed.xml
+            const items = articles.map(a => {
+              const link = SITE_URL + '/#artigo-' + a.id;
+              return [
+                '    <item>',
+                '      <title><![CDATA[' + (a.title || '') + ']]></title>',
+                '      <link>' + link + '</link>',
+                '      <guid>' + link + '</guid>',
+                '      <description><![CDATA[' + (a.excerpt || '') + ']]></description>',
+                '      <category><![CDATA[' + (a.tag || '') + ']]></category>',
+                '      <pubDate>' + new Date(a.created_at).toUTCString() + '</pubDate>',
+                '    </item>'
+              ].join('\n');
+            }).join('\n');
+
+            const xml = [
+              '<?xml version="1.0" encoding="UTF-8"?>',
+              '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+              '  <channel>',
+              '    <title>Iris de Oliveira | Análise e Opinião</title>',
+              '    <link>' + SITE_URL + '</link>',
+              '    <description>Coluna de análise e opinião sobre política, economia, segurança, sociedade e saúde.</description>',
+              '    <language>pt-BR</language>',
+              '    <atom:link href="' + SITE_URL + '/feed.xml" rel="self" type="application/rss+xml" />',
+              items,
+              '  </channel>',
+              '</rss>'
+            ].join('\n');
+
+            fs.writeFileSync('feed.xml', xml, 'utf8');
+            console.log('feed.xml gerado.');
+
+            // 3. Verificar se o artigo mais recente já foi enviado
+            const latest = articles[0];
+            const lastSentFile = 'last_sent_id.txt';
+            const lastSentId = fs.existsSync(lastSentFile) ? fs.readFileSync(lastSentFile, 'utf8').trim() : '';
+
+            if (lastSentId === String(latest.id)) {
+              console.log('Nenhum artigo novo. Nada a enviar.');
+              return;
+            }
+
+            console.log('Artigo novo detectado:', latest.title);
+
+            // 4. Buscar ID da lista no Brevo
+            const listsRes = await request({
+              hostname: 'api.brevo.com',
+              path: '/v3/contacts/lists?limit=10&offset=0',
+              headers: { 'api-key': BREVO_KEY, 'Accept': 'application/json' }
+            });
+
+            const lists = listsRes.body.lists || [];
+            if (lists.length === 0) {
+              console.log('Nenhuma lista encontrada no Brevo.');
+              return;
+            }
+
+            const listId = lists[0].id;
+            console.log('Lista encontrada: ID', listId, '-', lists[0].name);
+
+            // 5. Criar campanha no Brevo
+            const articleLink = SITE_URL + '/#artigo-' + latest.id;
+            const htmlContent = `
+              <div style="font-family:Georgia,serif;max-width:600px;margin:0 auto;background:#fff;">
+                <div style="background:#0f0f0f;padding:24px;text-align:center;border-bottom:3px solid #b89c5a;">
+                  <p style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:4px;color:#b89c5a;margin:0 0 8px;text-transform:uppercase;">Coluna Iris de Oliveira</p>
+                  <h1 style="font-size:28px;color:#f0ede6;margin:0;font-weight:700;">${latest.title}</h1>
+                </div>
+                <div style="padding:32px 24px;">
+                  <p style="font-size:16px;color:#333;line-height:1.8;border-left:3px solid #b89c5a;padding-left:16px;">${latest.excerpt || ''}</p>
+                  <div style="text-align:center;margin:32px 0;">
+                    <a href="${articleLink}" style="background:#0f0f0f;color:#f0ede6;padding:14px 32px;text-decoration:none;font-family:'Courier New',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ler artigo completo →</a>
+                  </div>
+                </div>
+                <div style="background:#f5f5f5;padding:16px 24px;text-align:center;border-top:1px solid #ddd;">
+                  <p style="font-size:12px;color:#888;font-family:'Courier New',monospace;margin:0;">Você está recebendo este e-mail porque assinou a Coluna Iris de Oliveira.</p>
+                </div>
+              </div>
+            `;
+
+            const campaignRes = await request({
+              hostname: 'api.brevo.com',
+              path: '/v3/emailCampaigns',
+              method: 'POST',
+              headers: {
+                'api-key': BREVO_KEY,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              }
+            }, {
+              name: 'Newsletter - ' + latest.title.substring(0, 50),
+              subject: latest.title,
+              sender: { name: 'Iris de Oliveira', email: 'irisoliveiram@gmail.com' },
+              type: 'classic',
+              htmlContent: htmlContent,
+              recipients: { listIds: [listId] }
+            });
+
+            if (!campaignRes.body.id) {
+              console.error('Erro ao criar campanha:', JSON.stringify(campaignRes.body));
+              return;
+            }
+
+            const campaignId = campaignRes.body.id;
+            console.log('Campanha criada: ID', campaignId);
+
+            // 6. Enviar campanha
+            const sendRes = await request({
+              hostname: 'api.brevo.com',
+              path: '/v3/emailCampaigns/' + campaignId + '/sendNow',
+              method: 'POST',
+              headers: {
+                'api-key': BREVO_KEY,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              }
+            }, {});
+
+            console.log('Campanha enviada. Status:', sendRes.status);
+
+            // 7. Salvar ID do último artigo enviado
+            fs.writeFileSync(lastSentFile, String(latest.id), 'utf8');
+            console.log('Concluído! Artigo', latest.id, 'marcado como enviado.');
+          }
+
+          main().catch(e => { console.error(e); process.exit(1); });
           EOF
 
-      - name: Commit e push do feed.xml
+      - name: Commit e push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add feed.xml
-          git diff --staged --quiet || git commit -m "chore: atualizar feed RSS"
+          git add feed.xml last_sent_id.txt 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "chore: atualizar feed RSS e registrar envio"
           git push
