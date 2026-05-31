@@ -101,7 +101,8 @@ input,textarea,select{font-family:inherit}
 }
 #corpo-editor:focus{border-color:var(--ac2)}
 #corpo-editor p{margin-bottom:1.2rem;text-align:justify}
-#corpo-editor h2,#corpo-editor h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin:1.5rem 0 .6rem;color:var(--tp);text-align:justify}
+#corpo-editor h2,#corpo-editor h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin:1.1rem 0 .4rem;color:var(--tp);text-align:justify}
+#corpo-editor p:has(>strong:only-child){margin-top:1.1rem;margin-bottom:.4rem}
 #corpo-editor strong{font-weight:600}
 #corpo-editor em{font-style:italic}
 #corpo-editor hr{border:none;border-top:1px solid rgba(255,255,255,.35);margin:1.8rem 0;display:block}
@@ -133,7 +134,8 @@ input,textarea,select{font-family:inherit}
 .pv-body p{margin-bottom:1.1rem;text-align:justify}
 .pv-body strong{font-weight:600}
 .pv-body em{font-style:italic}
-.pv-body h2,.pv-body h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin:1.2rem 0 .5rem;color:var(--tp);text-align:justify}
+.pv-body h2,.pv-body h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin:1rem 0 .35rem;color:var(--tp);text-align:justify}
+.pv-body p:has(>strong:only-child){margin-top:1rem;margin-bottom:.35rem}
 .pv-body hr{border:none;border-top:1px solid var(--bm);margin:1.5rem 0}
 .pv-body p.fontes{font-size:.78rem;font-style:italic;color:var(--tt);line-height:1.7;margin-top:.3rem;text-align:justify}
 .pv-body blockquote{border-left:3px solid var(--ac2);padding:.5rem 0 .5rem .9rem;margin:1rem 0;font-style:italic;color:var(--ts)}
@@ -372,18 +374,16 @@ var U = 'https://bnrewcmjuvpnowdaxjpt.supabase.co';
 var K = 'sb_publishable_NgWXnZWJNbCRcd7uKugCkw_-dv55FjZ';
 
 // ===== ESTADO =====
-var artigoAtual = null;   // null = novo artigo; objeto = artigo em edição
+var artigoAtual = null;
 var todosArtigos = [];
 var artigosFiltrados = [];
 var pagina = 1;
 var POR_PAG = 20;
 
 // ===== AUTENTICAÇÃO SIMPLES =====
-// Hash SHA-256 da senha de acesso — a senha real nunca fica no código
 var HASH_SENHA = '94bd6de73dc007bdf19abdd415b1c8fbb5199e52c6c7dd72b9c41791ed9da286';
 
 function hashSenha(senha){
-  // Implementação simples de hash via SubtleCrypto (nativa no browser moderno)
   return crypto.subtle.digest('SHA-256', new TextEncoder().encode(senha))
     .then(function(buf){
       return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
@@ -393,18 +393,12 @@ function hashSenha(senha){
 function entrar(){
   var senha = document.getElementById('campo-senha').value;
   if(!senha){ mostrarErroLogin('Digite a senha.'); return; }
-
-  // Aceitar tanto hash quanto a senha direta (para compatibilidade)
   hashSenha(senha).then(function(h){
-    // Valida contra hash armazenado OU via verificação direta
-    // A senha real é validada no Supabase; aqui usamos uma proteção client-side
-    // para evitar que a tela de admin fique exposta sem nenhuma barreira
     if(h === HASH_SENHA){
       sessionStorage.setItem('admin_ok','1');
       document.getElementById('tela-login').style.display = 'none';
       document.getElementById('tela-admin').style.display = 'flex';
       carregarArtigos();
-      // Verificar se token GitHub já está configurado
       if(!localStorage.getItem('gh_token')){
         setTimeout(function(){ mostrarConfigToken(); }, 800);
       }
@@ -425,14 +419,12 @@ function sair(){
   location.reload();
 }
 
-// Verificar sessão ao carregar
 window.addEventListener('load', function(){
   if(sessionStorage.getItem('admin_ok') === '1'){
     document.getElementById('tela-login').style.display = 'none';
     document.getElementById('tela-admin').style.display = 'flex';
     carregarArtigos();
   }
-  // Preencher data atual automaticamente
   var hoje = new Date();
   var meses = ['jan.','fev.','mar.','abr.','mai.','jun.','jul.','ago.','set.','out.','nov.','dez.'];
   document.getElementById('f-date').value = hoje.getDate() + ' de ' + meses[hoje.getMonth()] + ' de ' + hoje.getFullYear();
@@ -511,7 +503,6 @@ function renderLista(){
     '</div>';
   }).join('');
 
-  // Paginação
   var total = artigosFiltrados.length;
   var totalPag = Math.ceil(total/POR_PAG);
   var pg = document.getElementById('paginacao');
@@ -529,13 +520,11 @@ function abrirEditor(id){
   artigoAtual = null;
   limparEditor();
 
-  // Preencher data padrão
   var hoje = new Date();
   var meses = ['jan.','fev.','mar.','abr.','mai.','jun.','jul.','ago.','set.','out.','nov.','dez.'];
   document.getElementById('f-date').value = hoje.getDate() + ' de ' + meses[hoje.getMonth()] + ' de ' + hoje.getFullYear();
 
   if(id === null){
-    // Novo artigo
     document.getElementById('editor-titulo-pg').textContent = 'Novo artigo';
     document.getElementById('btn-salvar').textContent = '✓ Publicar';
     document.getElementById('btn-excluir').style.display = 'none';
@@ -544,7 +533,6 @@ function abrirEditor(id){
     return;
   }
 
-  // Carregar artigo existente
   setStatus('<span class="loader"></span> Carregando...', 'load');
   api('GET','artigos?id=eq.' + id + '&select=*')
     .then(function(data){
@@ -558,9 +546,7 @@ function abrirEditor(id){
       document.getElementById('f-tag').value = a.tag || '';
       document.getElementById('f-date').value = a.date || '';
       document.getElementById('f-img').value = a.imagem_url || '';
-      // Lead: pode estar no campo excerpt
       document.getElementById('f-lead').value = a.excerpt || '';
-      // Body
       document.getElementById('corpo-editor').innerHTML = a.body || '';
       atualizarPreview();
       setStatus('');
@@ -620,10 +606,8 @@ function salvarArtigo(){
 
   var p;
   if(artigoAtual){
-    // Atualizar artigo existente (PATCH)
     p = api('PATCH', 'artigos?id=eq.' + artigoAtual.id, payload);
   } else {
-    // Criar novo artigo (POST)
     p = api('POST', 'artigos', payload);
   }
 
@@ -639,9 +623,7 @@ function salvarArtigo(){
       document.getElementById('btn-excluir').style.display = '';
     }
 
-    // Disparar GitHub Actions automaticamente
     dispararBuild();
-    // Atualizar lista em background
     carregarArtigos();
   })
   .catch(function(e){
@@ -653,10 +635,8 @@ function salvarArtigo(){
 
 // ===== DISPARAR GITHUB ACTIONS =====
 function dispararBuild(){
-  // Dispara o workflow via GitHub API
-  // Usa um Personal Access Token armazenado em localStorage (configurado uma vez)
   var token = localStorage.getItem('gh_token');
-  if(!token){ return; } // Sem token, ignora — o build roda automaticamente à noite
+  if(!token){ return; }
 
   fetch('https://api.github.com/repos/irisoliveiram-cloud/colunairisdeoliveira/actions/workflows/build.yml/dispatches', {
     method: 'POST',
@@ -670,9 +650,7 @@ function dispararBuild(){
     if(r.ok || r.status === 204){
       toast('✓ Build disparado — site atualiza em ~30s','ok');
     }
-  }).catch(function(){
-    // Falha silenciosa — o usuário não precisa saber
-  });
+  }).catch(function(){});
 }
 
 // ===== EXCLUIR ARTIGO =====
@@ -737,7 +715,6 @@ function atualizarPreview(){
   }
 }
 
-// Atualizar preview também nos metadados
 document.addEventListener('DOMContentLoaded', function(){
   ['f-titulo','f-lead','f-tag','f-date','f-img'].forEach(function(id){
     var el = document.getElementById(id);
@@ -768,14 +745,12 @@ function handlePaste(e){
 }
 
 function limparHTML(raw){
-  // ---- PASSO 1: pré-processamento do HTML cru (string) ----
-  // Remover quebras de linha DENTRO de tags (Word quebra linhas no meio do HTML)
-  // Estratégia: remover \n que não estão entre > e <
+  // ---- PASSO 1: pré-processamento ----
   var s = raw
     .replace(/\r\n/g, '\n')
-    .replace(/[ \t]*\n[ \t]*/g, ' ')  // toda quebra de linha vira espaço
-    .replace(/&nbsp;/g, ' ')           // &nbsp; → espaço normal
-    .replace(/[ \t]{2,}/g, ' ');       // múltiplos espaços → um
+    .replace(/[ \t]*\n[ \t]*/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/[ \t]{2,}/g, ' ');
 
   var tmp = document.createElement('div');
   tmp.innerHTML = s;
@@ -784,11 +759,9 @@ function limparHTML(raw){
   ['style','script','meta','link','xml'].forEach(function(sel){
     tmp.querySelectorAll(sel).forEach(function(el){ el.remove(); });
   });
-  // Tags com namespace (o:p, w:sdt, etc)
   tmp.querySelectorAll('*').forEach(function(el){
     if(el.tagName && el.tagName.indexOf(':') !== -1) el.remove();
   });
-  // Comentários
   function remComentarios(node){
     Array.from(node.childNodes).forEach(function(c){
       if(c.nodeType === 8){ c.remove(); return; }
@@ -797,18 +770,15 @@ function limparHTML(raw){
   }
   remComentarios(tmp);
 
-  // ---- PASSO 3: detectar elementos especiais (antes de limpar atributos) ----
+  // ---- PASSO 3: detectar elementos especiais ----
 
-  // 3a. Blockquote duplo aninhado (Word gera <bq><p/><bq><p>texto</p></bq><p/></bq>)
-  // → colapsar para <blockquote><p>texto</p></blockquote>
+  // 3a. Blockquote duplo aninhado
   tmp.querySelectorAll('blockquote blockquote').forEach(function(bqInner){
     var bqOuter = bqInner.parentNode;
     if(!bqOuter || bqOuter.tagName !== 'BLOCKQUOTE') return;
-    // Mover conteúdo do inner para o outer, removendo parágrafos vazios do outer
     var pai = bqOuter.parentNode;
     if(!pai) return;
     var novo = document.createElement('blockquote');
-    // Pegar apenas os filhos não-vazios do inner
     Array.from(bqInner.childNodes).forEach(function(c){
       novo.appendChild(c.cloneNode(true));
     });
@@ -837,7 +807,6 @@ function limparHTML(raw){
   });
 
   // 3d. Parágrafo separador → <hr>
-  // Word usa várias formas: border-bottom, border-top, mso-border-top-alt, ou parágrafo vazio com borda
   tmp.querySelectorAll('p,div').forEach(function(el){
     var st = (el.getAttribute('style')||'').toLowerCase();
     var temBorda = st.indexOf('border-bottom') !== -1 || st.indexOf('border-top') !== -1
@@ -848,8 +817,6 @@ function limparHTML(raw){
       if(el.parentNode) el.parentNode.replaceChild(hr, el);
     }
   });
-  // Detectar também <hr> nativo que o Word pode gerar
-  // (já são preservados pela função processarNo)
 
   // 3e. Parágrafo que começa com "Fontes:" → class="fontes"
   tmp.querySelectorAll('p').forEach(function(el){
@@ -873,7 +840,6 @@ function limparHTML(raw){
     if(node.nodeType !== 1) return;
     var tag = node.tagName.toLowerCase();
 
-    // Tags intocáveis: limpar atributos mas manter estrutura
     var preservar = ['p','br','strong','em','u','ul','ol','li','blockquote','h3','hr'];
 
     if(tag === 'b'){
@@ -920,7 +886,6 @@ function limparHTML(raw){
     }
 
     if(preservar.indexOf(tag) !== -1){
-      // Preservar data-fontes antes de limpar
       var df = node.getAttribute && node.getAttribute('data-fontes');
       var attrs = Array.from(node.attributes||[]);
       attrs.forEach(function(a){ node.removeAttribute(a.name); });
@@ -929,13 +894,11 @@ function limparHTML(raw){
       return;
     }
 
-    // div/section/article: desembrulhar
     if(['div','section','article','table','tbody','tr','td','th'].indexOf(tag) !== -1){
       Array.from(node.childNodes).forEach(processarNo);
       unwrap(node); return;
     }
 
-    // Desconhecida: desembrulhar
     Array.from(node.childNodes).forEach(processarNo);
     unwrap(node);
   }
@@ -950,21 +913,33 @@ function limparHTML(raw){
     el.className = 'fontes';
   });
 
-  // Remover parágrafos vazios (incluindo os com só <br> ou espaço)
+  // Remover parágrafos vazios
   tmp.querySelectorAll('p').forEach(function(p){
     var txt = p.textContent.replace(/\u00A0/g,'').trim();
     var apenasBreaks = p.innerHTML.replace(/<br\s*\/?>/gi,'').replace(/&nbsp;/g,'').trim() === '';
     if((txt === '' || apenasBreaks) && !p.querySelector('img')) p.remove();
   });
 
-  // Remover espaços extras finais
+  // ---- PASSO 6 (NOVO): converter <p><strong>texto</strong></p> → <h3>texto</h3> ----
+  // Detecta subtítulos colados do Word (parágrafo com APENAS um <strong> como filho)
+  tmp.querySelectorAll('p').forEach(function(p){
+    var filhos = Array.from(p.childNodes).filter(function(n){
+      return !(n.nodeType === 3 && n.textContent.trim() === '');
+    });
+    if(filhos.length === 1 && filhos[0].nodeType === 1 && filhos[0].tagName === 'STRONG'){
+      var h3 = document.createElement('h3');
+      while(filhos[0].firstChild) h3.appendChild(filhos[0].firstChild);
+      if(p.parentNode) p.parentNode.replaceChild(h3, p);
+    }
+  });
+
   return tmp.innerHTML
     .replace(/\u00A0/g,' ')
     .replace(/[ \t]{2,}/g,' ')
     .trim();
 }
 
-// ===== FORMATAÇÃO ===== 
+// ===== FORMATAÇÃO =====
 function fmt(cmd){ document.execCommand(cmd, false, null); }
 
 function inserirDestaque(){
@@ -1001,7 +976,6 @@ function limparTudo(){
 }
 
 function handleKey(e){
-  // Ctrl+Enter = salvar
   if(e.ctrlKey && e.key === 'Enter'){ e.preventDefault(); salvarArtigo(); }
   setTimeout(atualizarPreview, 50);
 }
